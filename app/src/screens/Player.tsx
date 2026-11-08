@@ -7,7 +7,7 @@ import { loadManifest, mediaFor, contentUrl, type Manifest } from '../content/ma
 import { PHASE_HE, COUNT_WORDS } from '../content/exercises';
 import type { Session } from '../content/plan';
 import { Voice, fallbackLines } from '../lib/audio';
-import { loadFace, startCamera, stopCamera, runFace, avg, browTension, type FaceFrame } from '../lib/face';
+import { loadFace, startCamera, stopCamera, runFace, avg, browTension, frameBrightness, type FaceFrame } from '../lib/face';
 import { RepCounter, WrinkleGuard } from '../lib/reps';
 import { db, getSettings, todayISO, type Settings } from '../db';
 
@@ -33,6 +33,9 @@ export default function Player() {
   const [musicOn, setMusicOn] = useState(true);
   const [elapsed, setElapsed] = useState(0);
   const [caption, setCaption] = useState<string | null>(null);
+  const [setup, setSetup] = useState(false);          // שלב הצבת הטלפון לפני מפגש עם מראה
+  const [checks, setChecks] = useState({ face: false, dist: '' as '' | 'near' | 'far' | 'ok', center: false, light: true, ready: 0 });
+  const [seenReps, setSeenReps] = useState(0);         // חזרות שהמאמנת זיהתה בתרגיל הנוכחי
 
   const voice = useRef<Voice | null>(null);
   const run = useRef({ token: 0, paused: false, jump: null as number | null, painSkip: false });
@@ -42,6 +45,7 @@ export default function Player() {
   const coach = useRef({ counter: null as RepCounter | null, guard: new WrinkleGuard(), reps: 0, warnings: 0, guardOn: false, blend: [] as string[], on: 0.4 });
   const wake = useRef<WakeLockSentinel | null>(null);
   const painRef = useRef(false);
+  const setupRef = useRef({ on: false, good: 0, lastLight: 0, light: 128, began: false });
 
   useEffect(() => {
     (async () => {
@@ -72,19 +76,34 @@ export default function Player() {
         try {
           const lm = await loadFace();
           stopFace.current = runFace(camVideo.current, lm, onFace);
-        } catch { setToast('המאמן לא נטען במכשיר הזה. המראה עובדת כרגיל.'); }
+        } catch { setToast('המאמנת לא נטענה במכשיר הזה. המראה עובדת כרגיל.'); if (setupRef.current.on) beginSession(); }
       }
-    } catch { setCamState('denied'); setMirror(false); setToast('אין גישה למצלמה. אפשר לאשר בהגדרות הדפדפן.'); }
+    } catch { setCamState('denied'); setMirror(false); setToast('אין גישה למצלמה. אפשר לאשר בהגדרות הדפדפן.'); if (setupRef.current.on) beginSession(); }
   }
+  useEffect(() => { if (!mirror && setupRef.current.on) beginSession(); }, [mirror]); // eslint-disable-line react-hooks/exhaustive-deps
   function disableCamera() { stopFace.current?.(); stopFace.current = null; stopCamera(stream.current); stream.current = null; setCamState('off'); }
   useEffect(() => { if (!started) return; if (mirror && camState === 'off') enableCamera(); if (!mirror && camState === 'on') disableCamera(); }, [mirror, started]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function onFace(f: FaceFrame | null) {
-    setFaceSeen(!!f); if (!f) { setQuality(0); return; }
+    setFaceSeen(!!f);
+    const su = setupRef.current;
+    if (su.on) {
+      const now = performance.now();
+      if (camVideo.current && now - su.lastLight > 800) { su.lastLight = now; su.light = frameBrightness(camVideo.current); }
+      const dist = !f ? '' : f.width < 0.28 ? 'far' : f.width > 0.62 ? 'near' : 'ok';
+      const center = !!f && Math.abs(f.cx - 0.5) < 0.16 && f.cy > 0.28 && f.cy < 0.72;
+      const light = su.light >= 65;
+      const ok = !!f && dist === 'ok' && center && light;
+      su.good = ok ? su.good + 1 : 0;
+      setChecks({ face: !!f, dist, center, light, ready: Math.min(1, su.good / 30) });
+      if (su.good >= 30) beginSession(); // כ-2 שניות יציבות
+      return;
+    }
+    if (!f) { setQuality(0); return; }
     const c = coach.current;
     if (c.blend.length) {
       const v = avg(f.blend, c.blend); setQuality(Math.min(1, v / c.on));
-      const ev = c.counter?.push(v, f.t); if (ev?.type === 'rep') c.reps++;
+      const ev = c.counter?.push(v, f.t); if (ev?.type === 'rep') { c.reps++; setSeenReps(n => n + 1); navigator.vibrate?.(15); }
     }
     if (c.guardOn && c.guard.push(browTension(f.blend), f.t)) { c.warnings++; voice.current?.say([c.warnings % 2 ? 'wrinkle_1' : 'wrinkle_2']); setToast('המצח מתכווץ. הניחי עליו יד ונסי שוב רק עם הלחיים.'); }
   }
@@ -115,7 +134,7 @@ export default function Player() {
       if (token !== run.current.token) return;
       setIdx(i); run.current.jump = null; run.current.painSkip = false;
       const st = s.steps[i]!; const e = st.exercise;
-      const c = coach.current; c.blend = []; c.counter = null; c.guardOn = false;
+      const c = coach.current; c.blend = []; c.counter = null; c.guardOn = false; setSeenReps(0);
       setLive({ label: PHASE_HE[e.phase], remaining: 0, total: 0, rep: 0, reps: st.reps, holding: false });
       await sayGate(st.narration, token);
       if (run.current.jump === null && !run.current.painSkip) {
@@ -160,6 +179,15 @@ export default function Player() {
     voice.current.unlock(musicOn, settings?.musicVolume ?? 0.5);
     navigator.wakeLock?.request('screen').then(l => { wake.current = l; }).catch(() => {});
     setStarted(true); // המצלמה נפתחת ב-useEffect אחרי שאלמנט המראה נטען
+    if (mirror) { setupRef.current = { on: true, good: 0, lastLight: 0, light: 128, began: false }; setSetup(true); }
+    else beginSession();
+  }
+  /** מתחילים את המפגש: אוטומטית כשהפנים יציבות במסגרת, או בלחיצה. פעם אחת בלבד. */
+  function beginSession() {
+    const su = setupRef.current;
+    if (su.began || !session) return;
+    su.began = true; su.on = false; setSetup(false);
+    voice.current?.tick('start');
     runSession(session);
   }
   function finish(status: 'done' | 'stopped') {
@@ -191,7 +219,7 @@ export default function Player() {
   return (
     <div className="fixed inset-0 bg-[#141010] text-white select-none flex flex-col" dir="rtl">
       {/* מדריכה */}
-      <div className={`relative overflow-hidden min-h-0 ${split && started ? 'basis-[46%] shrink-0' : 'flex-1'}`}>
+      <div className={`relative overflow-hidden min-h-0 ${setup ? 'hidden' : split && started ? 'basis-[46%] shrink-0' : 'flex-1'}`} onClick={() => started && !setup && setPaused(p => !p)}>
         {demoSrc
           ? <video key={demoSrc} src={demoSrc} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover object-[50%_22%]" />
           : <img key={still} src={still} alt="" className="absolute inset-0 w-full h-full object-cover object-[50%_22%] kenburns" />}
@@ -207,22 +235,23 @@ export default function Player() {
 
       {/* מראה: שום פקד לא מכסה את הפנים */}
       {split && started && (
-        <div className="relative flex-1 min-h-0 bg-black overflow-hidden">
+        <div className="relative flex-1 min-h-0 bg-black overflow-hidden" onClick={() => !setup && setPaused(p => !p)}>
           <video ref={camVideo} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted />
           {camState !== 'on' && <div className="absolute inset-0 grid place-items-center text-white/60 text-sm">{camState === 'loading' ? 'פותחת מצלמה…' : ''}</div>}
           {camState === 'on' && (
             <>
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none"><ellipse cx="50" cy="50" rx="26" ry="40" fill="none" stroke={faceSeen ? 'rgba(196,160,106,.8)' : 'rgba(255,255,255,.45)'} strokeWidth=".6" strokeDasharray={faceSeen ? '0' : '2 2'} /></svg>
-              <div className="absolute top-2 inset-x-2 flex justify-center pointer-events-none">
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none"><ellipse cx="50" cy="50" rx={setup ? 30 : 26} ry={setup ? 34 : 40} fill="none" stroke={setup ? (checks.ready > 0 ? 'rgba(142,165,140,.95)' : 'rgba(255,255,255,.55)') : faceSeen ? 'rgba(196,160,106,.8)' : 'rgba(255,255,255,.45)'} strokeWidth={setup ? 0.9 : 0.6} strokeDasharray={faceSeen ? '0' : '2 2'} /></svg>
+              {!setup && <div className="absolute top-2 inset-x-2 flex justify-center pointer-events-none">
                 {!faceSeen
                   ? <span className="bg-black/55 backdrop-blur rounded-full px-3 py-1 text-xs">הפנים בתוך האליפסה, מול אור</span>
                   : coach.current.blend.length > 0 && (
                     <span className="bg-black/55 backdrop-blur rounded-full px-3 py-1 flex items-center gap-2 text-xs">
                       <span>המאמנת רואה</span>
                       <span className="w-16 h-1.5 rounded-full bg-white/20 overflow-hidden"><span className="block h-full bg-[var(--color-gold)] transition-[width] duration-150" style={{ width: `${Math.round(quality * 100)}%` }} /></span>
+                      {seenReps > 0 && <span className="text-[var(--color-gold)] font-semibold">✓ {seenReps}</span>}
                     </span>
                   )}
-              </div>
+              </div>}
             </>
           )}
         </div>
@@ -232,8 +261,32 @@ export default function Player() {
       {toast && <div className="absolute inset-x-4 top-[38%] bg-black/85 border border-white/15 rounded-2xl p-3 text-center z-20 text-sm">{toast}</div>}
       {paused && started && <div className="absolute inset-x-0 top-[30%] grid place-items-center pointer-events-none z-10"><div className="bg-black/70 rounded-full px-7 py-2.5 text-lg">מושהה</div></div>}
 
+      {/* הצבת הטלפון: בדיקות אוטומטיות, והמפגש מתחיל לבד כשהכול מוכן */}
+      {started && setup && (
+        <div className="shrink-0 bg-[#1b1513] border-t border-white/10 px-5 pt-4 flex flex-col gap-3" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 14px)' }}>
+          <div className="flex items-center gap-4">
+            <PhoneStand />
+            <div className="flex-1 leading-snug">
+              <div className="font-semibold text-lg">מעמידים את הטלפון</div>
+              <div className="text-white/70 text-sm">זקוף על השולחן, בגובה העיניים, במרחק יד. נשען על כוס או ספרים. הידיים פנויות לפנים.</div>
+            </div>
+          </div>
+          <ul className="grid grid-cols-2 gap-2 text-sm">
+            <Check ok={checks.face} text={checks.face ? 'רואה את הפנים' : 'מחפשת את הפנים'} />
+            <Check ok={checks.dist === 'ok'} text={checks.dist === 'far' ? 'התקרבי קצת' : checks.dist === 'near' ? 'התרחקי קצת' : 'מרחק טוב'} />
+            <Check ok={checks.center} text={checks.center ? 'במרכז' : 'פנים במרכז האליפסה'} />
+            <Check ok={checks.light} text={checks.light ? 'תאורה טובה' : 'האור מאחורייך. הסתובבי לאור'} />
+          </ul>
+          <div className="h-1.5 rounded-full bg-white/10 overflow-hidden"><div className="h-full bg-[var(--color-sage)] transition-[width] duration-200" style={{ width: `${Math.round(checks.ready * 100)}%` }} /></div>
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-white/60 text-xs">כשהכול ירוק, המפגש מתחיל לבד. במהלכו, נגיעה במסך עוצרת.</span>
+            <button className="h-11 px-4 shrink-0 rounded-full bg-white/12 text-sm" onClick={beginSession}>להתחיל עכשיו</button>
+          </div>
+        </div>
+      )}
+
       {/* לוח תחתון קבוע: מצב + פקדים. לא מונח על הווידאו או על המראה */}
-      {started && (
+      {started && !setup && (
         <div className="shrink-0 bg-[#1b1513] border-t border-white/10 px-4 pt-3 flex flex-col gap-3" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 12px)' }}>
           <div className="flex items-center gap-3 min-h-[44px]">
             {live && live.total > 0 ? <Countdown remaining={live.remaining} total={live.total} /> : <span className="w-11 h-11 shrink-0 rounded-full border-2 border-white/15 grid place-items-center"><span className="w-2 h-2 rounded-full bg-[var(--color-gold)] animate-pulse" /></span>}
@@ -286,6 +339,21 @@ function Countdown({ remaining, total }: { remaining: number; total: number }) {
       <svg viewBox="0 0 44 44" className="w-11 h-11 -rotate-90"><circle cx="22" cy="22" r={r} fill="none" stroke="rgba(255,255,255,.15)" strokeWidth="3.5" /><circle cx="22" cy="22" r={r} fill="none" stroke="var(--color-gold)" strokeWidth="3.5" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - frac)} style={{ transition: 'stroke-dashoffset 250ms linear' }} /></svg>
       <div className="absolute inset-0 grid place-items-center font-semibold tabular-nums">{remaining}</div>
     </div>
+  );
+}
+function Check({ ok, text }: { ok: boolean; text: string }) {
+  return <li className="flex items-center gap-2 rounded-xl bg-white/6 px-2.5 py-2"><span className="w-5 h-5 shrink-0 rounded-full grid place-items-center text-[11px]" style={{ background: ok ? 'var(--color-sage)' : 'rgba(255,255,255,.15)' }}>{ok ? '✓' : ''}</span><span className={ok ? '' : 'text-white/75'}>{text}</span></li>;
+}
+/** איור: טלפון זקוף נשען על כוס, מול פנים. */
+function PhoneStand() {
+  return (
+    <svg viewBox="0 0 64 64" width="64" height="64" className="shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M4 56h56" opacity=".5" />
+      <rect x="30" y="14" width="16" height="30" rx="3" transform="rotate(8 38 29)" stroke="var(--color-gold)" />
+      <path d="M44 56V44h10v12" opacity=".6" />
+      <circle cx="14" cy="22" r="7" /><path d="M6 44c1.5-7 4.5-10 8-10s6.5 3 8 10" />
+      <path d="M19 21l3-1" opacity=".7" />
+    </svg>
   );
 }
 function Steps({ steps }: { steps: string[] }) {

@@ -69,3 +69,14 @@ export const FACE_OVAL = [10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 
 
 export const avg = (b: Record<string, number>, names: string[]) => names.reduce((a, n) => a + (b[n] ?? 0), 0) / names.length;
 export const browTension = (b: Record<string, number>) => Math.max(b.browInnerUp ?? 0, avg(b, ['browDownLeft', 'browDownRight']));
+
+/** בהירות ממוצעת (0–255) מדגימה קטנה של פריים המצלמה. */
+let probe: HTMLCanvasElement | null = null;
+export function frameBrightness(video: HTMLVideoElement): number {
+  probe ??= document.createElement('canvas'); probe.width = 32; probe.height = 24;
+  const g = probe.getContext('2d', { willReadFrequently: true }); if (!g || !video.videoWidth) return 128;
+  g.drawImage(video, 0, 0, 32, 24);
+  const d = g.getImageData(0, 0, 32, 24).data; let sum = 0;
+  for (let i = 0; i < d.length; i += 4) sum += 0.299 * d[i]! + 0.587 * d[i + 1]! + 0.114 * d[i + 2]!;
+  return sum / (d.length / 4);
+}
