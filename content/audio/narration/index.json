@@ -1,0 +1,938 @@
+{
+  "rel_posture_intro": {
+    "text": "נתחיל מהיציבה. שבי זקוף, הכתפיים רחוקות מהאוזניים. דמייני חוט שמושך את קודקוד הראש למעלה. הַסַּנְטֵר נסוג קצת לאחור, בלי להוריד אותו. נושמים חמש נשימות איטיות.",
+    "key": "8a74812f883eb19f",
+    "durationMs": 15180,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "נתחיל מהיציבה. שבי זקוף, הכתפיים רחוקות מהאוזניים. דמייני חוט שמושך את קודקוד הראש למעלה. הסנטר נסוג קצת לאחור בלי להוריד אותו. נושמים חמש נשימות איטיות",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "rel_posture_cue": {
+    "text": "הָעֹרֶף ארוך, הכתפיים רכות.",
+    "key": "fe8f28a9b6734bf4",
+    "durationMs": 3190,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "העורף ארוך, הכתפיים רכות",
+      "match": 0.75
+    },
+    "qa": "pending"
+  },
+  "rel_neck_side_intro": {
+    "text": "עכשיו הטיה רכה. האוזן הימנית יורדת לכיוון הכתף הימנית. היד השמאלית נמשכת למטה, כאילו היא מחזיקה סל. בלי למשוך את הראש, רק לתת לו לשקוע.",
+    "key": "d13931e10a83d299",
+    "durationMs": 13273,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "עכשיו הטיה רכה. האוזן הימנית יורדת לכיוון הכתף הימנית. היד השמאלית נמשכת למטה כאילו היא מחזיקה סל בלי למשוך את הראש, רק לתת לו לשקוע",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "rel_neck_side_cue": {
+    "text": "ועכשיו לצד השני, לאט.",
+    "key": "f1458d7fc4fad172",
+    "durationMs": 3190,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "ועכשיו לצד השני לאט",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "rel_scm_intro": {
+    "text": "סובבי מעט את הראש שמאלה. עכשיו רואים את השריר שיורד מאחורי האוזן הימנית אל עצם הבריח. מלטפים אותו בשתי אצבעות, רק כלפי מטה, בלחץ קל.",
+    "key": "96bafabab4cf5338",
+    "durationMs": 12071,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "סובבים מעט את הראש שמאלה. עכשיו רואים את השריר שיורד מאחורי האוזן הימנית אל עצם הבריח. מלטפים אותו בשתי אצבעות רק כלפי מטה, בלחץ קל",
+      "match": 0.96
+    },
+    "qa": "approved"
+  },
+  "rel_scm_cue": {
+    "text": "ועכשיו הצד השני. רק כלפי מטה.",
+    "key": "d2d231e3a4a82594",
+    "durationMs": 3503,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "ועכשיו הצד השני רק כלפי מטה",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "rel_masseter_intro": {
+    "text": "הניחי את שטוח האצבעות על הַלֶּסֶת, בדיוק מול האוזניים, מתחת לעצם הַלֶּחִי. פתחי את הפה מעט ותני לַלֶּסֶת ליפול. עכשיו מעגלים איטיים, בלחץ נעים. אם יש נקודה רגישה, תישארי עליה רגע ותנשמי.",
+    "key": "83eea893aa71c2cb",
+    "durationMs": 17035,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "הניחי את שטוח האצבעות על הלסת בדיוק מול האוזניים, מתחת לעצם הלחי. פתחי את הפה מעט ותני ללסת ליפול. עכשיו מעגלים איטיים בלחץ נעים. אם יש נקודה רגישה, תישארי עליה רגע ותנשמי",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "rel_masseter_cue": {
+    "text": "הַלֶּסֶת כבדה, השיניים לא נוגעות.",
+    "key": "985309407c9de1bd",
+    "durationMs": 3268,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "הלסת כבדה, השיניים לא נוגעות",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "rel_temples_intro": {
+    "text": "קצות האצבעות על הָרַקּוֹת. מעגלים קטנים ואיטיים. עכשיו פתחי את האצבעות לתוך השיער, והזיזי את הקרקפת עצמה, מהמצח לכיוון הָעֹרֶף.",
+    "key": "762f6f42db00d3bb",
+    "durationMs": 13273,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "קצות האצבעות על הרקות, מעגלים קטנים ואיטיים. עכשיו פתחי את האצבעות לתוך השיער והזיזי את הקרקפת עצמה מהמצח לכיוון העורף",
+      "match": 0.95
+    },
+    "qa": "approved"
+  },
+  "rel_temples_cue": {
+    "text": "נשימה ארוכה החוצה.",
+    "key": "0a242de00c46910c",
+    "durationMs": 2380,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "נשימה ארוכה החוצה",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "rel_forehead_intro": {
+    "text": "הניחי את שתי כפות הידיים במרכז הַמֵּצַח. החליקי אותן לאט החוצה, עד הָרַקּוֹת. כל תנועה ארוכה ושקטה, כמו לגהץ בד רך.",
+    "key": "f9469da2a154f24f",
+    "durationMs": 11575,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "הניחי את שתי כפות הידיים במרכז המצח. החליקי אותן לאט החוצה עד הרקות. כל תנועה ארוכה ושקטה, כמו לגהץ בד רך",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "rel_tongue_intro": {
+    "text": "עכשיו הרגל קטן שכדאי לקחת לכל היום. הלשון כולה נחה שטוחה על הַחֵךְ, מאחורי השיניים העליונות. הַשְּׂפָתַיִם סגורות, השיניים לא נוגעות זו בזו. נושמים מהאף.",
+    "key": "914cb0582ef9a44d",
+    "durationMs": 14710,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "עכשיו הרגל קטן שכדאי לקחת לכל היום. הלשון כולה נחה שטוחה על החך מאחורי השיניים העליונות. השפתיים סגורות, השיניים לא נוגעות זו בזו. נושמים מהאף",
+      "match": 0.96
+    },
+    "qa": "approved"
+  },
+  "act_cheek_lift_intro": {
+    "text": "התרגיל החשוב ביותר בתוכנית. הניחי את קצות האצבעות על עצמות הַלְּחָיַיִם. חַיְּכִי חיוך רחב, כך שהלחיים דוחפות את האצבעות למעלה. האצבעות נותנות קצת התנגדות. הַמֵּצַח נשאר רך לגמרי.",
+    "key": "3a2b2ac37a6ce5e3",
+    "durationMs": 16617,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "התרגיל החשוב ביותר בתוכנית. הניחי את קצות האצבעות על עצמות הלחיים. חייכי חיוך רחב כך שהלחיים דוחפות את האצבעות למעלה. האצבעות נותנות קצת התנגדות. המצח נשאר רך לגמרי",
+      "match": 0.9642857142857143
+    },
+    "qa": "approved"
+  },
+  "act_cheek_lift_cue": {
+    "text": "הַלְּחָיַיִם עולות, העיניים והמצח רגועים.",
+    "key": "df2c7727148e3ca8",
+    "durationMs": 4235,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "הלחיים עולות, העיניים והמצח רגועים",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "act_cheek_o_intro": {
+    "text": "עשי צורת או עם הַשְּׂפָתַיִם, והצמידי אותן מעל השיניים. עכשיו, בלי לפתוח את האו, חַיְּכִי רק עם הַלְּחָיַיִם. מרגישים איך הן עולות.",
+    "key": "14e5a22214ef640a",
+    "durationMs": 11575,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "עשי צורת או עם השפתיים והצמידי אותן מעל השיניים. עכשיו, בלי לפתוח את האו, חייכי רק עם הלחיים. מרגישים איך הן עולות?",
+      "match": 0.9090909090909091
+    },
+    "qa": "approved"
+  },
+  "act_cheek_o_cue": {
+    "text": "רק הַלְּחָיַיִם זזות.",
+    "key": "c820bf2b0a2ed0b9",
+    "durationMs": 1988,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "רק הלחיים זזות",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "act_cheek_puff_intro": {
+    "text": "מלאי את הפה באוויר, הַשְּׂפָתַיִם סגורות. עכשיו העבירי את האוויר מלחי לַלֶּחִי, לאט, כמו גל קטן. אפשר גם מעל השפה העליונה ומתחת לתחתונה.",
+    "key": "af9933b54566c127",
+    "durationMs": 13273,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "מלאי את הפה באוויר. השפתיים סגורות. עכשיו העבירי את האוויר מלחי ללחי לאט כמו גל קטן. אפשר גם מעל השפה העליונה ומתחת לתחתונה",
+      "match": 0.9565217391304348
+    },
+    "qa": "approved"
+  },
+  "act_jaw_forward_intro": {
+    "text": "הרימי מעט את הַסַּנְטֵר, והביטי קצת למעלה. עכשיו דחפי את הַלֶּסֶת התחתונה קדימה, עד שמרגישים מתיחה מתחת לַסַּנְטֵר ובצוואר. אם הַלֶּסֶת כואבת או נוקשת, עצרי ודלגי.",
+    "key": "3d9896d8e4a08598",
+    "durationMs": 14710,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "הרימי מעט את הסנטר והביטי קצת למעלה. עכשיו דחפי את הלסת התחתונה קדימה עד שמרגישים מתיחה מתחת לסנטר ובצוואר. אם הלסת כואבת או נוקשת, עצרי ודלגי",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "act_jaw_forward_cue": {
+    "text": "מתיחה נעימה, לא כאב.",
+    "key": "f985d725fd5b85db",
+    "durationMs": 2458,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "מתיחה נעימה לא כאב",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "act_neck_kiss_intro": {
+    "text": "הביטי לתקרה, בלי לזרוק את הראש אחורה. עכשיו מתחי את הַשְּׂפָתַיִם קדימה, כאילו את שולחת נשיקה לתקרה. מרגישים את קדמת הצוואר עובדת.",
+    "key": "1288c5485971d51e",
+    "durationMs": 11261,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "הביטי לתקרה בלי לזרוק את הראש אחורה. עכשיו מתחי את השפתיים קדימה כאילו את שולחת נשיקה לתקרה. מרגישים את קדמת הצוואר עובדת?",
+      "match": 0.9545454545454546
+    },
+    "qa": "approved"
+  },
+  "act_neck_kiss_cue": {
+    "text": "הכתפיים רחוקות מהאוזניים.",
+    "key": "7dca31e23b13d1f6",
+    "durationMs": 2537,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "הכתפיים רחוקות מהאוזניים",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "act_tongue_press_intro": {
+    "text": "הצמידי את כל הלשון לַחֵךְ ולחצי למעלה. הניחי אצבע מתחת לַסַּנְטֵר, ותרגישי איך האזור מתהדק. הַשְּׂפָתַיִם סגורות, הַפָּנִים רגועות.",
+    "key": "0b8dfb4dd99b50dd",
+    "durationMs": 12463,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "הצמידי את כל הלשון לחך ולחצי למעלה. הניחי אצבע מתחת לסנטר ותרגישי איך האזור מתהדק. השפתיים סגורות, הפנים רגועות",
+      "match": 0.9473684210526315
+    },
+    "qa": "approved"
+  },
+  "act_lips_intro": {
+    "text": "גלגלי את שתי הַשְּׂפָתַיִם פנימה, מעל השיניים. הניחי אצבע מורה על כל קְצֵה של הפה, כדי שהעור לא יִתְקַמֵּט. עכשיו חיוך קטן, ומחזיקים.",
+    "key": "def7c20883944e75",
+    "durationMs": 11575,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "גלגלי את שתי השפתיים פנימה מעל השיניים. הניחי אצבע מורה על כל קצה של הפה כדי שהעור לא יתקמט. עכשיו חיוך קטן ומחזיקים",
+      "match": 0.9565217391304348
+    },
+    "qa": "approved"
+  },
+  "act_lips_cue": {
+    "text": "האצבעות שומרות על העור חלק.",
+    "key": "3b47b64edd74bc45",
+    "durationMs": 2719,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "האצבעות שומרות על העור חלק",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "act_eye_ring_intro": {
+    "text": "עשי וי עם האצבע המורה והאמצעית, והניחי אותן סביב העין, אחת בקצה הַגַּבָּה ואחת בצד העין. האצבעות מְיַצְּבוֹת את העור. הביטי למעלה, וכווצי קלות רק את הָעַפְעַף התחתון.",
+    "key": "8751c328be377601",
+    "durationMs": 15676,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "עשי וי עם האצבע המורה והאמצעית והניחי אותן סביב העין, אחת בקצה הגבה ואחת בצד העין. האצבעות מייצבות את העור. הביטי למעלה וחבצי קלות רק את העפעף התחתון",
+      "match": 0.9285714285714286
+    },
+    "qa": "approved"
+  },
+  "act_eye_ring_cue": {
+    "text": "האצבעות מְיַצְּבוֹת, הַמֵּצַח לא זז.",
+    "key": "e938e6ba6eb6ae7f",
+    "durationMs": 3581,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "האצבעות מייצבות, המצח לא זז",
+      "match": 0.8
+    },
+    "qa": "pending"
+  },
+  "act_brow_intro": {
+    "text": "הניחי כף יד שטוחה על כל הַמֵּצַח, ולחצי קלות. עכשיו נסי להרים את הַגַּבּוֹת. היד לא נותנת לעור להתקמט. השריר עובד, העור נשאר חלק.",
+    "key": "49d93c9def47f2bf",
+    "durationMs": 12855,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "הניחי כף יד שטוחה על כל המצח ולחצי קלות. עכשיו נסי להרים את הגבות. היד לא נותנת לעור להתקמט, השריר עובד, העור נשאר חלק",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "lift_sweep_intro": {
+    "text": "קצת שמן או קרם על כפות הידיים. עכשיו תנועות ארוכות כלפי מעלה: מֵהַסַּנְטֵר אל האוזניים, מצדי האף אל הָרַקּוֹת, וּמֵהַגַּבּוֹת אל הקרקפת. לאט, ובלחץ עדין.",
+    "key": "4d6a6e4f2670ffca",
+    "durationMs": 15598,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "קצת שמן או קרם על כפות הידיים. עכשיו תנועות ארוכות כלפי מעלה, מהסנטר אל האוזניים, מצידי האף אל הרקות ומהגבות אל הקרקפת. לאט ובלחץ עדין",
+      "match": 0.96
+    },
+    "qa": "approved"
+  },
+  "lift_jawline_intro": {
+    "text": "עשי וי עם האצבע המורה והאמצעית, וסגרי אותו על הַלֶּסֶת, אחת מעל העצם ואחת מתחת. החליקי מֵהַסַּנְטֵר אל האוזן, לאט, בשני הצדדים יחד.",
+    "key": "a80b75a7c045687a",
+    "durationMs": 13430,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "עשי וי עם האצבע המורה והאמצעית וסגרי אותו על הלסת, אחת מעל העצם ואחת מתחת. החליקי מהסנטר אל האוזן לאט בשני הצדדים יחד",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "lift_close_intro": {
+    "text": "הניחי את שתי כפות הידיים על הַפָּנִים, ותרגישי את החום. שלוש נשימות עמוקות. שאיפה מהאף, ונשיפה ארוכה מהפה.",
+    "key": "0968e4a5658c5305",
+    "durationMs": 10870,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "הניחי את שתי כפות הידיים על הפנים ותרגישי את החום. שלוש נשימות עמוקות. שאיפה מהאף ונשיפה ארוכה מהפה",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "am_drain_intro": {
+    "text": "בוקר טוב. ניקוז קצר, עם הקרם שלך. מתחילים מלמטה: לחיצות קלות מעל עצם הבריח. אחר כך מהאוזניים אל הצוואר, ומהלחיים אל האוזניים. הלחץ קל כמו נוצה.",
+    "key": "c5b0a7c43af4e825",
+    "durationMs": 15180,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "בוקר טוב. ניקוז קצר עם הקרם שלך. מתחילים מלמטה. לחיצות קלות מעל עצם הבריח. אחר כך מהאוזניים אל הצוואר ומהלחייים אל האוזניים. הלחץ קל כמו נוצה",
+      "match": 0.9615384615384616
+    },
+    "qa": "approved"
+  },
+  "am_eyes_intro": {
+    "text": "הַקְּמִיצָה היא האצבע העדינה ביותר. הקישי בָּהּ קלות מתחת לעין, מהאף החוצה, כמו טיפות גשם קטנות.",
+    "key": "919221411d41c1c1",
+    "durationMs": 8937,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "הקמיצה היא האצבע העדינה ביותר. הקישי בה קלות מתחת לעין מהאף החוצה כמו טיפות גשם קטנות",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "gs_jaw_intro": {
+    "text": "שמן על הַפָּנִים והצוואר. החזיקי את האבן כמעט שטוחה על העור. מתחילים בצוואר, מלמטה למעלה. אחר כך קו הַלֶּסֶת, מֵהַסַּנְטֵר אל האוזן, ואז הַלְּחָיַיִם, מהאף אל האוזן. חמש העברות לכל קו, בלחץ קל. אדמומיות קלה זה בסדר. חבורה זה לא.",
+    "key": "e7af78821fee9037",
+    "durationMs": 24140,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שמן על הפנים והצוואר. החזיקי את האבן כמעט שטוחה על העור. מתחילים בצוואר, מלמטה למעלה. אחר כך קו הלסת, מהסנטר אל האוזן, ואז הלחיים, מהאף אל האוזן. חמש העברות לכל קו, בלחץ קל. אדמומיות קלה זה בסדר. חבורה זה לא",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "count_1": {
+    "text": "ראשונה.",
+    "key": "aa3de73de1ab4fd2",
+    "durationMs": 943,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "ראשונה",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "count_2": {
+    "text": "שנייה.",
+    "key": "c9f1456e9ce77c2b",
+    "durationMs": 865,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שנייה",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "count_3": {
+    "text": "שלישית.",
+    "key": "dca9a5238b90bf70",
+    "durationMs": 1100,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שלישית",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "count_4": {
+    "text": "רביעית.",
+    "key": "4e0ab0ebc1d91f3e",
+    "durationMs": 1100,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "רביעית",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "count_5": {
+    "text": "חמישית.",
+    "key": "d5e8a8b74bac3392",
+    "durationMs": 1100,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "חמישית",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "count_6": {
+    "text": "שישית.",
+    "key": "a1e2112074b5b716",
+    "durationMs": 1021,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שישיט",
+      "match": 0
+    },
+    "qa": "pending"
+  },
+  "count_7": {
+    "text": "שביעית.",
+    "key": "8d3350586a35bb78",
+    "durationMs": 1257,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שביעית",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "count_8": {
+    "text": "שמינית.",
+    "key": "16034415867625cd",
+    "durationMs": 1100,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שמינית",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "count_9": {
+    "text": "תשיעית.",
+    "key": "89bcfc5092c799c9",
+    "durationMs": 1021,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "תשיעית",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "count_10": {
+    "text": "עשירית.",
+    "key": "20c73575eb8cde2d",
+    "durationMs": 1021,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "עשירית",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "count_11": {
+    "text": "אחת עשרה.",
+    "key": "716a1881ef89bec5",
+    "durationMs": 1021,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "אחת עשרה",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "count_12": {
+    "text": "שתים עשרה.",
+    "key": "849b8e1c75ecd080",
+    "durationMs": 1100,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שתים עשרה",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "hold": {
+    "text": "ומחזיקים.",
+    "key": "eee76b06b20c4ef3",
+    "durationMs": 1257,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "ומחזיקים",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "release": {
+    "text": "ומשחררים.",
+    "key": "ee4b45c9ea9a20cb",
+    "durationMs": 1439,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "ומשחררים",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "last": {
+    "text": "ואחרונה.",
+    "key": "2a64aa433fdeb583",
+    "durationMs": 1021,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "ואחרונה",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "switch_side": {
+    "text": "ועכשיו הצד השני.",
+    "key": "d013afe9b1cd4348",
+    "durationMs": 1988,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "ועכשיו הצד השני",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "wrinkle_1": {
+    "text": "שימי לב לַמֵּצַח. תניחי עליו יד, ותני לו לנוח.",
+    "key": "a8c3a004ef193c29",
+    "durationMs": 5018,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שימי לב למצח. תניחי עליו יד ותני לו לנוח",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "wrinkle_2": {
+    "text": "הַמֵּצַח מִתְכַּוֵּץ. נסי שוב, רק עם הַלְּחָיַיִם.",
+    "key": "362b6d2325ab9db7",
+    "durationMs": 4705,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "המצח מתכווץ. נסי שוב רק עם הלחיים",
+      "match": 0.8571428571428571
+    },
+    "qa": "pending"
+  },
+  "good": {
+    "text": "יפה מאוד.",
+    "key": "91b1d9ef8670a8b3",
+    "durationMs": 1257,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "יפה מאוד",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "next": {
+    "text": "ממשיכים.",
+    "key": "58a3e6a348da390f",
+    "durationMs": 1021,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "ממשיכים",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "pain_ok": {
+    "text": "בסדר גמור. מדלגים, ונמשיך הלאה.",
+    "key": "a03d380a8ec2c1c9",
+    "durationMs": 3268,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "בסדר גמור. מדלגים ונמשיך הלאה",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "session_close": {
+    "text": "סיימנו להיום. הַפָּנִים שלך עבדו, ועכשיו הן נחות. תודה שהקדשת לעצמך את הזמן הזה.",
+    "key": "6c8cf9707d284f10",
+    "durationMs": 7186,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "סיימנו להיום. הפנים שלך עבדו ועכשיו הן נחות. תודה שהקדשת לעצמך את הזמן הזה",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "session_close_short": {
+    "text": "סיימנו. כל דקה נספרת.",
+    "key": "9b8c2029ed01065a",
+    "durationMs": 2719,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "סיימנו כל דקה נספרת",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "morning_open": {
+    "text": "בוקר טוב. ארבע דקות, עם הקרם שלך, ואפשר אפילו בלי להסתכל על המסך.",
+    "key": "406cc0dae74fe134",
+    "durationMs": 5985,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "בוקר טוב. ארבע דקות עם הקרם שלך ואפשר אפילו בלי להסתכל על המסך",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "morning_close": {
+    "text": "זהו. בוקר נעים.",
+    "key": "d618972a4d1d4a0f",
+    "durationMs": 1988,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "זהו בוקר נעים",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "quick_open": {
+    "text": "כמה דקות רק בשבילך. מתחילים.",
+    "key": "81289c2a2ae36e0f",
+    "durationMs": 3268,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "כמה דקות רק בשבילך. מתחילים",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "open_w1": {
+    "text": "שבוע ראשון. מתחילים לאט: לומדים לשחרר לפני שמחזקים, ולשמור על מֵצַח רגוע.",
+    "key": "c9ee51cc6776fe87",
+    "durationMs": 8310,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע ראשון מתחילים לאט, לומדים לשחרר לפני שמחזקים ולשמור על מצח רגוע",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "open_w2": {
+    "text": "שבוע שני. מוסיפים את הצוואר. הוא חלק מהפנים, יותר ממה שנדמה.",
+    "key": "e05a11ce4c9aa6ad",
+    "durationMs": 5828,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע שני מוסיפים את הצוואר. הוא חלק מהפנים יותר ממה שנדמה",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "open_w3": {
+    "text": "שבוע שלישי. ההחזקות מתארכות, ונכנסים תרגילים חדשים לַלְּחָיַיִם וללסת.",
+    "key": "a9ac639bb437f453",
+    "durationMs": 7030,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע שלישי. ההחזקות מתארכות ונכנסים תרגילים חדשים ללחיים וללסת",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "open_w4": {
+    "text": "שבוע רביעי. חודש של תרגול. ההרגל כבר שלך.",
+    "key": "6520bd395a5bec9c",
+    "durationMs": 4626,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע רביעי חודש של תרגול. ההרגל כבר שלך",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "open_w5": {
+    "text": "שבוע חמישי. מחזיקים קצת יותר זמן. איכות לפני כמות.",
+    "key": "0b1edf7d3f4bfe58",
+    "durationMs": 5593,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע חמישי מחזיקים קצת יותר זמן. איכות לפני כמות",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "open_w6": {
+    "text": "שבוע שישי. חצי הדרך. השבוע יש גם צילום השוואה.",
+    "key": "f70fb844dc71f0b2",
+    "durationMs": 4861,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע שישי חצי הדרך. השבוע יש גם צילום השוואה",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "open_w7": {
+    "text": "שבוע שביעי. שלב ההעמקה מתחיל: עשר חזרות, ומפגשים קצת יותר ארוכים.",
+    "key": "62daaf436aa0679d",
+    "durationMs": 6873,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע שביעי שלב ההעמקה מתחיל עשר חזרות ומפגשים קצת יותר ארוכים",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "open_w8": {
+    "text": "שבוע שמיני. זה השלב שבו השרירים באמת מתחזקים. ממשיכים.",
+    "key": "13715da5f867b830",
+    "durationMs": 6063,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע שמיני זה השלב שבו השרירים באמת מתחזקים. ממשיכים",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "open_w9": {
+    "text": "שבוע תשיעי. תשימי לב לתחושה בַּלֶּסֶת. משהו השתנה?",
+    "key": "239ab7ffbc30a5ce",
+    "durationMs": 5436,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע תשיעי תשימי לב לתחושה בלסת משהו השתנה?",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "open_w10": {
+    "text": "שבוע עשירי. עוד קצת. העקביות היא כל הסוד.",
+    "key": "48945a51754de00e",
+    "durationMs": 4705,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע עשירי עוד קצת. העקביות היא כל הסוד",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "open_w11": {
+    "text": "שבוע אחד עשר. שלב הביסוס. פחות הנחיות, יותר את.",
+    "key": "42c5bf48b0d71a83",
+    "durationMs": 5985,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע אחד עשר שלב הביסוס פחות הנחיות, יותר עת",
+      "match": 0.8888888888888888
+    },
+    "qa": "pending"
+  },
+  "open_w12": {
+    "text": "שבוע שנים עשר. השבוע האחרון בתוכנית, והצילום שמסכם אותה.",
+    "key": "89fcf1ece24a32e5",
+    "durationMs": 5515,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע שניים עשר, השבוע האחרון בתוכנית והצילום שמסכם אותה",
+      "match": 0.8888888888888888
+    },
+    "qa": "pending"
+  },
+  "open_w13": {
+    "text": "מפגש תחזוקה. פעמיים בשבוע מספיק כדי לשמור על מה שבנית.",
+    "key": "d8d932bce638595e",
+    "durationMs": 5018,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "מפגש תחזוקה. פעמיים בשבוע מספיק כדי לשמור על מה שבנית",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "teacher_w1": {
+    "text": "ברוכה הבאה. דבר אחד חשוב לפני שמתחילים: התוצאה הראשונה שתרגישי היא בַּלֶּסֶת ובצוואר, לא במראה. נפיחות הבוקר יורדת כבר אחרי כמה ימים. מלאות בַּלְּחָיַיִם, אם תגיע, לוקחת חודשיים לפחות.",
+    "key": "5a4a95b2475b67b5",
+    "durationMs": 16878,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "ברוכה הבאה. דבר אחד חשוב לפני שמתחילים. התוצאה הראשונה שתרגישי היא בלסת ובצוואר, לא במראה. נפיחות הבוקר יורדת כבר אחרי כמה ימים. מלאות בלחיים, אם תגיע, לוקחת חודשיים לפחות",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "teacher_w2": {
+    "text": "שבוע שני. אם הַלֶּסֶת רגישה, זה סימן שהיא הייתה תפוסה. השחרור עוזר. אם משהו כואב, לחצי על \"כואב לי\", ונדלג.",
+    "key": "30c21a40e2add19e",
+    "durationMs": 10791,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע שני. אם הלסת רגישה זה סימן שהיא הייתה תפוסה. השחרור עוזר. אם משהו כואב לחצי על כואב לי ונדלג",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "teacher_w4": {
+    "text": "חודש שלם. רוב מי שמפסיקות, מפסיקות עכשיו. את ממשיכה, וזה מה שקובע.",
+    "key": "59737bfafdf3f318",
+    "durationMs": 7343,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "חודש שלם. רוב מי שמפסיקות, מפסיקות עכשיו. את ממשיכה וזה מה שקובע",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "teacher_w6": {
+    "text": "חצי הדרך. עדיין מוקדם לראות שינוי במראה, וזה תקין לגמרי. השבוע נצלם, רק כדי שיהיה למה להשוות.",
+    "key": "86d981596b7ece7f",
+    "durationMs": 8701,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "חצי הדרך. עדיין מוקדם לראות שינוי במראה וזה תקין לגמרי. השבוע נצלם רק כדי שיהיה למה להשוות",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "teacher_w8": {
+    "text": "שבוע שמיני. במחקר היחיד שבדק את זה, השינוי בַּלְּחָיַיִם התחיל להיראות אחרי שמונה שבועות. עכשיו בונים.",
+    "key": "0c720ff2f617201b",
+    "durationMs": 9668,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "שבוע שמיני. במחקר היחיד שבדק את זה, השינוי בלחיים התחיל להיראות אחרי שמונה שבועות. עכשיו בונים",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "teacher_w12": {
+    "text": "סיימת שנים עשר שבועות. זה לא מובן מאליו. מכאן, פעמיים בשבוע מספיקות כדי לשמור.",
+    "key": "412b7ca14e39c342",
+    "durationMs": 7657,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "סיימת 12 שבועות. זה לא מובן מאליו. מכאן, פעמיים בשבוע מספיקות כדי לשמור",
+      "match": 0.8571428571428571
+    },
+    "qa": "pending"
+  }
+}

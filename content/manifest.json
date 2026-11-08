@@ -1,0 +1,519 @@
+{
+  "version": "04fbf72f6f",
+  "generatedAt": "2026-11-08",
+  "character": {
+    "front": "character/front.jpg",
+    "side": "character/side.jpg"
+  },
+  "voice": {
+    "id": "UftNp7bAl1b6Y7tTy8OA",
+    "model": "eleven_v4"
+  },
+  "media": {
+    "act_cheek_lift": {
+      "exerciseId": "act_cheek_lift",
+      "qa": "approved",
+      "still": "stills/act_cheek_lift.jpg",
+      "clip": "video/act_cheek_lift.mp4",
+      "mode": "pingpong",
+      "bytes": 1157624
+    },
+    "act_eye_ring": {
+      "exerciseId": "act_eye_ring",
+      "qa": "approved",
+      "still": "stills/act_eye_ring.jpg",
+      "clip": "video/act_eye_ring.mp4",
+      "mode": "pingpong",
+      "bytes": 1219541
+    },
+    "rel_masseter": {
+      "exerciseId": "rel_masseter",
+      "qa": "approved",
+      "still": "stills/rel_masseter.jpg",
+      "clip": "video/rel_masseter.mp4",
+      "mode": "loop",
+      "bytes": 728201
+    }
+  },
+  "narration": {
+    "rel_posture_intro": {
+      "url": "audio/narration/rel_posture_intro.mp3",
+      "durationMs": 15180,
+      "text": "נתחיל מהיציבה. שבי זקוף, הכתפיים רחוקות מהאוזניים. דמייני חוט שמושך את קודקוד הראש למעלה. הַסַּנְטֵר נסוג קצת לאחור, בלי להוריד אותו. נושמים חמש נשימות איטיות.",
+      "qa": "approved"
+    },
+    "rel_posture_cue": {
+      "url": "audio/narration/rel_posture_cue.mp3",
+      "durationMs": 3190,
+      "text": "הָעֹרֶף ארוך, הכתפיים רכות.",
+      "qa": "pending"
+    },
+    "rel_neck_side_intro": {
+      "url": "audio/narration/rel_neck_side_intro.mp3",
+      "durationMs": 13273,
+      "text": "עכשיו הטיה רכה. האוזן הימנית יורדת לכיוון הכתף הימנית. היד השמאלית נמשכת למטה, כאילו היא מחזיקה סל. בלי למשוך את הראש, רק לתת לו לשקוע.",
+      "qa": "approved"
+    },
+    "rel_neck_side_cue": {
+      "url": "audio/narration/rel_neck_side_cue.mp3",
+      "durationMs": 3190,
+      "text": "ועכשיו לצד השני, לאט.",
+      "qa": "approved"
+    },
+    "rel_scm_intro": {
+      "url": "audio/narration/rel_scm_intro.mp3",
+      "durationMs": 12071,
+      "text": "סובבי מעט את הראש שמאלה. עכשיו רואים את השריר שיורד מאחורי האוזן הימנית אל עצם הבריח. מלטפים אותו בשתי אצבעות, רק כלפי מטה, בלחץ קל.",
+      "qa": "approved"
+    },
+    "rel_scm_cue": {
+      "url": "audio/narration/rel_scm_cue.mp3",
+      "durationMs": 3503,
+      "text": "ועכשיו הצד השני. רק כלפי מטה.",
+      "qa": "approved"
+    },
+    "rel_masseter_intro": {
+      "url": "audio/narration/rel_masseter_intro.mp3",
+      "durationMs": 17035,
+      "text": "הניחי את שטוח האצבעות על הַלֶּסֶת, בדיוק מול האוזניים, מתחת לעצם הַלֶּחִי. פתחי את הפה מעט ותני לַלֶּסֶת ליפול. עכשיו מעגלים איטיים, בלחץ נעים. אם יש נקודה רגישה, תישארי עליה רגע ותנשמי.",
+      "qa": "approved"
+    },
+    "rel_masseter_cue": {
+      "url": "audio/narration/rel_masseter_cue.mp3",
+      "durationMs": 3268,
+      "text": "הַלֶּסֶת כבדה, השיניים לא נוגעות.",
+      "qa": "approved"
+    },
+    "rel_temples_intro": {
+      "url": "audio/narration/rel_temples_intro.mp3",
+      "durationMs": 13273,
+      "text": "קצות האצבעות על הָרַקּוֹת. מעגלים קטנים ואיטיים. עכשיו פתחי את האצבעות לתוך השיער, והזיזי את הקרקפת עצמה, מהמצח לכיוון הָעֹרֶף.",
+      "qa": "approved"
+    },
+    "rel_temples_cue": {
+      "url": "audio/narration/rel_temples_cue.mp3",
+      "durationMs": 2380,
+      "text": "נשימה ארוכה החוצה.",
+      "qa": "approved"
+    },
+    "rel_forehead_intro": {
+      "url": "audio/narration/rel_forehead_intro.mp3",
+      "durationMs": 11575,
+      "text": "הניחי את שתי כפות הידיים במרכז הַמֵּצַח. החליקי אותן לאט החוצה, עד הָרַקּוֹת. כל תנועה ארוכה ושקטה, כמו לגהץ בד רך.",
+      "qa": "approved"
+    },
+    "rel_tongue_intro": {
+      "url": "audio/narration/rel_tongue_intro.mp3",
+      "durationMs": 14710,
+      "text": "עכשיו הרגל קטן שכדאי לקחת לכל היום. הלשון כולה נחה שטוחה על הַחֵךְ, מאחורי השיניים העליונות. הַשְּׂפָתַיִם סגורות, השיניים לא נוגעות זו בזו. נושמים מהאף.",
+      "qa": "approved"
+    },
+    "act_cheek_lift_intro": {
+      "url": "audio/narration/act_cheek_lift_intro.mp3",
+      "durationMs": 16617,
+      "text": "התרגיל החשוב ביותר בתוכנית. הניחי את קצות האצבעות על עצמות הַלְּחָיַיִם. חַיְּכִי חיוך רחב, כך שהלחיים דוחפות את האצבעות למעלה. האצבעות נותנות קצת התנגדות. הַמֵּצַח נשאר רך לגמרי.",
+      "qa": "approved"
+    },
+    "act_cheek_lift_cue": {
+      "url": "audio/narration/act_cheek_lift_cue.mp3",
+      "durationMs": 4235,
+      "text": "הַלְּחָיַיִם עולות, העיניים והמצח רגועים.",
+      "qa": "approved"
+    },
+    "act_cheek_o_intro": {
+      "url": "audio/narration/act_cheek_o_intro.mp3",
+      "durationMs": 11575,
+      "text": "עשי צורת או עם הַשְּׂפָתַיִם, והצמידי אותן מעל השיניים. עכשיו, בלי לפתוח את האו, חַיְּכִי רק עם הַלְּחָיַיִם. מרגישים איך הן עולות.",
+      "qa": "approved"
+    },
+    "act_cheek_o_cue": {
+      "url": "audio/narration/act_cheek_o_cue.mp3",
+      "durationMs": 1988,
+      "text": "רק הַלְּחָיַיִם זזות.",
+      "qa": "approved"
+    },
+    "act_cheek_puff_intro": {
+      "url": "audio/narration/act_cheek_puff_intro.mp3",
+      "durationMs": 13273,
+      "text": "מלאי את הפה באוויר, הַשְּׂפָתַיִם סגורות. עכשיו העבירי את האוויר מלחי לַלֶּחִי, לאט, כמו גל קטן. אפשר גם מעל השפה העליונה ומתחת לתחתונה.",
+      "qa": "approved"
+    },
+    "act_jaw_forward_intro": {
+      "url": "audio/narration/act_jaw_forward_intro.mp3",
+      "durationMs": 14710,
+      "text": "הרימי מעט את הַסַּנְטֵר, והביטי קצת למעלה. עכשיו דחפי את הַלֶּסֶת התחתונה קדימה, עד שמרגישים מתיחה מתחת לַסַּנְטֵר ובצוואר. אם הַלֶּסֶת כואבת או נוקשת, עצרי ודלגי.",
+      "qa": "approved"
+    },
+    "act_jaw_forward_cue": {
+      "url": "audio/narration/act_jaw_forward_cue.mp3",
+      "durationMs": 2458,
+      "text": "מתיחה נעימה, לא כאב.",
+      "qa": "approved"
+    },
+    "act_neck_kiss_intro": {
+      "url": "audio/narration/act_neck_kiss_intro.mp3",
+      "durationMs": 11261,
+      "text": "הביטי לתקרה, בלי לזרוק את הראש אחורה. עכשיו מתחי את הַשְּׂפָתַיִם קדימה, כאילו את שולחת נשיקה לתקרה. מרגישים את קדמת הצוואר עובדת.",
+      "qa": "approved"
+    },
+    "act_neck_kiss_cue": {
+      "url": "audio/narration/act_neck_kiss_cue.mp3",
+      "durationMs": 2537,
+      "text": "הכתפיים רחוקות מהאוזניים.",
+      "qa": "approved"
+    },
+    "act_tongue_press_intro": {
+      "url": "audio/narration/act_tongue_press_intro.mp3",
+      "durationMs": 12463,
+      "text": "הצמידי את כל הלשון לַחֵךְ ולחצי למעלה. הניחי אצבע מתחת לַסַּנְטֵר, ותרגישי איך האזור מתהדק. הַשְּׂפָתַיִם סגורות, הַפָּנִים רגועות.",
+      "qa": "approved"
+    },
+    "act_lips_intro": {
+      "url": "audio/narration/act_lips_intro.mp3",
+      "durationMs": 11575,
+      "text": "גלגלי את שתי הַשְּׂפָתַיִם פנימה, מעל השיניים. הניחי אצבע מורה על כל קְצֵה של הפה, כדי שהעור לא יִתְקַמֵּט. עכשיו חיוך קטן, ומחזיקים.",
+      "qa": "approved"
+    },
+    "act_lips_cue": {
+      "url": "audio/narration/act_lips_cue.mp3",
+      "durationMs": 2719,
+      "text": "האצבעות שומרות על העור חלק.",
+      "qa": "approved"
+    },
+    "act_eye_ring_intro": {
+      "url": "audio/narration/act_eye_ring_intro.mp3",
+      "durationMs": 15676,
+      "text": "עשי וי עם האצבע המורה והאמצעית, והניחי אותן סביב העין, אחת בקצה הַגַּבָּה ואחת בצד העין. האצבעות מְיַצְּבוֹת את העור. הביטי למעלה, וכווצי קלות רק את הָעַפְעַף התחתון.",
+      "qa": "approved"
+    },
+    "act_eye_ring_cue": {
+      "url": "audio/narration/act_eye_ring_cue.mp3",
+      "durationMs": 3581,
+      "text": "האצבעות מְיַצְּבוֹת, הַמֵּצַח לא זז.",
+      "qa": "pending"
+    },
+    "act_brow_intro": {
+      "url": "audio/narration/act_brow_intro.mp3",
+      "durationMs": 12855,
+      "text": "הניחי כף יד שטוחה על כל הַמֵּצַח, ולחצי קלות. עכשיו נסי להרים את הַגַּבּוֹת. היד לא נותנת לעור להתקמט. השריר עובד, העור נשאר חלק.",
+      "qa": "approved"
+    },
+    "lift_sweep_intro": {
+      "url": "audio/narration/lift_sweep_intro.mp3",
+      "durationMs": 15598,
+      "text": "קצת שמן או קרם על כפות הידיים. עכשיו תנועות ארוכות כלפי מעלה: מֵהַסַּנְטֵר אל האוזניים, מצדי האף אל הָרַקּוֹת, וּמֵהַגַּבּוֹת אל הקרקפת. לאט, ובלחץ עדין.",
+      "qa": "approved"
+    },
+    "lift_jawline_intro": {
+      "url": "audio/narration/lift_jawline_intro.mp3",
+      "durationMs": 13430,
+      "text": "עשי וי עם האצבע המורה והאמצעית, וסגרי אותו על הַלֶּסֶת, אחת מעל העצם ואחת מתחת. החליקי מֵהַסַּנְטֵר אל האוזן, לאט, בשני הצדדים יחד.",
+      "qa": "approved"
+    },
+    "lift_close_intro": {
+      "url": "audio/narration/lift_close_intro.mp3",
+      "durationMs": 10870,
+      "text": "הניחי את שתי כפות הידיים על הַפָּנִים, ותרגישי את החום. שלוש נשימות עמוקות. שאיפה מהאף, ונשיפה ארוכה מהפה.",
+      "qa": "approved"
+    },
+    "am_drain_intro": {
+      "url": "audio/narration/am_drain_intro.mp3",
+      "durationMs": 15180,
+      "text": "בוקר טוב. ניקוז קצר, עם הקרם שלך. מתחילים מלמטה: לחיצות קלות מעל עצם הבריח. אחר כך מהאוזניים אל הצוואר, ומהלחיים אל האוזניים. הלחץ קל כמו נוצה.",
+      "qa": "approved"
+    },
+    "am_eyes_intro": {
+      "url": "audio/narration/am_eyes_intro.mp3",
+      "durationMs": 8937,
+      "text": "הַקְּמִיצָה היא האצבע העדינה ביותר. הקישי בָּהּ קלות מתחת לעין, מהאף החוצה, כמו טיפות גשם קטנות.",
+      "qa": "approved"
+    },
+    "gs_jaw_intro": {
+      "url": "audio/narration/gs_jaw_intro.mp3",
+      "durationMs": 24140,
+      "text": "שמן על הַפָּנִים והצוואר. החזיקי את האבן כמעט שטוחה על העור. מתחילים בצוואר, מלמטה למעלה. אחר כך קו הַלֶּסֶת, מֵהַסַּנְטֵר אל האוזן, ואז הַלְּחָיַיִם, מהאף אל האוזן. חמש העברות לכל קו, בלחץ קל. אדמומיות קלה זה בסדר. חבורה זה לא.",
+      "qa": "approved"
+    },
+    "count_1": {
+      "url": "audio/narration/count_1.mp3",
+      "durationMs": 943,
+      "text": "ראשונה.",
+      "qa": "approved"
+    },
+    "count_2": {
+      "url": "audio/narration/count_2.mp3",
+      "durationMs": 865,
+      "text": "שנייה.",
+      "qa": "approved"
+    },
+    "count_3": {
+      "url": "audio/narration/count_3.mp3",
+      "durationMs": 1100,
+      "text": "שלישית.",
+      "qa": "approved"
+    },
+    "count_4": {
+      "url": "audio/narration/count_4.mp3",
+      "durationMs": 1100,
+      "text": "רביעית.",
+      "qa": "approved"
+    },
+    "count_5": {
+      "url": "audio/narration/count_5.mp3",
+      "durationMs": 1100,
+      "text": "חמישית.",
+      "qa": "approved"
+    },
+    "count_6": {
+      "url": "audio/narration/count_6.mp3",
+      "durationMs": 1021,
+      "text": "שישית.",
+      "qa": "pending"
+    },
+    "count_7": {
+      "url": "audio/narration/count_7.mp3",
+      "durationMs": 1257,
+      "text": "שביעית.",
+      "qa": "approved"
+    },
+    "count_8": {
+      "url": "audio/narration/count_8.mp3",
+      "durationMs": 1100,
+      "text": "שמינית.",
+      "qa": "approved"
+    },
+    "count_9": {
+      "url": "audio/narration/count_9.mp3",
+      "durationMs": 1021,
+      "text": "תשיעית.",
+      "qa": "approved"
+    },
+    "count_10": {
+      "url": "audio/narration/count_10.mp3",
+      "durationMs": 1021,
+      "text": "עשירית.",
+      "qa": "approved"
+    },
+    "count_11": {
+      "url": "audio/narration/count_11.mp3",
+      "durationMs": 1021,
+      "text": "אחת עשרה.",
+      "qa": "approved"
+    },
+    "count_12": {
+      "url": "audio/narration/count_12.mp3",
+      "durationMs": 1100,
+      "text": "שתים עשרה.",
+      "qa": "approved"
+    },
+    "hold": {
+      "url": "audio/narration/hold.mp3",
+      "durationMs": 1257,
+      "text": "ומחזיקים.",
+      "qa": "approved"
+    },
+    "release": {
+      "url": "audio/narration/release.mp3",
+      "durationMs": 1439,
+      "text": "ומשחררים.",
+      "qa": "approved"
+    },
+    "last": {
+      "url": "audio/narration/last.mp3",
+      "durationMs": 1021,
+      "text": "ואחרונה.",
+      "qa": "approved"
+    },
+    "switch_side": {
+      "url": "audio/narration/switch_side.mp3",
+      "durationMs": 1988,
+      "text": "ועכשיו הצד השני.",
+      "qa": "approved"
+    },
+    "wrinkle_1": {
+      "url": "audio/narration/wrinkle_1.mp3",
+      "durationMs": 5018,
+      "text": "שימי לב לַמֵּצַח. תניחי עליו יד, ותני לו לנוח.",
+      "qa": "approved"
+    },
+    "wrinkle_2": {
+      "url": "audio/narration/wrinkle_2.mp3",
+      "durationMs": 4705,
+      "text": "הַמֵּצַח מִתְכַּוֵּץ. נסי שוב, רק עם הַלְּחָיַיִם.",
+      "qa": "pending"
+    },
+    "good": {
+      "url": "audio/narration/good.mp3",
+      "durationMs": 1257,
+      "text": "יפה מאוד.",
+      "qa": "approved"
+    },
+    "next": {
+      "url": "audio/narration/next.mp3",
+      "durationMs": 1021,
+      "text": "ממשיכים.",
+      "qa": "approved"
+    },
+    "pain_ok": {
+      "url": "audio/narration/pain_ok.mp3",
+      "durationMs": 3268,
+      "text": "בסדר גמור. מדלגים, ונמשיך הלאה.",
+      "qa": "approved"
+    },
+    "session_close": {
+      "url": "audio/narration/session_close.mp3",
+      "durationMs": 7186,
+      "text": "סיימנו להיום. הַפָּנִים שלך עבדו, ועכשיו הן נחות. תודה שהקדשת לעצמך את הזמן הזה.",
+      "qa": "approved"
+    },
+    "session_close_short": {
+      "url": "audio/narration/session_close_short.mp3",
+      "durationMs": 2719,
+      "text": "סיימנו. כל דקה נספרת.",
+      "qa": "approved"
+    },
+    "morning_open": {
+      "url": "audio/narration/morning_open.mp3",
+      "durationMs": 5985,
+      "text": "בוקר טוב. ארבע דקות, עם הקרם שלך, ואפשר אפילו בלי להסתכל על המסך.",
+      "qa": "approved"
+    },
+    "morning_close": {
+      "url": "audio/narration/morning_close.mp3",
+      "durationMs": 1988,
+      "text": "זהו. בוקר נעים.",
+      "qa": "approved"
+    },
+    "quick_open": {
+      "url": "audio/narration/quick_open.mp3",
+      "durationMs": 3268,
+      "text": "כמה דקות רק בשבילך. מתחילים.",
+      "qa": "approved"
+    },
+    "open_w1": {
+      "url": "audio/narration/open_w1.mp3",
+      "durationMs": 8310,
+      "text": "שבוע ראשון. מתחילים לאט: לומדים לשחרר לפני שמחזקים, ולשמור על מֵצַח רגוע.",
+      "qa": "approved"
+    },
+    "open_w2": {
+      "url": "audio/narration/open_w2.mp3",
+      "durationMs": 5828,
+      "text": "שבוע שני. מוסיפים את הצוואר. הוא חלק מהפנים, יותר ממה שנדמה.",
+      "qa": "approved"
+    },
+    "open_w3": {
+      "url": "audio/narration/open_w3.mp3",
+      "durationMs": 7030,
+      "text": "שבוע שלישי. ההחזקות מתארכות, ונכנסים תרגילים חדשים לַלְּחָיַיִם וללסת.",
+      "qa": "approved"
+    },
+    "open_w4": {
+      "url": "audio/narration/open_w4.mp3",
+      "durationMs": 4626,
+      "text": "שבוע רביעי. חודש של תרגול. ההרגל כבר שלך.",
+      "qa": "approved"
+    },
+    "open_w5": {
+      "url": "audio/narration/open_w5.mp3",
+      "durationMs": 5593,
+      "text": "שבוע חמישי. מחזיקים קצת יותר זמן. איכות לפני כמות.",
+      "qa": "approved"
+    },
+    "open_w6": {
+      "url": "audio/narration/open_w6.mp3",
+      "durationMs": 4861,
+      "text": "שבוע שישי. חצי הדרך. השבוע יש גם צילום השוואה.",
+      "qa": "approved"
+    },
+    "open_w7": {
+      "url": "audio/narration/open_w7.mp3",
+      "durationMs": 6873,
+      "text": "שבוע שביעי. שלב ההעמקה מתחיל: עשר חזרות, ומפגשים קצת יותר ארוכים.",
+      "qa": "approved"
+    },
+    "open_w8": {
+      "url": "audio/narration/open_w8.mp3",
+      "durationMs": 6063,
+      "text": "שבוע שמיני. זה השלב שבו השרירים באמת מתחזקים. ממשיכים.",
+      "qa": "approved"
+    },
+    "open_w9": {
+      "url": "audio/narration/open_w9.mp3",
+      "durationMs": 5436,
+      "text": "שבוע תשיעי. תשימי לב לתחושה בַּלֶּסֶת. משהו השתנה?",
+      "qa": "approved"
+    },
+    "open_w10": {
+      "url": "audio/narration/open_w10.mp3",
+      "durationMs": 4705,
+      "text": "שבוע עשירי. עוד קצת. העקביות היא כל הסוד.",
+      "qa": "approved"
+    },
+    "open_w11": {
+      "url": "audio/narration/open_w11.mp3",
+      "durationMs": 5985,
+      "text": "שבוע אחד עשר. שלב הביסוס. פחות הנחיות, יותר את.",
+      "qa": "pending"
+    },
+    "open_w12": {
+      "url": "audio/narration/open_w12.mp3",
+      "durationMs": 5515,
+      "text": "שבוע שנים עשר. השבוע האחרון בתוכנית, והצילום שמסכם אותה.",
+      "qa": "pending"
+    },
+    "open_w13": {
+      "url": "audio/narration/open_w13.mp3",
+      "durationMs": 5018,
+      "text": "מפגש תחזוקה. פעמיים בשבוע מספיק כדי לשמור על מה שבנית.",
+      "qa": "approved"
+    },
+    "teacher_w1": {
+      "url": "audio/narration/teacher_w1.mp3",
+      "durationMs": 16878,
+      "text": "ברוכה הבאה. דבר אחד חשוב לפני שמתחילים: התוצאה הראשונה שתרגישי היא בַּלֶּסֶת ובצוואר, לא במראה. נפיחות הבוקר יורדת כבר אחרי כמה ימים. מלאות בַּלְּחָיַיִם, אם תגיע, לוקחת חודשיים לפחות.",
+      "qa": "approved"
+    },
+    "teacher_w2": {
+      "url": "audio/narration/teacher_w2.mp3",
+      "durationMs": 10791,
+      "text": "שבוע שני. אם הַלֶּסֶת רגישה, זה סימן שהיא הייתה תפוסה. השחרור עוזר. אם משהו כואב, לחצי על \"כואב לי\", ונדלג.",
+      "qa": "approved"
+    },
+    "teacher_w4": {
+      "url": "audio/narration/teacher_w4.mp3",
+      "durationMs": 7343,
+      "text": "חודש שלם. רוב מי שמפסיקות, מפסיקות עכשיו. את ממשיכה, וזה מה שקובע.",
+      "qa": "approved"
+    },
+    "teacher_w6": {
+      "url": "audio/narration/teacher_w6.mp3",
+      "durationMs": 8701,
+      "text": "חצי הדרך. עדיין מוקדם לראות שינוי במראה, וזה תקין לגמרי. השבוע נצלם, רק כדי שיהיה למה להשוות.",
+      "qa": "approved"
+    },
+    "teacher_w8": {
+      "url": "audio/narration/teacher_w8.mp3",
+      "durationMs": 9668,
+      "text": "שבוע שמיני. במחקר היחיד שבדק את זה, השינוי בַּלְּחָיַיִם התחיל להיראות אחרי שמונה שבועות. עכשיו בונים.",
+      "qa": "approved"
+    },
+    "teacher_w12": {
+      "url": "audio/narration/teacher_w12.mp3",
+      "durationMs": 7657,
+      "text": "סיימת שנים עשר שבועות. זה לא מובן מאליו. מכאן, פעמיים בשבוע מספיקות כדי לשמור.",
+      "qa": "pending"
+    }
+  },
+  "audio": {
+    "music": "audio/music/music_a_10min.mp3",
+    "ui": {
+      "celebrate": "audio/ui/ui_celebrate.mp3",
+      "end": "audio/ui/ui_end.mp3",
+      "hold": "audio/ui/ui_hold.mp3",
+      "next": "audio/ui/ui_next.mp3",
+      "release": "audio/ui/ui_release.mp3",
+      "start": "audio/ui/ui_start.mp3"
+    }
+  }
+}

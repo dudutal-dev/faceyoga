@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+/* פלטת שמפניה וורד־עתיק. Heebo לגוף, Frank Ruhl Libre לכותרות. בסיס 17px; אין טקסט מתחת ל-15px. */
+@theme {
+  --font-sans: "Heebo", system-ui, sans-serif;
+  --font-display: "Frank Ruhl Libre", "Heebo", serif;
+  --color-rose: #b26e60;
+  --color-rose-deep: #8c4f43;
+  --color-rose-soft: #e8c8bd;
+  --color-champagne: #f3e7da;
+  --color-gold: #c4a06a;
+  --color-sage: #8ea58c;
+  --color-stop: #b23a2f;
+  --radius-card: 24px;
+  --text-sm: 0.92rem;
+  --text-sm--line-height: 1.45;
+  --text-xs: 0.88rem;
+  --text-xs--line-height: 1.45;
+}
+
+:root {
+  /* מוגדרים במפורש: Tailwind פולט משתני theme רק כשמשתמשים בהם דרך utility, ואנחנו משתמשים בהם דרך var() */
+  --color-rose: #b26e60; --color-rose-deep: #8c4f43; --color-rose-soft: #e8c8bd; --color-champagne: #f3e7da; --color-gold: #c4a06a; --color-sage: #8ea58c; --color-stop: #b23a2f;
+  --bg: #fbf6f1;
+  --bg-elev: #ffffff;
+  --bg-tint: #f6ebe3;
+  --fg: #2b2220;
+  --fg-soft: #76655f;
+  --line: #ead9cf;
+  --ring-track: #f0e2d8;
+  --accent: var(--color-rose);
+  --accent-deep: var(--color-rose-deep);
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1c1715; --bg-elev: #26201d; --bg-tint: #2e2622; --fg: #f4e9e1; --fg-soft: #bba9a0; --line: #3b312c; --ring-track: #3a2f2a;
+    --accent: #d08d7e; --accent-deep: #e8a898;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1c1715; --bg-elev: #26201d; --bg-tint: #2e2622; --fg: #f4e9e1; --fg-soft: #bba9a0; --line: #3b312c; --ring-track: #3a2f2a;
+  --accent: #d08d7e; --accent-deep: #e8a898;
+}
+
+html { font-size: 17px; }
+html[data-font="large"] { font-size: 19.5px; }
+html[data-font="xl"] { font-size: 22px; }
+
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--font-sans); line-height: 1.55;
+  -webkit-font-smoothing: antialiased; overscroll-behavior: none;
+}
+h1, h2, .display { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; }
+
+@layer base {
+button, a, input, label { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:disabled { opacity: .45; cursor: default; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--color-gold); outline-offset: 3px; }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+.btn-primary {
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+  min-height: 60px; width: 100%; border-radius: 999px; border: 0;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%); color: #fff; font-weight: 700; font-size: 1.2rem;
+  box-shadow: 0 10px 28px -14px rgba(140, 79, 67, .8);
+  transition: transform 200ms ease, filter 200ms ease;
+}
+.btn-primary:active { transform: scale(.985); filter: brightness(.95); }
+.btn-secondary {
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+  min-height: 54px; width: 100%; border-radius: 999px;
+  border: 1.5px solid var(--line); background: var(--bg-elev); color: var(--fg); font-weight: 600;
+}
+.btn-stop { min-height: 54px; padding: 0 1.3rem; border-radius: 999px; border: 0; background: var(--color-stop); color: #fff; font-weight: 700; }
+.chip {
+  display: inline-flex; align-items: center; gap: .4rem; min-height: 46px; padding: 0 1rem;
+  border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg-elev); color: var(--fg); font-weight: 500;
+}
+.chip[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--bg-elev)); font-weight: 600; }
+.chip:active, .btn-stop:active, .btn-secondary:active { transform: scale(.96); }
+.chip, .btn-stop, .btn-secondary { transition: transform 120ms ease, background 200ms ease; }
+.card { background: var(--bg-elev); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.card-tint { background: var(--bg-tint); border-radius: var(--radius-card); }
+.eyebrow { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-soft); font-weight: 600; }
+.soft { color: var(--fg-soft); }
+
+/* כניסה רכה של מסכים */
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise 420ms cubic-bezier(.2,.7,.2,1) both; }
+.rise-2 { animation: rise 420ms 80ms cubic-bezier(.2,.7,.2,1) both; }
+.rise-3 { animation: rise 420ms 160ms cubic-bezier(.2,.7,.2,1) both; }
+
+input[type="range"] { accent-color: var(--accent); width: 100%; height: 36px; }
+input[type="time"], input[type="date"], input[type="text"] {
+  font: inherit; color: var(--fg); background: var(--bg-elev); border: 1.5px solid var(--line); border-radius: 14px; padding: .6rem .9rem; min-height: 50px;
+}
+
+/* סטיל בלי וידאו: תנועת קן־ברנס איטית כדי שלא ירגיש קפוא */
+@keyframes kenburns { from { transform: scale(1.02) translateY(0); } to { transform: scale(1.08) translateY(-1.5%); } }
+.kenburns { animation: kenburns 14s ease-in-out infinite alternate; }

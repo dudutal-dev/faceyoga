@@ -5,7 +5,7 @@
 *.key
 
 # הלולאות המאושרות ב-content/video כן נכנסות (הכרעת דודו: וידאו בתוך האפליקציה). outputs/ לא.
-content/audio/music/
+content/audio/music/*_preview*
 content/audio/ambience/
 reference/*.mp4
 reference/*.webm
@@ -31,3 +31,6 @@ outputs/stage1/
 outputs/**/*.mp3
 outputs/**/*.jpg
 outputs/*.log
+content/character/*.png
+!content/audio/music/
+app/tsconfig.tsbuildinfo

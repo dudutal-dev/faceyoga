@@ -1,0 +1,15 @@
+{
+  "model_id": "veo-3.1-generate-001",
+  "prompt": "A calm, elegant face-yoga tutorial. The same woman, same studio, same clothes and lighting, filmed in a single continuous shot. She moves slowly and smoothly from the pose in the first frame to exactly the pose in the last frame, in one continuous motion. Her fingertips stay touching the skin around both eyes for the ENTIRE clip: the hands never lift off, never move away from the face, never leave the frame; only the eyes move. With her V-shaped fingers resting around both eyes, she slowly lifts her gaze upward (the head stays level) and gently tightens only the lower eyelids in a soft squint. The fingers do not move. The forehead stays smooth. Her hands keep exactly five fingers each and stay softly on the skin, never sliding into the mouth or eyes, never pulling or distorting the skin. Her forehead stays smooth. Her face keeps its identity exactly. Natural blinking. Static locked camera, no camera movement, no zoom, no cuts, framing unchanged, background unchanged.",
+  "seed": 1002,
+  "negative_prompt": "extra fingers, missing fingers, fused fingers, deformed hands, hands inside mouth, fingers in eyes, skin pulled, face morphing, identity change, wrinkled forehead, raised eyebrows, exaggerated grimace, talking, camera movement, zoom, cuts, scene change, text, captions, logos, watermark, other people, jewelry change",
+  "duration_secs": 4,
+  "aspect_ratio": "9:16",
+  "resolution": "1080p",
+  "generate_audio": false,
+  "enhance_prompt": true,
+  "start_frame": "<act_eye_ring_pre>",
+  "end_frame": "<act_eye_ring>",
+  "generation_id": "vu22590ah5FRQQw4ITmf",
+  "cache_key": "8a77dd349682b661"
+}
