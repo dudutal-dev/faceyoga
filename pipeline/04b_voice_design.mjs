@@ -5,8 +5,8 @@ import path from 'node:path';
 import { ROOT, api, logCost } from './lib.mjs';
 import { tts, verify } from './04_narration.mjs';
 
-const OUT = path.join(ROOT, 'outputs', 'stage1', 'voices'); fs.mkdirSync(OUT, { recursive: true });
-export const SENTENCE = 'היי, ברוכה הבאה לפנים 12. היום נתחיל בשחרור של הצוואר והלסת. שימי את קצות האצבעות על עצמות הלחיים, חייכי לאט, ותחזיקי חמש שניות. המצח נשאר רך.';
+const OUT = path.join(ROOT, 'outputs', 'stage1', 'voices_v3'); fs.mkdirSync(OUT, { recursive: true });
+export const SENTENCE = 'הַיי, בְּרוּכָה הַבָּאָה לְ"פָּנִים 12". הַיּוֹם נַתְחִיל בְּשִׁחְרוּר שֶׁל הַצוואר וְהַלֶּסֶת. שִׂימִי אֶת קְצוֹת הָאֶצְבָּעוֹת עַל עַצְמוֹת הַלְּחָיַיִם, חַיְּכִי לְאַט, וְתַחְזִיקִי חָמֵשׁ שְׁנִיּוֹת. הַמֵּצַח נִשְׁאָר רַךְ, וְהַפָּנִים רְגוּעוֹת.';
 export const DESIGNS = {
   design_a: 'A warm, friendly Israeli woman around forty speaking natural modern Hebrew. Clear mid-range voice with a gentle smile in it, close and intimate like a personal trainer guiding a friend in front of a mirror. Calm but alive, encouraging, unhurried, natural breathing, no breathiness, no theatrical drama.',
   design_b: 'A soft, caring Hebrew-speaking woman in her late thirties, light warm voice, relaxed spa-like delivery, slow and reassuring, rounded friendly tone, gentle confidence, like a facial therapist talking you through a calming routine.',

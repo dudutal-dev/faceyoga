@@ -176,5 +176,184 @@
     "seconds": 29,
     "usd": null,
     "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
+  },
+  {
+    "at": "2026-11-08T22:10:37.211Z",
+    "stage": 1,
+    "kind": "voice-design",
+    "label": "design_a",
+    "chars": 253,
+    "previews": 3,
+    "usd": null
+  },
+  {
+    "at": "2026-11-08T22:10:54.069Z",
+    "stage": 1,
+    "kind": "image",
+    "label": "character 5 front",
+    "generation_id": "Atft1o7nZHbx1MMaFyNR",
+    "model_id": "gemini-3-pro-image",
+    "bytes": 5992045,
+    "seconds": 29,
+    "usd": null,
+    "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
+  },
+  {
+    "at": "2026-11-08T22:10:54.428Z",
+    "stage": 1,
+    "kind": "image",
+    "label": "character 6 front",
+    "generation_id": "gDzMMGAsVbvjZolAFzFY",
+    "model_id": "gemini-3-pro-image",
+    "bytes": 7681848,
+    "seconds": 29,
+    "usd": null,
+    "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
+  },
+  {
+    "at": "2026-11-08T22:10:57.015Z",
+    "stage": 1,
+    "kind": "image",
+    "label": "character 7 front",
+    "generation_id": "EFFyrG80ZrlT6UV8wZaR",
+    "model_id": "gemini-3-pro-image",
+    "bytes": 5655006,
+    "seconds": 32,
+    "usd": null,
+    "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
+  },
+  {
+    "at": "2026-11-08T22:10:57.254Z",
+    "stage": 1,
+    "kind": "image",
+    "label": "character 8 front",
+    "generation_id": "gL7ST9zxfmRaqKCS1ubB",
+    "model_id": "gemini-3-pro-image",
+    "bytes": 6580413,
+    "seconds": 32,
+    "usd": null,
+    "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
+  },
+  {
+    "at": "2026-11-08T22:11:08.398Z",
+    "stage": 1,
+    "kind": "voice-design",
+    "label": "design_b",
+    "chars": 253,
+    "previews": 3,
+    "usd": null
+  },
+  {
+    "at": "2026-11-08T22:11:35.141Z",
+    "stage": 1,
+    "kind": "voice-design",
+    "label": "design_c",
+    "chars": 253,
+    "previews": 3,
+    "usd": null
+  },
+  {
+    "at": "2026-11-08T22:11:58.163Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "lib_matilda",
+    "model_id": "eleven_v4",
+    "voice_id": "XrExE9yKIg1WjnnlVkGX",
+    "chars": 253,
+    "usd": 0.0202,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-08T22:12:08.196Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "lib_sarah",
+    "model_id": "eleven_v4",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "chars": 253,
+    "usd": 0.0202,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-08T22:12:39.074Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "pron_a",
+    "model_id": "eleven_v4",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "chars": 47,
+    "usd": 0.0038,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-08T22:12:40.562Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "pron_b",
+    "model_id": "eleven_v4",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "chars": 49,
+    "usd": 0.0039,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-08T22:12:41.543Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "pron_c",
+    "model_id": "eleven_v4",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "chars": 33,
+    "usd": 0.0026,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-08T22:12:49.537Z",
+    "stage": 1,
+    "kind": "voice-design",
+    "label": "design_a",
+    "chars": 250,
+    "previews": 3,
+    "usd": null
+  },
+  {
+    "at": "2026-11-08T22:13:13.425Z",
+    "stage": 1,
+    "kind": "voice-design",
+    "label": "design_b",
+    "chars": 250,
+    "previews": 3,
+    "usd": null
+  },
+  {
+    "at": "2026-11-08T22:13:37.943Z",
+    "stage": 1,
+    "kind": "voice-design",
+    "label": "design_c",
+    "chars": 250,
+    "previews": 3,
+    "usd": null
+  },
+  {
+    "at": "2026-11-08T22:13:55.992Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "lib_matilda",
+    "model_id": "eleven_v4",
+    "voice_id": "XrExE9yKIg1WjnnlVkGX",
+    "chars": 250,
+    "usd": 0.02,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-08T22:14:07.097Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "lib_sarah",
+    "model_id": "eleven_v4",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "chars": 250,
+    "usd": 0.02,
+    "note": "לפי pricing/api: $0.08/1K תווים"
   }
 ]

@@ -8,25 +8,26 @@ import { ROOT, config, generate, imageRef, copyTo } from './lib.mjs';
 const OUT = path.join(ROOT, 'outputs', 'stage1'); fs.mkdirSync(OUT, { recursive: true });
 
 // מה שהווידאו צריך: פנים ברורות, ידיים יכולות להיכנס לפריים, עור אמיתי, רקע אחיד.
+// גרסה 2 (משוב דודו 8.11): הרבה יותר אסתטית ויפה, לבוש אלגנטי. עדיין עור אמיתי (לא פלסטיק) כדי שהתרגילים ייראו אמינים.
 const BASE = [
-  'Photorealistic close-up portrait photograph of a single Israeli woman about 42 years old, {who}.',
-  'Natural real skin with visible fine texture and subtle natural expression lines around the eyes, NOT airbrushed, NOT retouched, minimal natural makeup, warm kind calm expression, lips relaxed and closed.',
-  'Framing: head, neck, collarbones and top of the shoulders, the face fills the upper-middle of the frame with generous space around it so both hands can later touch the face without leaving the frame. Camera at eye level, {view}.',
-  'Wearing {clothes}, neckline open so the whole neck is visible. Hair pulled back away from the face, forehead, ears and jawline fully visible.',
-  'Plain solid warm off-white studio background, soft even diffused frontal light like a beauty tutorial, no harsh shadows.',
-  'No jewelry, no text, no watermark, no logos, no props, no other people.',
+  'High-end beauty campaign photograph, photorealistic, of a single strikingly beautiful, elegant Israeli woman about 38 years old, {who}.',
+  'Radiant, glowing, healthy and luminous skin with natural real texture (not plastic, not over-retouched), refined polished natural makeup: soft luminous base, groomed brows, subtle defined lashes, soft nude-rose lips. Graceful long neck, defined cheekbones, serene confident gentle smile with closed lips.',
+  'Framing: head, neck, collarbones and shoulders, the face in the upper-middle of the frame with generous space around it so both hands can later touch the face without leaving the frame. Camera at eye level, {view}.',
+  'Wearing {clothes}. The whole neck, collarbones and jawline are fully visible. Hair beautifully styled and pulled back away from the face, forehead and ears visible.',
+  'Luxurious minimal spa setting: soft warm seamless backdrop in {bg}, gentle wraparound beauty lighting with a soft glow, flattering and even, subtle depth.',
+  'Small delicate stud earrings only. No text, no watermark, no logos, no props, no other people.',
 ].join(' ');
 export const CANDIDATES = [
-  { n: 1, who: 'olive skin, dark brown hair in a low bun, dark brown eyes, soft oval face', clothes: 'a simple champagne-coloured scoop-neck top' },
-  { n: 2, who: 'light skin, honey-brown hair in a low ponytail, hazel eyes, gentle heart-shaped face', clothes: 'a simple dusty-rose scoop-neck top' },
-  { n: 3, who: 'medium-tan skin, black curly hair tied back, brown eyes, warm round face', clothes: 'a simple soft sage-green scoop-neck top' },
-  { n: 4, who: 'fair skin with light freckles, auburn hair in a low bun, green eyes, elegant long face', clothes: 'a simple cream scoop-neck top' },
+  { n: 5, who: 'olive sun-kissed skin, glossy dark chocolate-brown hair in a sleek low chignon, warm brown almond eyes', clothes: 'an elegant champagne silk off-the-shoulder top with a soft draped neckline', bg: 'warm ivory' },
+  { n: 6, who: 'light luminous skin, long honey-blonde hair in a polished low ponytail, soft hazel eyes', clothes: 'an elegant blush-pink fine-knit off-the-shoulder top', bg: 'soft blush beige' },
+  { n: 7, who: 'warm golden-tan skin, glossy black hair in an elegant low bun with soft face-framing strands tucked back, deep brown eyes', clothes: 'an elegant ivory satin wrap top with a wide open V neckline showing the collarbones', bg: 'warm sand' },
+  { n: 8, who: 'fair porcelain skin with a soft natural flush, rich copper-auburn hair in a smooth low chignon, bright green eyes', clothes: 'an elegant soft sage silk camisole-style top with thin straps', bg: 'pale warm grey' },
 ];
 const VIEWS = {
   front: 'frontal view, she looks straight into the camera',
   side: 'exact side profile view from her right side, she faces the left edge of the frame, same woman, same clothes, same studio, same lighting, same framing',
 };
-const prompt = (c, view) => BASE.replace('{who}', c.who).replace('{clothes}', c.clothes).replace('{view}', VIEWS[view]);
+const prompt = (c, view) => BASE.replace('{who}', c.who).replace('{clothes}', c.clothes).replace('{bg}', c.bg).replace('{view}', VIEWS[view]);
 
 async function makeImage(c, view, refFile) {
   const request = { model_id: config.image.model_id, prompt: prompt(c, view), aspect_ratio: config.image.aspect_ratio, resolution: config.image.resolution };
