@@ -1,0 +1,180 @@
+[
+  {
+    "at": "2026-11-08T22:05:11.058Z",
+    "stage": 1,
+    "kind": "voice-design",
+    "label": "design_a",
+    "chars": 142,
+    "previews": 3,
+    "usd": null
+  },
+  {
+    "at": "2026-11-08T22:05:19.179Z",
+    "stage": "music",
+    "kind": "music",
+    "label": "music_a",
+    "ms": 60000,
+    "usd": 0.15,
+    "note": "$0.15/דקה לפי pricing/api"
+  },
+  {
+    "at": "2026-11-08T22:05:24.710Z",
+    "stage": "music",
+    "kind": "music",
+    "label": "music_b",
+    "ms": 60000,
+    "usd": 0.15,
+    "note": "$0.15/דקה לפי pricing/api"
+  },
+  {
+    "at": "2026-11-08T22:05:31.194Z",
+    "stage": "music",
+    "kind": "music",
+    "label": "music_c",
+    "ms": 60000,
+    "usd": 0.15,
+    "note": "$0.15/דקה לפי pricing/api"
+  },
+  {
+    "at": "2026-11-08T22:05:32.471Z",
+    "stage": "music",
+    "kind": "sfx",
+    "label": "ui_start",
+    "seconds": 1.5,
+    "usd": 0.003,
+    "note": "$0.12/דקה לפי pricing/api"
+  },
+  {
+    "at": "2026-11-08T22:05:33.161Z",
+    "stage": 1,
+    "kind": "voice-design",
+    "label": "design_b",
+    "chars": 142,
+    "previews": 3,
+    "usd": null
+  },
+  {
+    "at": "2026-11-08T22:05:33.904Z",
+    "stage": "music",
+    "kind": "sfx",
+    "label": "ui_next",
+    "seconds": 1.5,
+    "usd": 0.003,
+    "note": "$0.12/דקה לפי pricing/api"
+  },
+  {
+    "at": "2026-11-08T22:05:35.229Z",
+    "stage": "music",
+    "kind": "sfx",
+    "label": "ui_hold",
+    "seconds": 1.5,
+    "usd": 0.003,
+    "note": "$0.12/דקה לפי pricing/api"
+  },
+  {
+    "at": "2026-11-08T22:05:36.274Z",
+    "stage": "music",
+    "kind": "sfx",
+    "label": "ui_release",
+    "seconds": 1.5,
+    "usd": 0.003,
+    "note": "$0.12/דקה לפי pricing/api"
+  },
+  {
+    "at": "2026-11-08T22:05:37.616Z",
+    "stage": "music",
+    "kind": "sfx",
+    "label": "ui_end",
+    "seconds": 1.5,
+    "usd": 0.003,
+    "note": "$0.12/דקה לפי pricing/api"
+  },
+  {
+    "at": "2026-11-08T22:05:38.954Z",
+    "stage": "music",
+    "kind": "sfx",
+    "label": "ui_celebrate",
+    "seconds": 1.5,
+    "usd": 0.003,
+    "note": "$0.12/דקה לפי pricing/api"
+  },
+  {
+    "at": "2026-11-08T22:05:54.997Z",
+    "stage": 1,
+    "kind": "voice-design",
+    "label": "design_c",
+    "chars": 142,
+    "previews": 3,
+    "usd": null
+  },
+  {
+    "at": "2026-11-08T22:06:11.043Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "lib_matilda",
+    "model_id": "eleven_v4",
+    "voice_id": "XrExE9yKIg1WjnnlVkGX",
+    "chars": 142,
+    "usd": 0.0114,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-08T22:06:19.430Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "lib_sarah",
+    "model_id": "eleven_v4",
+    "voice_id": "EXAVITQu4vr4xnSDxMaL",
+    "chars": 142,
+    "usd": 0.0114,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-08T22:08:08.076Z",
+    "stage": 1,
+    "kind": "image",
+    "label": "character 1 front",
+    "generation_id": "m9EySDzwak5WITtSmcYs",
+    "model_id": "gemini-3-pro-image",
+    "bytes": 5822169,
+    "seconds": 26,
+    "usd": null,
+    "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
+  },
+  {
+    "at": "2026-11-08T22:08:10.673Z",
+    "stage": 1,
+    "kind": "image",
+    "label": "character 2 front",
+    "generation_id": "g652FJocNkfCFhKEouIs",
+    "model_id": "gemini-3-pro-image",
+    "bytes": 6924033,
+    "seconds": 29,
+    "usd": null,
+    "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
+  },
+  {
+    "at": "2026-11-08T22:08:10.985Z",
+    "stage": 1,
+    "kind": "image",
+    "label": "character 4 front",
+    "generation_id": "qudZQ9FuzVKJM4ji91lt",
+    "model_id": "gemini-3-pro-image",
+    "bytes": 5829496,
+    "seconds": 29,
+    "usd": null,
+    "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
+  },
+  {
+    "at": "2026-11-08T22:08:10.999Z",
+    "stage": 1,
+    "kind": "image",
+    "label": "character 3 front",
+    "generation_id": "2aJ93adeLVMIKmr8Ko7m",
+    "model_id": "gemini-3-pro-image",
+    "bytes": 6390317,
+    "seconds": 29,
+    "usd": null,
+    "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
+  }
+]

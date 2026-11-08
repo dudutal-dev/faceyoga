@@ -1,0 +1,33 @@
+# סודות
+.env
+.env.*
+!.env.example
+*.key
+
+# הלולאות המאושרות ב-content/video כן נכנסות (הכרעת דודו: וידאו בתוך האפליקציה). outputs/ לא.
+content/audio/music/
+content/audio/ambience/
+reference/*.mp4
+reference/*.webm
+
+# תלויות ובנייה
+node_modules/
+app/dist/
+pipeline/.cache/
+outputs/**/*.mp4
+outputs/**/*.webm
+
+# מערכת
+.DS_Store
+Thumbs.db
+outputs/stage1/age60_rejected/
+
+# סטילס ותמונות ביניים — נשארים בדיסק/OneDrive, לא ב-git (גודל)
+outputs/**/*.png
+!outputs/**/*_sheet*.png
+outputs/stage1/
+
+# faceyoga
+outputs/**/*.mp3
+outputs/**/*.jpg
+outputs/*.log
