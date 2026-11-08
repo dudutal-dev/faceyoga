@@ -1,5 +1,5 @@
 // חוזה המניפסט (נכתב על ידי pipeline/06_assemble.mjs). האפליקציה משתמשת רק בפריטים approved.
-export interface ManifestMedia { exerciseId: string; clip?: string; still?: string; mode?: 'pingpong' | 'loop'; bytes?: number; qa: 'approved' | 'pending' | 'rejected' }
+export interface ManifestMedia { exerciseId: string; clip?: string; still?: string; mode?: 'pingpong' | 'loop' | 'forward'; bytes?: number; qa: 'approved' | 'pending' | 'rejected' }
 export interface NarrationItem { url: string; durationMs: number; text: string; qa: string }
 export interface Manifest {
   version: string; generatedAt: string;
@@ -20,7 +20,7 @@ export function loadManifest(): Promise<Manifest> {
   return cached;
 }
 /** מדיה מאושרת לתרגיל: קליף אם יש, אחרת סטיל. */
-export function mediaFor(m: Manifest, exerciseId: string): { clip?: string; still?: string; mode?: 'pingpong' | 'loop' } {
+export function mediaFor(m: Manifest, exerciseId: string): { clip?: string; still?: string; mode?: 'pingpong' | 'loop' | 'forward' } {
   const x = m.media[exerciseId];
   if (!x) return {};
   return { clip: x.qa === 'approved' ? x.clip : undefined, still: x.still, mode: x.mode };

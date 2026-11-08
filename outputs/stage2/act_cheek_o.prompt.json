@@ -1,0 +1,15 @@
+{
+  "model_id": "veo-3.1-generate-001",
+  "prompt": "A calm, elegant face-yoga tutorial. The same woman, same studio, same clothes and lighting, filmed in a single continuous shot. She moves slowly and smoothly from the pose in the first frame to exactly the pose in the last frame, in one continuous motion. Her hands stay down OUT OF FRAME the whole clip; no hands, no fingers anywhere, no teeth showing. She slowly draws her lips into a soft O over her teeth and lifts her cheeks in a smile, only the mouth and cheeks move. Her hands keep exactly five fingers each and stay softly on the skin, never sliding into the mouth or eyes, never pulling or distorting the skin. Her forehead stays smooth. Her face keeps its identity exactly. Natural blinking. Static locked camera, no camera movement, no zoom, no cuts, framing unchanged, background unchanged.",
+  "seed": 1002,
+  "negative_prompt": "extra fingers, missing fingers, fused fingers, deformed hands, hands inside mouth, fingers in eyes, skin pulled, face morphing, identity change, wrinkled forehead, raised eyebrows, exaggerated grimace, talking, camera movement, zoom, cuts, scene change, text, captions, logos, watermark, other people, jewelry change",
+  "duration_secs": 4,
+  "aspect_ratio": "9:16",
+  "resolution": "1080p",
+  "generate_audio": false,
+  "enhance_prompt": true,
+  "start_frame": "<front>",
+  "end_frame": "<act_cheek_o>",
+  "generation_id": "j5f6YULdXAi6uWwrj666",
+  "cache_key": "f76157ccde34db31"
+}

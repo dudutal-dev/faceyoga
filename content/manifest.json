@@ -1,5 +1,5 @@
 {
-  "version": "04fbf72f6f",
+  "version": "b360eb1d30",
   "generatedAt": "2026-11-08",
   "character": {
     "front": "character/front.jpg",
@@ -33,6 +33,141 @@
       "clip": "video/rel_masseter.mp4",
       "mode": "loop",
       "bytes": 728201
+    },
+    "rel_posture": {
+      "exerciseId": "rel_posture",
+      "qa": "rejected",
+      "still": "stills/rel_posture.jpg"
+    },
+    "rel_neck_side": {
+      "exerciseId": "rel_neck_side",
+      "qa": "approved",
+      "still": "stills/rel_neck_side.jpg",
+      "clip": "video/rel_neck_side.mp4",
+      "mode": "pingpong",
+      "bytes": 1757583
+    },
+    "rel_scm": {
+      "exerciseId": "rel_scm",
+      "qa": "approved",
+      "still": "stills/rel_scm.jpg",
+      "clip": "video/rel_scm.mp4",
+      "mode": "forward",
+      "bytes": 581883
+    },
+    "rel_temples": {
+      "exerciseId": "rel_temples",
+      "qa": "approved",
+      "still": "stills/rel_temples.jpg",
+      "clip": "video/rel_temples.mp4",
+      "mode": "loop",
+      "bytes": 665391
+    },
+    "rel_forehead": {
+      "exerciseId": "rel_forehead",
+      "qa": "approved",
+      "still": "stills/rel_forehead.jpg",
+      "clip": "video/rel_forehead.mp4",
+      "mode": "forward",
+      "bytes": 651799
+    },
+    "act_cheek_o": {
+      "exerciseId": "act_cheek_o",
+      "qa": "approved",
+      "still": "stills/act_cheek_o.jpg",
+      "clip": "video/act_cheek_o.mp4",
+      "mode": "pingpong",
+      "bytes": 1209857
+    },
+    "act_cheek_puff": {
+      "exerciseId": "act_cheek_puff",
+      "qa": "approved",
+      "still": "stills/act_cheek_puff.jpg",
+      "clip": "video/act_cheek_puff.mp4",
+      "mode": "pingpong",
+      "bytes": 1465776
+    },
+    "act_jaw_forward": {
+      "exerciseId": "act_jaw_forward",
+      "qa": "approved",
+      "still": "stills/act_jaw_forward.jpg",
+      "clip": "video/act_jaw_forward.mp4",
+      "mode": "pingpong",
+      "bytes": 1545029
+    },
+    "act_neck_kiss": {
+      "exerciseId": "act_neck_kiss",
+      "qa": "approved",
+      "still": "stills/act_neck_kiss.jpg",
+      "clip": "video/act_neck_kiss.mp4",
+      "mode": "pingpong",
+      "bytes": 1435310
+    },
+    "act_lips": {
+      "exerciseId": "act_lips",
+      "qa": "rejected",
+      "still": "stills/act_lips.jpg"
+    },
+    "act_brow": {
+      "exerciseId": "act_brow",
+      "qa": "approved",
+      "still": "stills/act_brow.jpg",
+      "clip": "video/act_brow.mp4",
+      "mode": "pingpong",
+      "bytes": 1111590
+    },
+    "lift_sweep": {
+      "exerciseId": "lift_sweep",
+      "qa": "approved",
+      "still": "stills/lift_sweep.jpg",
+      "clip": "video/lift_sweep.mp4",
+      "mode": "forward",
+      "bytes": 674633
+    },
+    "lift_jawline": {
+      "exerciseId": "lift_jawline",
+      "qa": "approved",
+      "still": "stills/lift_jawline.jpg",
+      "clip": "video/lift_jawline.mp4",
+      "mode": "forward",
+      "bytes": 699059
+    },
+    "lift_close": {
+      "exerciseId": "lift_close",
+      "qa": "approved",
+      "still": "stills/lift_close.jpg",
+      "clip": "video/lift_close.mp4",
+      "mode": "loop",
+      "bytes": 645128
+    },
+    "am_drain": {
+      "exerciseId": "am_drain",
+      "qa": "approved",
+      "still": "stills/am_drain.jpg",
+      "clip": "video/am_drain.mp4",
+      "mode": "loop",
+      "bytes": 789145
+    },
+    "am_eyes": {
+      "exerciseId": "am_eyes",
+      "qa": "approved",
+      "still": "stills/am_eyes.jpg",
+      "clip": "video/am_eyes.mp4",
+      "mode": "loop",
+      "bytes": 643393
+    },
+    "gs_jaw": {
+      "exerciseId": "gs_jaw",
+      "qa": "approved",
+      "still": "stills/gs_jaw.jpg",
+      "clip": "video/gs_jaw.mp4",
+      "mode": "forward",
+      "bytes": 669622
+    },
+    "act_tongue_press": {
+      "exerciseId": "act_tongue_press",
+      "qa": "pending",
+      "still": "stills/act_tongue_press.jpg"
     }
   },
   "narration": {
@@ -508,6 +643,7 @@
   "audio": {
     "music": "audio/music/music_a_10min.mp3",
     "ui": {
+      "silence": "audio/ui/silence.mp3",
       "celebrate": "audio/ui/ui_celebrate.mp3",
       "end": "audio/ui/ui_end.mp3",
       "hold": "audio/ui/ui_hold.mp3",

@@ -13,5 +13,90 @@
     "qa": "approved",
     "attempt": 2,
     "note": "ניסיון 2: האצבעות נשארות על העור כל הקליף, רק העיניים זזות למעלה. ניסיון 1 נדחה (ידיים יצאו מהפריים)"
+  },
+  "rel_neck_side": {
+    "qa": "approved",
+    "attempt": 1,
+    "note": "הטיה עדינה, עיניים נעצמות. הידיים עולות לצוואר (לא בדיוק כמו הקריינות) אבל לא מזיק"
+  },
+  "rel_scm": {
+    "qa": "approved",
+    "attempt": 1,
+    "note": "ליטוף עדין בצד הצוואר"
+  },
+  "rel_temples": {
+    "qa": "approved",
+    "attempt": 1,
+    "note": "מעגלים ברקות; רגע קצר שהידיים מכסות את העיניים"
+  },
+  "rel_forehead": {
+    "qa": "approved",
+    "attempt": 1,
+    "note": "כפות מחליקות מהמרכז לרקות, קדימה בלבד"
+  },
+  "act_cheek_puff": {
+    "qa": "approved",
+    "attempt": 1,
+    "note": "הידיים עולות לפה ואז ניפוח; תקין"
+  },
+  "act_jaw_forward": {
+    "qa": "approved",
+    "attempt": 1,
+    "note": "סנטר למעלה ולסת קדימה, ידיים על הצוואר"
+  },
+  "act_neck_kiss": {
+    "qa": "approved",
+    "attempt": 1,
+    "note": "מבט לתקרה ונשיקה"
+  },
+  "act_brow": {
+    "qa": "approved",
+    "attempt": 1,
+    "note": "כף יד על המצח, העיניים נפתחות, המצח חלק"
+  },
+  "lift_sweep": {
+    "qa": "approved",
+    "attempt": 1,
+    "note": "ליטוף ארוך כלפי מעלה"
+  },
+  "lift_jawline": {
+    "qa": "approved",
+    "attempt": 1,
+    "note": "מהסנטר לאוזן; קפיצת מסגור קטנה באמצע"
+  },
+  "lift_close": {
+    "qa": "approved",
+    "attempt": 1,
+    "note": "כפות על הפנים, נשימה"
+  },
+  "am_drain": {
+    "qa": "approved",
+    "attempt": 1,
+    "note": "עצם הבריח, עלייה לפנים וחזרה"
+  },
+  "gs_jaw": {
+    "qa": "approved",
+    "attempt": 1,
+    "note": "אבן לאורך הלסת עד האוזן"
+  },
+  "rel_posture": {
+    "qa": "rejected",
+    "attempt": 1,
+    "note": "הראש עולה למעלה במקום נסיגת סנטר; מוצג כתמונה"
+  },
+  "act_cheek_o": {
+    "qa": "approved",
+    "attempt": 2,
+    "note": "ניסיון 2: בלי ידיים, צורת O ברורה"
+  },
+  "act_lips": {
+    "qa": "rejected",
+    "attempt": 2,
+    "note": "גם בניסיון 2 חיוך עם שיניים. מוצג כתמונה; לא לנסות שוב בלי שינוי שיטה"
+  },
+  "am_eyes": {
+    "qa": "approved",
+    "attempt": 2,
+    "note": "ניסיון 2: הקשות על עצם הלחי, עיניים פתוחות"
   }
 }

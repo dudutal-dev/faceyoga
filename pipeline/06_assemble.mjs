@@ -21,7 +21,7 @@ jpg(C('character/side.png'), C('character/side.jpg'), 900);
 
 const media = {};
 // כל תרגיל שיש לו תמונת-מפתח באותו שם (שיא התנועה) מקבל סטיל; קליף מאושר נכנס כוידאו.
-const ids = new Set([...Object.keys(CLIPS), ...Object.keys(KEYFRAMES).filter(k => !k.endsWith('_pre'))]);
+const ids = new Set([...Object.keys(CLIPS), ...Object.keys(KEYFRAMES).filter(k => !k.endsWith('_pre') && !k.endsWith('_start'))]);
 for (const id of ids) {
   const kfFile = path.join(KF, `${id}.png`);
   const entry = { exerciseId: id, qa: qa[id]?.qa ?? 'pending' };
