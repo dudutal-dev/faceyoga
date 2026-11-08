@@ -10,7 +10,6 @@ import { Voice, fallbackLines } from '../lib/audio';
 import { loadFace, startCamera, stopCamera, runFace, avg, browTension, type FaceFrame } from '../lib/face';
 import { RepCounter, WrinkleGuard } from '../lib/reps';
 import { db, getSettings, todayISO, type Settings } from '../db';
-import Evidence from '../components/Evidence';
 
 interface Live { label: string; remaining: number; total: number; rep: number; reps: number; holding: boolean }
 const sleepTick = 200;
@@ -158,8 +157,7 @@ export default function Player() {
     voice.current = new Voice(m, fallbackLines());
     voice.current.unlock(musicOn, settings?.musicVolume ?? 0.5);
     navigator.wakeLock?.request('screen').then(l => { wake.current = l; }).catch(() => {});
-    setStarted(true);
-    if (mirror) enableCamera();
+    setStarted(true); // המצלמה נפתחת ב-useEffect אחרי שאלמנט המראה נטען
     runSession(session);
   }
   function finish(status: 'done' | 'stopped') {
@@ -185,110 +183,108 @@ export default function Player() {
   const still = contentUrl(media.still ?? m.character.front);
   const split = mirror && camState !== 'denied';
 
+  const icon = 'w-11 h-11 shrink-0 rounded-full grid place-items-center border transition-colors';
+  const timeStr = `${Math.floor(elapsed / 60)}:${String(elapsed % 60).padStart(2, '0')}`;
+
   return (
     <div className="fixed inset-0 bg-[#141010] text-white select-none flex flex-col" dir="rtl">
       {/* מדריכה */}
-      <div className={`relative overflow-hidden transition-all duration-500 ${split ? 'h-[52%]' : 'flex-1'}`}>
+      <div className={`relative overflow-hidden min-h-0 ${split && started ? 'basis-[46%] shrink-0' : 'flex-1'}`}>
         {demoSrc
-          ? <video key={demoSrc} src={demoSrc} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover object-[50%_25%]" />
-          : <img key={still} src={still} alt="" className="absolute inset-0 w-full h-full object-cover object-[50%_25%] kenburns" />}
-        <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black/60 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/70 to-transparent" />
+          ? <video key={demoSrc} src={demoSrc} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover object-[50%_22%]" />
+          : <img key={still} src={still} alt="" className="absolute inset-0 w-full h-full object-cover object-[50%_22%] kenburns" />}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/65 to-transparent" />
+        {!split && <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/75 to-transparent" />}
         <div className="absolute inset-x-0 h-1 bg-white/15" style={{ top: 'env(safe-area-inset-top)' }}><div className="h-full bg-[var(--color-gold)] transition-[width] duration-700" style={{ width: `${progress}%` }} /></div>
-        <div className="absolute right-4 left-4 flex items-start justify-between gap-3" style={{ top: 'calc(env(safe-area-inset-top) + 14px)' }}>
-          <div className="min-w-0">
-            <div className="text-white/70 text-xs tracking-wider">{PHASE_HE[e.phase]} · {idx + 1}/{session.steps.length}</div>
-            <div className="display text-2xl leading-tight">{e.nameHe}</div>
-            <div className="text-white/75 text-sm">{e.muscle}</div>
-          </div>
-          <div className="opacity-90 shrink-0"><Evidence level={e.evidence} compact /></div>
+        <div className="absolute right-4 left-4" style={{ top: 'calc(env(safe-area-inset-top) + 12px)' }}>
+          <div className="text-white/75 text-xs">{PHASE_HE[e.phase]} · תרגיל {idx + 1} מתוך {session.steps.length}</div>
+          <div className="display text-[1.6rem] leading-tight drop-shadow">{e.nameHe}</div>
         </div>
         {!split && started && <Steps steps={e.steps} />}
       </div>
 
-      {/* מראה */}
-      {split && (
-        <div className="relative flex-1 bg-black overflow-hidden">
+      {/* מראה: שום פקד לא מכסה את הפנים */}
+      {split && started && (
+        <div className="relative flex-1 min-h-0 bg-black overflow-hidden">
           <video ref={camVideo} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted />
-          {started && camState !== 'on' && <div className="absolute inset-0 grid place-items-center text-white/60 text-sm">{camState === 'loading' ? 'פותחת מצלמה…' : 'המראה תיפתח עם תחילת המפגש'}</div>}
+          {camState !== 'on' && <div className="absolute inset-0 grid place-items-center text-white/60 text-sm">{camState === 'loading' ? 'פותחת מצלמה…' : ''}</div>}
           {camState === 'on' && (
             <>
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none"><ellipse cx="50" cy="46" rx="23" ry="34" fill="none" stroke={faceSeen ? 'rgba(196,160,106,.55)' : 'rgba(255,255,255,.35)'} strokeWidth=".5" strokeDasharray={faceSeen ? '0' : '2 2'} /></svg>
-              {coach.current.blend.length > 0 && (
-                <div className="absolute top-3 right-3 bg-black/55 backdrop-blur rounded-full px-3 py-1.5 flex items-center gap-2 text-xs">
-                  <span>המאמנת רואה</span>
-                  <span className="w-16 h-1.5 rounded-full bg-white/20 overflow-hidden"><span className="block h-full bg-[var(--color-gold)] transition-[width] duration-150" style={{ width: `${Math.round(quality * 100)}%` }} /></span>
-                </div>
-              )}
-              {!faceSeen && <div className="absolute top-3 inset-x-0 text-center text-xs text-white/70">התקרבי כך שהפנים בתוך האליפסה</div>}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none"><ellipse cx="50" cy="50" rx="26" ry="40" fill="none" stroke={faceSeen ? 'rgba(196,160,106,.8)' : 'rgba(255,255,255,.45)'} strokeWidth=".6" strokeDasharray={faceSeen ? '0' : '2 2'} /></svg>
+              <div className="absolute top-2 inset-x-2 flex justify-center pointer-events-none">
+                {!faceSeen
+                  ? <span className="bg-black/55 backdrop-blur rounded-full px-3 py-1 text-xs">הפנים בתוך האליפסה, מול אור</span>
+                  : coach.current.blend.length > 0 && (
+                    <span className="bg-black/55 backdrop-blur rounded-full px-3 py-1 flex items-center gap-2 text-xs">
+                      <span>המאמנת רואה</span>
+                      <span className="w-16 h-1.5 rounded-full bg-white/20 overflow-hidden"><span className="block h-full bg-[var(--color-gold)] transition-[width] duration-150" style={{ width: `${Math.round(quality * 100)}%` }} /></span>
+                    </span>
+                  )}
+              </div>
             </>
           )}
         </div>
       )}
-      {!split && <video ref={camVideo} className="hidden" playsInline muted />}
+      {!(split && started) && <video ref={camVideo} className="hidden" playsInline muted />}
 
-      {/* טיימר וחזרות */}
-      {started && live && (
-        <div className="absolute inset-x-0 flex justify-center pointer-events-none" style={{ bottom: 'calc(env(safe-area-inset-bottom) + 132px)' }}>
-          <div className="bg-black/55 backdrop-blur-md rounded-full pl-5 pr-2 py-2 flex items-center gap-3">
-            <Countdown remaining={live.remaining} total={live.total} holding={live.holding} />
-            <div className="text-start">
-              <div className="font-semibold">{live.label}</div>
-              {live.reps > 0 && <div className="text-white/70 text-sm">חזרה {COUNT_WORDS[live.rep - 1] ?? live.rep} מתוך {live.reps}</div>}
+      {toast && <div className="absolute inset-x-4 top-[38%] bg-black/85 border border-white/15 rounded-2xl p-3 text-center z-20 text-sm">{toast}</div>}
+      {paused && started && <div className="absolute inset-x-0 top-[30%] grid place-items-center pointer-events-none z-10"><div className="bg-black/70 rounded-full px-7 py-2.5 text-lg">מושהה</div></div>}
+
+      {/* לוח תחתון קבוע: מצב + פקדים. לא מונח על הווידאו או על המראה */}
+      {started && (
+        <div className="shrink-0 bg-[#1b1513] border-t border-white/10 px-4 pt-3 flex flex-col gap-3" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 12px)' }}>
+          <div className="flex items-center gap-3 min-h-[44px]">
+            {live && live.total > 0 ? <Countdown remaining={live.remaining} total={live.total} /> : <span className="w-11 h-11 shrink-0 rounded-full border-2 border-white/15 grid place-items-center"><span className="w-2 h-2 rounded-full bg-[var(--color-gold)] animate-pulse" /></span>}
+            <div className="flex-1 min-w-0 leading-tight">
+              <div className="font-semibold truncate">{live?.label ?? ''}</div>
+              <div className="text-white/60 text-sm truncate">{live && live.reps > 0 && live.rep > 0 ? `חזרה ${COUNT_WORDS[live.rep - 1] ?? live.rep} מתוך ${live.reps}` : e.muscle}</div>
             </div>
+            <span className="text-white/50 text-sm tabular-nums">{timeStr}</span>
+            <button className={icon} style={{ borderColor: mirror ? 'var(--color-gold)' : 'rgba(255,255,255,.15)', color: mirror ? 'var(--color-gold)' : 'rgba(255,255,255,.7)' }} aria-pressed={mirror} aria-label="מראה" onClick={() => setMirror(v => !v)}>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2" /><circle cx="12" cy="11" r="3" /><path d="M7.5 17.5c1-1.6 2.6-2.5 4.5-2.5s3.5.9 4.5 2.5" /></svg>
+            </button>
+            <button className={icon} style={{ borderColor: musicOn ? 'var(--color-gold)' : 'rgba(255,255,255,.15)', color: musicOn ? 'var(--color-gold)' : 'rgba(255,255,255,.7)' }} aria-pressed={musicOn} aria-label="מוזיקה" onClick={() => setMusicOn(v => !v)}>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V6l10-2v12" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="16.5" cy="16" r="2.5" />{!musicOn && <path d="M3 3l18 18" />}</svg>
+            </button>
+          </div>
+          <div className="flex items-center justify-between gap-1.5">
+            <button className="h-12 flex-1 min-w-0 max-w-[92px] rounded-full bg-[var(--color-stop)] text-white font-semibold text-sm" onClick={() => finish('stopped')}>סיום</button>
+            <button className="w-12 h-12 shrink-0 rounded-full bg-white/10 grid place-items-center disabled:opacity-30" onClick={() => jump(-1)} disabled={idx === 0} aria-label="הקודם"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg></button>
+            <button className="w-16 h-16 shrink-0 rounded-full bg-white text-[var(--color-rose-deep)] grid place-items-center shadow-lg active:scale-95 transition-transform" onClick={() => setPaused(p => !p)} aria-label={paused ? 'המשך' : 'השהיה'}>{paused ? <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M16 5.5v13L5 12z" /></svg> : <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><rect x="6.5" y="5" width="4" height="14" rx="1.2" /><rect x="13.5" y="5" width="4" height="14" rx="1.2" /></svg>}</button>
+            <button className="w-12 h-12 shrink-0 rounded-full bg-white/10 grid place-items-center disabled:opacity-30" onClick={() => jump(1)} disabled={idx >= session.steps.length - 1} aria-label="הבא"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 6l-6 6 6 6" /></svg></button>
+            <button className="h-12 flex-1 min-w-0 max-w-[92px] rounded-full bg-white/10 text-sm whitespace-nowrap" onClick={reportPain}>כואב לי</button>
           </div>
         </div>
       )}
 
-      {toast && <div className="absolute inset-x-4 top-1/3 bg-black/80 border border-white/15 rounded-2xl p-3 text-center z-20 text-sm">{toast}</div>}
-
       {/* מסך פתיחה */}
       {!started && (
         <div className="absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-black/90 via-black/40 to-transparent">
-          <div className="p-6 pb-10 flex flex-col gap-3 max-w-[520px] w-full mx-auto">
+          <div className="p-6 flex flex-col gap-3 max-w-[520px] w-full mx-auto" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 20px)' }}>
             <div className="text-white/70 text-sm">{session.plannedMin} דקות · {session.steps.length} תרגילים</div>
             <div className="display text-[2rem] leading-tight">{session.title}</div>
             <ol className="flex flex-wrap gap-1.5 text-xs text-white/80">{session.steps.map(s => <li key={s.key} className="rounded-full bg-white/12 px-2.5 py-1">{s.exercise.nameHe}</li>)}</ol>
-            <button className="chip !bg-white/10 !border-white/25 !text-white !justify-between mt-1" aria-pressed={mirror} onClick={() => setMirror(v => !v)}>
-              <span>מראה ומאמנת פנים <span className="text-white/60 text-xs">(המצלמה לא מקליטה ולא שולחת)</span></span><span>{mirror ? 'פועל' : 'כבוי'}</span>
+            <button className="chip !bg-white/10 !border-white/25 !text-white !justify-between !rounded-2xl !py-2 mt-1" aria-pressed={mirror} onClick={() => setMirror(v => !v)}>
+              <span className="text-start">מראה ומאמנת פנים<br /><span className="text-white/60 text-xs">המצלמה לא מקליטה ולא שולחת</span></span><span>{mirror ? 'פועל' : 'כבוי'}</span>
             </button>
             <button className="btn-primary !text-xl" onClick={start}>התחילי</button>
             <button className="text-white/70 py-2" onClick={() => nav(-1)}>חזרה</button>
           </div>
         </div>
       )}
-
-      {/* פקדים */}
-      {started && (
-        <div className="absolute inset-x-0 z-10 flex flex-col items-center gap-2 px-4" style={{ bottom: 'calc(env(safe-area-inset-bottom) + 16px)' }}>
-          <div className="w-full max-w-[460px] bg-black/60 backdrop-blur-md rounded-[28px] p-2 flex items-center justify-between gap-2">
-            <button className="btn-stop !min-h-[54px] !px-4 !rounded-[22px]" onClick={() => finish('stopped')}>סיום</button>
-            <button className="chip !min-h-[54px] !px-4 !rounded-[22px] !bg-white/10 !border-white/20 !text-white" onClick={() => jump(-1)} disabled={idx === 0} aria-label="הקודם">→</button>
-            <button className="w-[66px] h-[66px] rounded-full bg-white text-[var(--color-rose-deep)] text-xl grid place-items-center shadow-lg active:scale-95 transition-transform" onClick={() => setPaused(p => !p)} aria-label={paused ? 'המשך' : 'השהיה'}>{paused ? <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg> : <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><rect x="6.5" y="5" width="4" height="14" rx="1.2" /><rect x="13.5" y="5" width="4" height="14" rx="1.2" /></svg>}</button>
-            <button className="chip !min-h-[54px] !px-4 !rounded-[22px] !bg-white/10 !border-white/20 !text-white" onClick={() => jump(1)} disabled={idx >= session.steps.length - 1} aria-label="הבא">←</button>
-            <button className="chip !min-h-[54px] !px-3 !rounded-[22px] !bg-white/10 !border-white/20 !text-white !text-sm" onClick={reportPain}>כואב לי</button>
-          </div>
-          <div className="flex items-center gap-2 text-white/70 text-sm tabular-nums">
-            <span>{Math.floor(elapsed / 60)}:{String(elapsed % 60).padStart(2, '0')}</span>
-            <button className="chip !min-h-9 !px-3 !bg-black/40 !border-white/20 !text-white !text-xs" aria-pressed={mirror} onClick={() => setMirror(v => !v)}>מראה</button>
-            <button className="chip !min-h-9 !px-3 !bg-black/40 !border-white/20 !text-white !text-xs" aria-pressed={musicOn} onClick={() => setMusicOn(v => !v)}>מוזיקה</button>
-          </div>
-        </div>
-      )}
-      {paused && started && <div className="absolute inset-0 grid place-items-center pointer-events-none z-0"><div className="bg-black/60 rounded-full px-8 py-3 text-xl">מושהה</div></div>}
     </div>
   );
 }
 
-function Countdown({ remaining, total, holding }: { remaining: number; total: number; holding: boolean }) {
-  const r = 22, c = 2 * Math.PI * r, frac = total ? remaining / total : 0;
+function Countdown({ remaining, total }: { remaining: number; total: number }) {
+  const r = 19, c = 2 * Math.PI * r, frac = total ? remaining / total : 0;
   return (
-    <div className="relative w-14 h-14">
-      <svg viewBox="0 0 56 56" className="w-14 h-14 -rotate-90"><circle cx="28" cy="28" r={r} fill="none" stroke="rgba(255,255,255,.18)" strokeWidth="4" /><circle cx="28" cy="28" r={r} fill="none" stroke="var(--color-gold)" strokeWidth="4" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - frac)} style={{ transition: 'stroke-dashoffset 250ms linear' }} /></svg>
-      <div className="absolute inset-0 grid place-items-center text-lg font-semibold tabular-nums">{holding && total ? remaining : '·'}</div>
+    <div className="relative w-11 h-11 shrink-0">
+      <svg viewBox="0 0 44 44" className="w-11 h-11 -rotate-90"><circle cx="22" cy="22" r={r} fill="none" stroke="rgba(255,255,255,.15)" strokeWidth="3.5" /><circle cx="22" cy="22" r={r} fill="none" stroke="var(--color-gold)" strokeWidth="3.5" strokeLinecap="round" strokeDasharray={c} strokeDashoffset={c * (1 - frac)} style={{ transition: 'stroke-dashoffset 250ms linear' }} /></svg>
+      <div className="absolute inset-0 grid place-items-center font-semibold tabular-nums">{remaining}</div>
     </div>
   );
 }
 function Steps({ steps }: { steps: string[] }) {
-  return <ol className="absolute bottom-48 right-4 left-4 flex flex-col gap-1.5 text-sm">{steps.map((s, i) => <li key={i} className="flex gap-2 items-start"><span className="w-5 h-5 shrink-0 rounded-full bg-white/20 grid place-items-center text-xs">{i + 1}</span><span className="text-white/90 drop-shadow">{s}</span></li>)}</ol>;
+  return <ol className="absolute bottom-4 right-4 left-4 flex flex-col gap-1.5 text-sm">{steps.map((s, i) => <li key={i} className="flex gap-2 items-start"><span className="w-5 h-5 shrink-0 rounded-full bg-white/20 grid place-items-center text-xs">{i + 1}</span><span className="text-white/90 drop-shadow">{s}</span></li>)}</ol>;
 }
