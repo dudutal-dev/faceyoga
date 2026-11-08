@@ -32,6 +32,7 @@ export default function Player() {
   const [toast, setToast] = useState<string | null>(null);
   const [musicOn, setMusicOn] = useState(true);
   const [elapsed, setElapsed] = useState(0);
+  const [caption, setCaption] = useState<string | null>(null);
 
   const voice = useRef<Voice | null>(null);
   const run = useRef({ token: 0, paused: false, jump: null as number | null, painSkip: false });
@@ -54,7 +55,7 @@ export default function Player() {
 
   useEffect(() => { if (!toast) return; const t = window.setTimeout(() => setToast(null), 3500); return () => window.clearTimeout(t); }, [toast]);
   useEffect(() => { if (!started || paused) return; const t = window.setInterval(() => setElapsed(v => v + 1), 1000); return () => window.clearInterval(t); }, [started, paused]);
-  useEffect(() => { run.current.paused = paused; if (!voice.current) return; if (paused) voice.current.pause(); else voice.current.resume(musicOn); }, [paused, musicOn]);
+  useEffect(() => { run.current.paused = paused; if (!voice.current) return; if (paused) voice.current.pause(); else voice.current.resume(); }, [paused]);
   useEffect(() => { voice.current?.setMusic(musicOn); }, [musicOn]);
 
   const step = session?.steps[idx];
@@ -155,6 +156,7 @@ export default function Player() {
   function start() {
     if (!session || !m) return;
     voice.current = new Voice(m, fallbackLines());
+    voice.current.onCaption = t => setCaption(t && t.length > 14 ? t : null); // לא מציגים ספירות קצרות
     voice.current.unlock(musicOn, settings?.musicVolume ?? 0.5);
     navigator.wakeLock?.request('screen').then(l => { wake.current = l; }).catch(() => {});
     setStarted(true); // המצלמה נפתחת ב-useEffect אחרי שאלמנט המראה נטען
@@ -247,6 +249,7 @@ export default function Player() {
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V6l10-2v12" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="16.5" cy="16" r="2.5" />{!musicOn && <path d="M3 3l18 18" />}</svg>
             </button>
           </div>
+          {caption && <p className="text-[0.95rem] leading-snug text-white/85 line-clamp-3">{caption}</p>}
           <div className="flex items-center justify-between gap-1.5">
             <button className="h-12 flex-1 min-w-0 max-w-[92px] rounded-full bg-[var(--color-stop)] text-white font-semibold text-sm" onClick={() => finish('stopped')}>סיום</button>
             <button className="w-12 h-12 shrink-0 rounded-full bg-white/10 grid place-items-center disabled:opacity-30" onClick={() => jump(-1)} disabled={idx === 0} aria-label="הקודם"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg></button>
