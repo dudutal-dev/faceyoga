@@ -2362,5 +2362,117 @@
     "seconds": 923,
     "usd": null,
     "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
+  },
+  {
+    "at": "2026-11-09T06:38:12.342Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "am_drain_intro",
+    "model_id": "eleven_v4",
+    "voice_id": "UftNp7bAl1b6Y7tTy8OA",
+    "chars": 148,
+    "usd": 0.0118,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-09T06:38:18.190Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "session_close",
+    "model_id": "eleven_v4",
+    "voice_id": "UftNp7bAl1b6Y7tTy8OA",
+    "chars": 90,
+    "usd": 0.0072,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-09T06:38:22.487Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "morning_open",
+    "model_id": "eleven_v4",
+    "voice_id": "UftNp7bAl1b6Y7tTy8OA",
+    "chars": 70,
+    "usd": 0.0056,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-09T06:38:25.817Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "quick_open",
+    "model_id": "eleven_v4",
+    "voice_id": "UftNp7bAl1b6Y7tTy8OA",
+    "chars": 35,
+    "usd": 0.0028,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-09T06:38:28.273Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "open_w4",
+    "model_id": "eleven_v4",
+    "voice_id": "UftNp7bAl1b6Y7tTy8OA",
+    "chars": 46,
+    "usd": 0.0037,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-09T06:38:33.771Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "intro_1",
+    "model_id": "eleven_v4",
+    "voice_id": "UftNp7bAl1b6Y7tTy8OA",
+    "chars": 136,
+    "usd": 0.0109,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-09T06:38:40.509Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "intro_5",
+    "model_id": "eleven_v4",
+    "voice_id": "UftNp7bAl1b6Y7tTy8OA",
+    "chars": 147,
+    "usd": 0.0118,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-09T06:38:56.242Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "intro_5",
+    "model_id": "eleven_v4",
+    "voice_id": "UftNp7bAl1b6Y7tTy8OA",
+    "chars": 153,
+    "usd": 0.0122,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-09T06:43:33.460Z",
+    "stage": 3,
+    "kind": "video",
+    "label": "talk intro_1",
+    "generation_id": "sxcKUxybt1mFxakRd7JW",
+    "model_id": "creatify-aurora",
+    "bytes": 1879262,
+    "seconds": 264,
+    "usd": null,
+    "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
+  },
+  {
+    "at": "2026-11-09T06:45:15.686Z",
+    "stage": 3,
+    "kind": "video",
+    "label": "talk intro_5",
+    "generation_id": "7hQd0nV8vN0qeU48ynRc",
+    "model_id": "creatify-aurora",
+    "bytes": 1804592,
+    "seconds": 368,
+    "usd": null,
+    "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
   }
 ]

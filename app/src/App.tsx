@@ -23,6 +23,8 @@ export default function App() {
   const [ready, setReady] = useState<null | boolean>(null);
   const [checked, setChecked] = useState(''); // הנתיב שעבורו נבדק הפרופיל (מונע הפניה לפתיחה לפני שהפרופיל החדש נקרא)
   const immersive = /^\/(session|onboarding|photo|intro)/.test(loc.pathname);
+  // מעבר בין מסכים מתחיל תמיד מראש המסך
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior }); }, [loc.pathname]);
   useEffect(() => {
     (async () => {
       const p = await getProfile();
