@@ -13,6 +13,7 @@ export function loadFace(): Promise<FaceLandmarker> {
     const make = (delegate: 'GPU' | 'CPU') => FaceLandmarker.createFromOptions(files, {
       baseOptions: { modelAssetPath: contentUrl('mediapipe/face_landmarker.task'), delegate },
       runningMode: 'VIDEO', numFaces: 1, outputFaceBlendshapes: true, outputFacialTransformationMatrixes: true,
+      minFaceDetectionConfidence: 0.35, minFacePresenceConfidence: 0.35, minTrackingConfidence: 0.35, // פחות איבודים מרחוק
     });
     try { return await make('GPU'); } catch { return await make('CPU'); }
   })();
@@ -58,7 +59,8 @@ type Roi = { x: number; y: number; w: number; h: number };
 const FULL: Roi = { x: 0, y: 0, w: 1, h: 1 };
 const CENTER: Roi = { x: 0.25, y: 0.12, w: 0.5, h: 0.7 };
 export function runFace(video: HTMLVideoElement, lm: FaceLandmarker, onFrame: (f: FaceFrame | null) => void): () => void {
-  let stop = false, last = 0, misses = 0, roi: Roi = FULL;
+  let stop = false, last = 0, misses = 0, roi: Roi = FULL, scanI = 0;
+  let scan: Roi[] = [];
   const canvas = document.createElement('canvas'); const g = canvas.getContext('2d');
   const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
   const loop = () => {
@@ -68,6 +70,18 @@ export function runFace(video: HTMLVideoElement, lm: FaceLandmarker, onFrame: (f
       last = now;
       try {
         const vw = video.videoWidth, vh = video.videoHeight;
+        if (!scan.length) {
+          const tiles = (side: number, cols: number, rows: number, x0: number, x1: number, y0: number, y1: number) => {
+            const w = side, h = Math.min(1, side * vw / vh), out: Roi[] = [];
+            for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+              const cx = x0 + (x1 - x0) * (cols === 1 ? 0.5 : c / (cols - 1)), cy = y0 + (y1 - y0) * (rows === 1 ? 0.5 : r / (rows - 1));
+              out.push({ x: clamp(cx - w / 2, 0, 1 - w), y: clamp(cy - h / 2, 0, 1 - h), w, h });
+            }
+            return out;
+          };
+          // סדר: כל הפריים, מרכז, ואז אריחים קטנים ומוגדלים (פנים רחוקות)
+          scan = [FULL, CENTER, ...tiles(0.3, 3, 2, 0.3, 0.7, 0.35, 0.6), ...tiles(0.2, 4, 3, 0.2, 0.8, 0.25, 0.7)];
+        }
         const sx = roi.x * vw, sy = roi.y * vh, sw = roi.w * vw, sh = roi.h * vh;
         const k = 640 / Math.max(sw, sh);
         canvas.width = Math.round(sw * k); canvas.height = Math.round(sh * k);
@@ -75,9 +89,15 @@ export function runFace(video: HTMLVideoElement, lm: FaceLandmarker, onFrame: (f
         const r = lm.detectForVideo(canvas, now);
         const raw = r.faceLandmarks?.[0];
         if (!raw) {
-          misses++; roi = misses % 2 ? CENTER : FULL; onFrame(null);
+          misses++;
+          if (misses <= 6) { /* אותו חלון: איבוד רגעי */ }
+          else if (roi !== FULL && roi !== CENTER && roi.w < 0.95) {
+            const cx = roi.x + roi.w / 2, cy = roi.y + roi.h / 2, w = Math.min(1, roi.w * 1.5), h = Math.min(1, roi.h * 1.5);
+            roi = { x: clamp(cx - w / 2, 0, 1 - w), y: clamp(cy - h / 2, 0, 1 - h), w, h };
+          } else { scanI = (scanI + 1) % scan.length; roi = scan[scanI]!; } // סריקה שיטתית, חלון בכל פריים
+          onFrame(null);
         } else {
-          misses = 0;
+          misses = 0; scanI = 0;
           const pts = raw.map(p => ({ x: roi.x + p.x * roi.w, y: roi.y + p.y * roi.h }));
           const blend: Record<string, number> = {};
           for (const c of r.faceBlendshapes?.[0]?.categories ?? []) blend[c.categoryName] = c.score;

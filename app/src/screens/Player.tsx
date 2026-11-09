@@ -89,16 +89,30 @@ export default function Player() {
   function disableCamera() { stopFace.current?.(); stopFace.current = null; stopCamera(stream.current); stream.current = null; setCamState('off'); }
   useEffect(() => { if (!started) return; if (mirror && camState === 'off') enableCamera(); if (!mirror && camState === 'on') disableCamera(); }, [mirror, started]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  /** זום רך על הפנים: מגדיל כשהפנים קטנות (רחוק מהטלפון) ומרכז אותן. כותב ישירות לסגנון האלמנט. */
+  /** זום יציב על הפנים: יעד מוחלק, שינוי רק כשהוא משמעותי, ושמירה על הזום עד 2 ש' כשהפנים נעלמות לרגע.
+   *  כותב ישירות לסגנון האלמנט, ומחזיר את מיקום הפנים בתצוגה (לאליפסה העוקבת). */
+  const zoomTarget = useRef({ z: 1, x: 0, y: 0, seen: 0 });
+  const [faceBox, setFaceBox] = useState<{ x: number; y: number; w: number } | null>(null);
   function applyZoom(f: FaceFrame | null) {
     const v = camVideo.current; if (!v) return;
-    const zr = zoom.current;
-    const tz = f ? Math.min(3, Math.max(1, 0.42 / Math.max(0.05, f.width))) : 1;
-    const tx = f ? (0.5 - f.cx) * 100 : 0, ty = f ? (0.46 - f.cy) * 100 : 0;
-    zr.z += (tz - zr.z) * 0.12; zr.x += (tx - zr.x) * 0.12; zr.y += (ty - zr.y) * 0.12;
+    const zr = zoom.current, tg = zoomTarget.current, now = performance.now();
+    if (f) {
+      tg.seen = now;
+      const tz = Math.min(tvRef.current ? 5 : 3, Math.max(1, 0.42 / Math.max(0.03, f.width))); // בטלוויזיה עד פי 5
+      const tx = (0.5 - f.cx) * 100, ty = (0.46 - f.cy) * 100;
+      if (Math.abs(tz - tg.z) / tg.z > 0.08) tg.z += (tz - tg.z) * 0.25; // רק שינוי משמעותי בגודל
+      if (Math.abs(tx - tg.x) > 1.5) tg.x += (tx - tg.x) * 0.2;
+      if (Math.abs(ty - tg.y) > 1.5) tg.y += (ty - tg.y) * 0.2;
+    } else if (now - tg.seen > 2000) { tg.z += (1 - tg.z) * 0.03; tg.x *= 0.97; tg.y *= 0.97; } // איבוד ממושך: חוזרים לאט
+    zr.z += (tg.z - zr.z) * 0.06; zr.x += (tg.x - zr.x) * 0.06; zr.y += (tg.y - zr.y) * 0.06;
     const lim = ((1 - 1 / zr.z) / 2) * 100;
     const x = Math.max(-lim, Math.min(lim, zr.x)), y = Math.max(-lim, Math.min(lim, zr.y));
     v.style.transform = `scaleX(-1) scale(${zr.z.toFixed(3)}) translate(${x.toFixed(2)}%, ${y.toFixed(2)}%)`;
+    // מיקום הפנים בתצוגה (מראה), לאליפסה העוקבת במצב טלוויזיה
+    if (f && tvRef.current) {
+      const px = 0.5 + ((1 - f.cx) - 0.5 + x / 100 * -1) * zr.z, py = 0.5 + (f.cy - 0.5 + y / 100) * zr.z;
+      setFaceBox({ x: px, y: py, w: f.width * zr.z });
+    } else if (!f && now - tg.seen > 600) setFaceBox(null);
   }
   function onFace(f: FaceFrame | null) {
     setFaceSeen(!!f); applyZoom(f);
@@ -106,7 +120,7 @@ export default function Player() {
     if (su.on) {
       const now = performance.now();
       if (camVideo.current && now - su.lastLight > 800) { su.lastLight = now; su.light = frameBrightness(camVideo.current); }
-      const dist = !f ? '' : f.width < (tvRef.current ? 0.06 : 0.2) ? 'far' : f.width > 0.62 ? 'near' : 'ok';
+      const dist = !f ? '' : f.width < (tvRef.current ? 0.035 : 0.2) ? 'far' : f.width > 0.62 ? 'near' : 'ok';
       const center = !!f && Math.abs(f.cx - 0.5) < (tvRef.current ? 0.3 : 0.16) && f.cy > 0.2 && f.cy < 0.8;
       const light = su.light >= 65;
       const ok = !!f && dist === 'ok' && center && light;
@@ -260,7 +274,7 @@ export default function Player() {
           {camState !== 'on' && <div className="absolute inset-0 grid place-items-center text-white/60 text-sm">{camState === 'loading' ? 'פותחת מצלמה…' : ''}</div>}
           {camState === 'on' && (
             <>
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"><ellipse cx="50" cy="50" rx={setup ? 31 : 30} ry={setup ? 41 : 42} fill="none" stroke={setup ? (checks.ready > 0 ? 'rgba(142,165,140,.95)' : 'rgba(255,255,255,.55)') : faceSeen ? 'rgba(196,160,106,.8)' : 'rgba(255,255,255,.45)'} strokeWidth={setup ? 0.9 : 0.6} strokeDasharray={faceSeen ? '0' : '2 2'} /></svg>
+              {tv ? (faceBox && <div className="absolute pointer-events-none rounded-[50%] border-2 transition-all duration-300" style={{ left: `${(faceBox.x - faceBox.w * 0.75) * 100}%`, top: `${faceBox.y * 100}%`, width: `${faceBox.w * 150}%`, aspectRatio: '0.78', transform: 'translateY(-52%)', borderColor: setup ? 'rgba(142,165,140,.95)' : 'rgba(196,160,106,.8)' }} />) : <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"><ellipse cx="50" cy="50" rx={setup ? 31 : 30} ry={setup ? 41 : 42} fill="none" stroke={setup ? (checks.ready > 0 ? 'rgba(142,165,140,.95)' : 'rgba(255,255,255,.55)') : faceSeen ? 'rgba(196,160,106,.8)' : 'rgba(255,255,255,.45)'} strokeWidth={setup ? 0.9 : 0.6} strokeDasharray={faceSeen ? '0' : '2 2'} /></svg>}
               {!setup && <div className="absolute bottom-2 inset-x-2 flex justify-center pointer-events-none">
                 {!faceSeen
                   ? <span className="bg-black/55 backdrop-blur rounded-full px-3 py-1 text-xs">הפנים בתוך האליפסה, מול אור</span>
