@@ -2115,5 +2115,84 @@
     "seconds": 144,
     "usd": null,
     "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
+  },
+  {
+    "at": "2026-11-09T06:05:39.621Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "intro_1",
+    "model_id": "eleven_v4",
+    "voice_id": "UftNp7bAl1b6Y7tTy8OA",
+    "chars": 126,
+    "usd": 0.0101,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-09T06:05:45.841Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "intro_2",
+    "model_id": "eleven_v4",
+    "voice_id": "UftNp7bAl1b6Y7tTy8OA",
+    "chars": 157,
+    "usd": 0.0126,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-09T06:05:53.575Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "intro_3",
+    "model_id": "eleven_v4",
+    "voice_id": "UftNp7bAl1b6Y7tTy8OA",
+    "chars": 170,
+    "usd": 0.0136,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-09T06:06:00.486Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "intro_4",
+    "model_id": "eleven_v4",
+    "voice_id": "UftNp7bAl1b6Y7tTy8OA",
+    "chars": 184,
+    "usd": 0.0147,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-09T06:06:07.292Z",
+    "stage": "narration",
+    "kind": "tts",
+    "label": "intro_5",
+    "model_id": "eleven_v4",
+    "voice_id": "UftNp7bAl1b6Y7tTy8OA",
+    "chars": 145,
+    "usd": 0.0116,
+    "note": "לפי pricing/api: $0.08/1K תווים"
+  },
+  {
+    "at": "2026-11-09T06:06:48.563Z",
+    "stage": 2,
+    "kind": "image",
+    "label": "keyframe hero",
+    "generation_id": "e2HoHTcJUZuaMlUy5rRD",
+    "model_id": "gemini-3-pro-image",
+    "bytes": 5894157,
+    "seconds": 32,
+    "usd": null,
+    "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
+  },
+  {
+    "at": "2026-11-09T06:08:39.837Z",
+    "stage": 2,
+    "kind": "video",
+    "label": "clip hero",
+    "generation_id": "CXGGEZy9v5VpUhV9hZJC",
+    "model_id": "veo-3.1-generate-001",
+    "bytes": 6089258,
+    "seconds": 94,
+    "usd": null,
+    "note": "עלות לא מפורסמת ב-API; לקרוא מדוח השימוש בחשבון"
   }
 ]

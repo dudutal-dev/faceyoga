@@ -11,6 +11,8 @@ import Library from './screens/Library';
 import Science from './screens/Science';
 import Settings from './screens/Settings';
 import Download from './screens/Download';
+import { IntroStories } from './components/Intro';
+import { useNavigate } from 'react-router-dom';
 import UpdateBanner from './components/UpdateBanner';
 import TabBar from './components/TabBar';
 import { getProfile, getSettings, applyDisplaySettings } from './db';
@@ -20,7 +22,7 @@ export default function App() {
   const loc = useLocation();
   const [ready, setReady] = useState<null | boolean>(null);
   const [checked, setChecked] = useState(''); // הנתיב שעבורו נבדק הפרופיל (מונע הפניה לפתיחה לפני שהפרופיל החדש נקרא)
-  const immersive = /^\/(session|onboarding|photo)/.test(loc.pathname);
+  const immersive = /^\/(session|onboarding|photo|intro)/.test(loc.pathname);
   useEffect(() => {
     (async () => {
       const p = await getProfile();
@@ -48,6 +50,7 @@ export default function App() {
           <Route path="/science" element={<Science />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/download" element={<Download />} />
+          <Route path="/intro" element={<IntroRoute />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
@@ -55,3 +58,5 @@ export default function App() {
     </div>
   );
 }
+
+function IntroRoute() { const nav = useNavigate(); return <IntroStories onDone={() => nav('/library', { replace: true })} doneLabel="לספרייה" />; }

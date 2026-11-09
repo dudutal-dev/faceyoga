@@ -106,3 +106,6 @@ input[type="time"], input[type="date"], input[type="text"] {
 /* סטיל בלי וידאו: תנועת קן־ברנס איטית כדי שלא ירגיש קפוא */
 @keyframes kenburns { from { transform: scale(1.02) translateY(0); } to { transform: scale(1.08) translateY(-1.5%); } }
 .kenburns { animation: kenburns 14s ease-in-out infinite alternate; }
+
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+.fade-in { animation: fadein 1.2s ease both; }

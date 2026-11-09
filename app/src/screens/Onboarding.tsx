@@ -6,10 +6,10 @@ import FaceMap from '../components/FaceMap';
 import { saveProfile, blankProfile, todayISO, addDaysISO, type Profile, type Track, type Zone, type Treatment } from '../db';
 import { SCREENING, stopKeys } from '../lib/adapt';
 import { requestReminderPermission, scheduleReminderCheck } from '../lib/reminders';
-import { contentUrl } from '../content/manifest';
+import { Welcome, IntroStories } from '../components/Intro';
 
 const DAYS = ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳'];
-const STEPS = ['welcome', 'honest', 'screen', 'track', 'treat', 'days', 'done'] as const;
+const STEPS = ['welcome', 'intro', 'screen', 'track', 'treat', 'days', 'done'] as const;
 
 export default function Onboarding() {
   const nav = useNavigate();
@@ -35,35 +35,10 @@ export default function Onboarding() {
 
   return (
     <section className="flex flex-col gap-5 min-h-[92dvh] pb-6">
-      {step !== 'welcome' && <TopBar title="היכרות" onBack={back} step={`${i} מתוך ${STEPS.length - 1}`} exitTo={null} />}
+      {step !== 'welcome' && step !== 'intro' && <TopBar title="היכרות" onBack={back} step={`${i - 1} מתוך ${STEPS.length - 2}`} exitTo={null} />}
 
-      {step === 'welcome' && (
-        <div className="flex flex-col gap-5 -mx-4 rise">
-          <div className="relative h-[58dvh] overflow-hidden">
-            <img src={contentUrl('character/front.jpg')} alt="" className="w-full h-full object-cover object-top" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-transparent to-transparent" />
-          </div>
-          <div className="px-5 -mt-24 relative flex flex-col gap-3">
-            <div className="eyebrow">פָּנִים 12</div>
-            <h1 className="text-[2.2rem] leading-tight">רבע שעה, שלוש פעמים בשבוע. רק בשבילך.</h1>
-            <p className="soft text-lg">יוגה לפנים בעברית, עם מדריכה, קול ומראה. בלי שרת ובלי חשבון: הכול נשאר בטלפון שלך.</p>
-            <button className="btn-primary mt-3" onClick={next}>מתחילות</button>
-          </div>
-        </div>
-      )}
-
-      {step === 'honest' && (
-        <div className="flex flex-col gap-4 rise">
-          <h1 className="text-3xl">לפני שמתחילות: מה אפשר לצפות</h1>
-          <div className="card p-5 flex flex-col gap-3">
-            <Row ok text="תוך ימים: פחות נפיחות בבוקר, לסת וצוואר פחות תפוסים." />
-            <Row ok text="אחרי 8 עד 20 שבועות: אולי מלאות קלה בלחיים. זה הממצא היחיד שנמצא במחקר." />
-            <Row text="לא יקרה: החלקת קמטים עמוקים, הרמת עפעף, שינוי בעצם הלסת." />
-          </div>
-          <p className="soft">אנחנו לא נבטיח "צעירה בחמש שנים". כל תרגיל מסומן לפי כמה ראיות יש לו, ויש מסך שמסביר מה המדע אומר.</p>
-          <button className="btn-primary mt-auto" onClick={next}>הבנתי, ממשיכות</button>
-        </div>
-      )}
+      {step === 'welcome' && <Welcome onIntro={next} onSkip={() => setI(2)} />}
+      {step === 'intro' && <IntroStories onDone={next} doneLabel="מתחילות בהרשמה" />}
 
       {step === 'screen' && (
         <div className="flex flex-col gap-4 rise">
@@ -133,6 +108,3 @@ export default function Onboarding() {
   );
 }
 
-function Row({ ok, text }: { ok?: boolean; text: string }) {
-  return <div className="flex gap-3 items-start"><span className="mt-0.5 w-6 h-6 shrink-0 rounded-full grid place-items-center text-sm" style={{ background: ok ? 'var(--color-sage)' : 'var(--line)', color: ok ? '#fff' : 'var(--fg-soft)' }}>{ok ? '✓' : '–'}</span><span>{text}</span></div>;
-}

@@ -7,6 +7,7 @@ import { EXERCISES, EX, PHASE_HE, ZONE_HE } from '../content/exercises';
 import { QUICK } from '../content/plan';
 import { loadManifest, mediaFor, contentUrl, type Manifest } from '../content/manifest';
 import { loadState, type UserState } from '../lib/state';
+import { unlockIntroAudio } from '../components/Intro';
 import type { Zone } from '../db';
 
 export default function Library() {
@@ -60,6 +61,7 @@ export default function Library() {
           );
         })}
       </ul>
+      <button className="btn-secondary" onClick={() => { unlockIntroAudio(); nav('/intro'); }}>ההקדמה: מה זה יוגה לפנים ואיך זה עובד</button>
       <button className="btn-secondary" onClick={() => nav('/science')}>מה המדע אומר על יוגה לפנים</button>
     </section>
   );
