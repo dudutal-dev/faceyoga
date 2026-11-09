@@ -36,6 +36,11 @@ export default function Player() {
   const [setup, setSetup] = useState(false);          // שלב הצבת הטלפון לפני מפגש עם מראה
   const [checks, setChecks] = useState({ face: false, dist: '' as '' | 'near' | 'far' | 'ok', center: false, light: true, ready: 0 });
   const [seenReps, setSeenReps] = useState(0);         // חזרות שהמאמנת זיהתה בתרגיל הנוכחי
+  // מצב טלוויזיה: הטלפון לרוחב (שיקוף מסך לטלוויזיה). מדריכה ומראה זה לצד זה.
+  const [tv, setTv] = useState(() => window.innerWidth > window.innerHeight);
+  const tvRef = useRef(tv); tvRef.current = tv;
+  useEffect(() => { const h = () => setTv(window.innerWidth > window.innerHeight); window.addEventListener('resize', h); window.addEventListener('orientationchange', h); return () => { window.removeEventListener('resize', h); window.removeEventListener('orientationchange', h); }; }, []);
+  const zoom = useRef({ z: 1, x: 0, y: 0 });
 
   const voice = useRef<Voice | null>(null);
   const run = useRef({ token: 0, paused: false, jump: null as number | null, painSkip: false });
@@ -84,14 +89,25 @@ export default function Player() {
   function disableCamera() { stopFace.current?.(); stopFace.current = null; stopCamera(stream.current); stream.current = null; setCamState('off'); }
   useEffect(() => { if (!started) return; if (mirror && camState === 'off') enableCamera(); if (!mirror && camState === 'on') disableCamera(); }, [mirror, started]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  /** זום רך על הפנים: מגדיל כשהפנים קטנות (רחוק מהטלפון) ומרכז אותן. כותב ישירות לסגנון האלמנט. */
+  function applyZoom(f: FaceFrame | null) {
+    const v = camVideo.current; if (!v) return;
+    const zr = zoom.current;
+    const tz = f ? Math.min(3, Math.max(1, 0.42 / Math.max(0.05, f.width))) : 1;
+    const tx = f ? (0.5 - f.cx) * 100 : 0, ty = f ? (0.46 - f.cy) * 100 : 0;
+    zr.z += (tz - zr.z) * 0.12; zr.x += (tx - zr.x) * 0.12; zr.y += (ty - zr.y) * 0.12;
+    const lim = ((1 - 1 / zr.z) / 2) * 100;
+    const x = Math.max(-lim, Math.min(lim, zr.x)), y = Math.max(-lim, Math.min(lim, zr.y));
+    v.style.transform = `scaleX(-1) scale(${zr.z.toFixed(3)}) translate(${x.toFixed(2)}%, ${y.toFixed(2)}%)`;
+  }
   function onFace(f: FaceFrame | null) {
-    setFaceSeen(!!f);
+    setFaceSeen(!!f); applyZoom(f);
     const su = setupRef.current;
     if (su.on) {
       const now = performance.now();
       if (camVideo.current && now - su.lastLight > 800) { su.lastLight = now; su.light = frameBrightness(camVideo.current); }
-      const dist = !f ? '' : f.width < 0.28 ? 'far' : f.width > 0.62 ? 'near' : 'ok';
-      const center = !!f && Math.abs(f.cx - 0.5) < 0.16 && f.cy > 0.28 && f.cy < 0.72;
+      const dist = !f ? '' : f.width < (tvRef.current ? 0.06 : 0.2) ? 'far' : f.width > 0.62 ? 'near' : 'ok';
+      const center = !!f && Math.abs(f.cx - 0.5) < (tvRef.current ? 0.3 : 0.16) && f.cy > 0.2 && f.cy < 0.8;
       const light = su.light >= 65;
       const ok = !!f && dist === 'ok' && center && light;
       su.good = ok ? su.good + 1 : 0;
@@ -217,9 +233,10 @@ export default function Player() {
   const timeStr = `${Math.floor(elapsed / 60)}:${String(elapsed % 60).padStart(2, '0')}`;
 
   return (
-    <div className="fixed inset-0 bg-[#141010] text-white select-none flex flex-col" dir="rtl">
+    <div className={`fixed inset-0 bg-[#141010] text-white select-none flex ${tv && setup && started ? 'flex-row' : 'flex-col'} ${tv ? 'tv' : ''}`} dir="rtl">
+      <div className={tv ? 'flex-1 min-h-0 min-w-0 flex flex-row' : 'contents'}>
       {/* מדריכה */}
-      <div className={`relative overflow-hidden min-h-0 ${setup ? 'hidden' : split && started ? 'basis-[34%] shrink-0' : 'flex-1'}`} onClick={() => started && !setup && setPaused(p => !p)}>
+      <div className={`relative overflow-hidden min-h-0 ${setup ? 'hidden' : split && started ? (tv ? 'basis-1/2 shrink-0' : 'basis-[34%] shrink-0') : 'flex-1'}`} onClick={() => started && !setup && setPaused(p => !p)}>
         {demoSrc
           ? <video key={demoSrc} src={demoSrc} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover object-[50%_22%]" />
           : <img key={still} src={still} alt="" className="absolute inset-0 w-full h-full object-cover object-[50%_22%] kenburns" />}
@@ -228,7 +245,7 @@ export default function Player() {
         <div className="absolute inset-x-0 h-1 bg-white/15" style={{ top: 'env(safe-area-inset-top)' }}><div className="h-full bg-[var(--color-gold)] transition-[width] duration-700" style={{ width: `${progress}%` }} /></div>
         <div className="absolute right-4 left-4" style={{ top: 'calc(env(safe-area-inset-top) + 12px)' }}>
           <div className="text-white/75 text-xs">{PHASE_HE[e.phase]} · תרגיל {idx + 1} מתוך {session.steps.length}</div>
-          <div className="display text-[1.6rem] leading-tight drop-shadow">{e.nameHe}</div>
+          <div className={`display leading-tight drop-shadow ${tv ? 'text-[2rem]' : 'text-[1.6rem]'}`}>{e.nameHe}</div>
         </div>
         {!split && started && !caption && <Steps steps={e.steps} />}
         {/* כתובית כמו בסרט, על תחתית הווידאו (לא תופסת מקום מהמראה) */}
@@ -239,7 +256,7 @@ export default function Player() {
       {split && started && (
         <div className="relative flex-1 min-h-0 bg-black overflow-hidden" onClick={() => { if (camVideo.current) ensurePlaying(camVideo.current); if (!setup) setPaused(p => !p); }}>
           <video ref={camVideo} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted autoPlay />
-          {caption && !setup && <div className="absolute inset-x-3 top-2 z-10 bg-black/55 backdrop-blur-sm rounded-xl px-3 py-1.5 pointer-events-none"><p className="text-center text-[0.86rem] leading-[1.35] text-white line-clamp-2 overflow-hidden max-h-[2.7em]">{caption}</p></div>}
+          {caption && !setup && <div className="absolute inset-x-3 top-2 z-10 bg-black/55 backdrop-blur-sm rounded-xl px-3 py-1.5 pointer-events-none"><p className={`text-center leading-[1.35] text-white line-clamp-2 overflow-hidden max-h-[2.7em] ${tv ? 'text-lg' : 'text-[0.86rem]'}`}>{caption}</p></div>}
           {camState !== 'on' && <div className="absolute inset-0 grid place-items-center text-white/60 text-sm">{camState === 'loading' ? 'פותחת מצלמה…' : ''}</div>}
           {camState === 'on' && (
             <>
@@ -260,21 +277,22 @@ export default function Player() {
         </div>
       )}
       {!(split && started) && <video ref={camVideo} className="hidden" playsInline muted />}
+      </div>
 
       {toast && <div className="absolute inset-x-4 top-[38%] bg-black/85 border border-white/15 rounded-2xl p-3 text-center z-20 text-sm">{toast}</div>}
       {paused && started && <div className="absolute inset-x-0 top-[30%] grid place-items-center pointer-events-none z-10"><div className="bg-black/70 rounded-full px-7 py-2.5 text-lg">מושהה</div></div>}
 
       {/* הצבת הטלפון: בדיקות אוטומטיות, והמפגש מתחיל לבד כשהכול מוכן */}
       {started && setup && (
-        <div className="shrink-0 bg-[#1b1513] border-t border-white/10 px-5 pt-4 flex flex-col gap-3" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 14px)' }}>
+        <div className={`shrink-0 bg-[#1b1513] border-white/10 px-5 pt-4 flex flex-col gap-3 ${tv ? 'w-[46%] border-r overflow-y-auto justify-center' : 'border-t'}`} style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 14px)' }}>
           <div className="flex items-center gap-4">
             <PhoneStand />
             <div className="flex-1 leading-snug">
-              <div className="font-semibold text-lg">מעמידים את הטלפון</div>
-              <div className="text-white/70 text-sm">זקוף על השולחן, בגובה העיניים, במרחק יד. נשען על כוס או ספרים. הידיים פנויות לפנים.</div>
+              <div className="font-semibold text-lg">{tv ? 'מצב טלוויזיה' : 'מעמידים את הטלפון'}</div>
+              <div className="text-white/70 text-sm">{tv ? 'הטלפון לרוחב, צמוד לטלוויזיה, המצלמה אלייך. שבי במרחק מטר עד שלושה, עם הפנים לאור. המצלמה תתקרב לפנים לבד.' : 'זקוף על השולחן, בגובה העיניים, במרחק יד. נשען על כוס או ספרים. הידיים פנויות לפנים. רוצה על הטלוויזיה? סובבי את הטלפון לרוחב.'}</div>
             </div>
           </div>
-          <ul className="grid grid-cols-2 gap-2 text-sm">
+          <ul className={`grid gap-2 text-sm ${tv ? 'grid-cols-1' : 'grid-cols-2'}`}>
             <Check ok={checks.face} text={checks.face ? 'רואה את הפנים' : 'מחפשת את הפנים'} />
             <Check ok={checks.dist === 'ok'} text={checks.dist === 'far' ? 'התקרבי קצת' : checks.dist === 'near' ? 'התרחקי קצת' : 'מרחק טוב'} />
             <Check ok={checks.center} text={checks.center ? 'במרכז' : 'פנים במרכז האליפסה'} />
@@ -290,8 +308,8 @@ export default function Player() {
 
       {/* לוח תחתון קבוע: מצב + פקדים. לא מונח על הווידאו או על המראה */}
       {started && !setup && (
-        <div className="shrink-0 bg-[#141c1b] border-t border-white/10 px-3 pt-2.5 flex flex-col gap-2" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 8px)' }}>
-          <div className="flex items-center gap-2.5 min-h-[40px]">
+        <div className={`shrink-0 bg-[#141c1b] border-t border-white/10 px-3 pt-2.5 flex gap-2 ${tv ? 'flex-row items-center gap-6 px-6' : 'flex-col'}`} style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 8px)' }}>
+          <div className={`flex items-center gap-2.5 min-h-[40px] ${tv ? 'flex-1 text-lg' : ''}`}>
             {live && live.total > 0 ? <Countdown remaining={live.remaining} total={live.total} /> : <span className="w-11 h-11 shrink-0 rounded-full border-2 border-white/15 grid place-items-center"><span className="w-2 h-2 rounded-full bg-[var(--color-gold)] animate-pulse" /></span>}
             <div className="flex-1 min-w-0 leading-tight">
               <div className="font-semibold truncate">{live?.label ?? ''}</div>
@@ -305,7 +323,7 @@ export default function Player() {
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V6l10-2v12" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="16.5" cy="16" r="2.5" />{!musicOn && <path d="M3 3l18 18" />}</svg>
             </button>
           </div>
-          <div className="flex items-center justify-between gap-1.5">
+          <div className={`flex items-center gap-1.5 ${tv ? 'w-[400px] justify-between' : 'justify-between'}`}>
             <button className="h-11 flex-1 min-w-0 max-w-[84px] rounded-full bg-[var(--color-stop)] text-white font-semibold text-sm" onClick={() => finish('stopped')}>סיום</button>
             <button className="w-11 h-11 shrink-0 rounded-full bg-white/10 grid place-items-center disabled:opacity-30" onClick={() => jump(-1)} disabled={idx === 0} aria-label="הקודם"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg></button>
             <button className="w-14 h-14 shrink-0 rounded-full bg-white text-[var(--color-rose-deep)] grid place-items-center shadow-lg active:scale-95 transition-transform" onClick={() => setPaused(p => !p)} aria-label={paused ? 'המשך' : 'השהיה'}>{paused ? <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M16 5.5v13L5 12z" /></svg> : <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><rect x="6.5" y="5" width="4" height="14" rx="1.2" /><rect x="13.5" y="5" width="4" height="14" rx="1.2" /></svg>}</button>
@@ -325,6 +343,7 @@ export default function Player() {
             <button className="chip !bg-white/10 !border-white/25 !text-white !justify-between !rounded-2xl !py-2 mt-1" aria-pressed={mirror} onClick={() => setMirror(v => !v)}>
               <span className="text-start">מראה ומאמנת פנים<br /><span className="text-white/60 text-xs">המצלמה לא מקליטה ולא שולחת</span></span><span>{mirror ? 'פועל' : 'כבוי'}</span>
             </button>
+            <p className="text-white/60 text-xs">רוצה על הטלוויזיה? שיקוף מסך מהטלפון לטלוויזיה, והטלפון לרוחב, צמוד אליה.</p>
             <button className="btn-primary !text-xl" onClick={start}>התחילי</button>
             <button className="text-white/70 py-2" onClick={() => nav(-1)}>חזרה</button>
           </div>

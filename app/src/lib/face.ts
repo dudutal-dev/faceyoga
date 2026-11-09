@@ -51,26 +51,46 @@ export function cameraErrorText(e: unknown): string {
 }
 export function stopCamera(stream: MediaStream | null) { stream?.getTracks().forEach(t => t.stop()); }
 
-/** לולאת זיהוי: קוראת ל-onFrame עד שמבטלים. ~15 פריימים לשנייה כדי לחסוך סוללה. */
+/** לולאת זיהוי: קוראת ל-onFrame עד שמבטלים. ~15 פריימים לשנייה כדי לחסוך סוללה.
+ *  זיהוי ממרחק (מצב טלוויזיה): המודל מיועד לפנים קרובות, ולכן מזהים בתוך "חלון עניין" מוגדל.
+ *  כשיש פנים, החלון עוקב אחריהן (פי 3 מגודלן); כשאין, מחליפים בין כל הפריים למרכז מוגדל. הקואורדינטות מוחזרות ביחס לכל הפריים. */
+type Roi = { x: number; y: number; w: number; h: number };
+const FULL: Roi = { x: 0, y: 0, w: 1, h: 1 };
+const CENTER: Roi = { x: 0.25, y: 0.12, w: 0.5, h: 0.7 };
 export function runFace(video: HTMLVideoElement, lm: FaceLandmarker, onFrame: (f: FaceFrame | null) => void): () => void {
-  let stop = false, last = 0;
+  let stop = false, last = 0, misses = 0, roi: Roi = FULL;
+  const canvas = document.createElement('canvas'); const g = canvas.getContext('2d');
+  const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
   const loop = () => {
     if (stop) return;
     const now = performance.now();
-    if (now - last > 66 && video.readyState >= 2 && video.videoWidth) {
+    if (now - last > 66 && video.readyState >= 2 && video.videoWidth && g) {
       last = now;
       try {
-        const r = lm.detectForVideo(video, now);
-        const pts = r.faceLandmarks?.[0];
-        if (!pts) onFrame(null);
-        else {
+        const vw = video.videoWidth, vh = video.videoHeight;
+        const sx = roi.x * vw, sy = roi.y * vh, sw = roi.w * vw, sh = roi.h * vh;
+        const k = 640 / Math.max(sw, sh);
+        canvas.width = Math.round(sw * k); canvas.height = Math.round(sh * k);
+        g.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+        const r = lm.detectForVideo(canvas, now);
+        const raw = r.faceLandmarks?.[0];
+        if (!raw) {
+          misses++; roi = misses % 2 ? CENTER : FULL; onFrame(null);
+        } else {
+          misses = 0;
+          const pts = raw.map(p => ({ x: roi.x + p.x * roi.w, y: roi.y + p.y * roi.h }));
           const blend: Record<string, number> = {};
           for (const c of r.faceBlendshapes?.[0]?.categories ?? []) blend[c.categoryName] = c.score;
           const mat = r.facialTransformationMatrixes?.[0]?.data;
           const ang = mat ? anglesFromMatrix(mat) : { yaw: 0, pitch: 0, roll: 0 };
-          let minX = 1, maxX = 0, sx = 0, sy = 0;
-          for (const p of pts) { minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x); sx += p.x; sy += p.y; }
-          onFrame({ t: now, blend, ...ang, width: maxX - minX, cx: sx / pts.length, cy: sy / pts.length, landmarks: pts });
+          let minX = 1, maxX = 0, minY = 1, maxY = 0, sxs = 0, sys = 0;
+          for (const p of pts) { minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x); minY = Math.min(minY, p.y); maxY = Math.max(maxY, p.y); sxs += p.x; sys += p.y; }
+          const cx = sxs / pts.length, cy = sys / pts.length;
+          onFrame({ t: now, blend, ...ang, width: maxX - minX, cx, cy, landmarks: pts });
+          // החלון הבא: ריבוע (בפיקסלים) בגודל פי 3 מהפנים סביב המרכז; פנים גדולות → כל הפריים
+          const sidePx = Math.max((maxX - minX) * vw, (maxY - minY) * vh) * 3;
+          const w = clamp(sidePx / vw, 0.22, 1), h = clamp(sidePx / vh, 0.22, 1);
+          roi = w >= 0.85 || h >= 0.85 ? FULL : { x: clamp(cx - w / 2, 0, 1 - w), y: clamp(cy - h / 2, 0, 1 - h), w, h };
         }
       } catch { onFrame(null); }
     }

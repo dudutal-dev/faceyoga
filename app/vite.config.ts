@@ -38,7 +38,7 @@ export default defineConfig({
       registerType: 'prompt', injectRegister: false, includeAssets: ['icons/*.png'],
       manifest: {
         name: 'פָּנִים 12 · יוגה לפנים', short_name: 'פנים 12', description: 'יוגה לפנים בעברית: מדריכה, קול, מראה ומאמנת פנים. בלי שרת ובלי חשבון.',
-        lang: 'he', dir: 'rtl', display: 'standalone', orientation: 'portrait', background_color: '#faf7f2', theme_color: '#1f6b66',
+        lang: 'he', dir: 'rtl', display: 'standalone', orientation: 'any', background_color: '#faf7f2', theme_color: '#1f6b66',
         icons: [
           { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
           { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
