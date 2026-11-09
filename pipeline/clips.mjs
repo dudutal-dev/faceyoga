@@ -23,7 +23,7 @@ export const CLIPS = {
   rel_masseter: { mode: 'loop', start: 'rel_masseter', end: 'rel_masseter', text: 'With the flat pads of her fingers on the jaw muscles in front of the ears, she massages in slow, small, gentle circles, two slow circles in total. Her mouth stays slightly open and the jaw relaxed and heavy. Calm soft eyes.' },
 
   // ---------- שלב 5 ----------  start: 'front'/'side' = תמונת הדמות בלי ידיים. forward = מתנגן קדימה בלבד ומתחיל מחדש (תנועות כלפי מעלה).
-  rel_posture: { mode: 'pingpong', start: 'side', end: 'rel_posture', text: 'Sitting tall, she slowly glides her chin straight back into a gentle chin tuck while the back of the neck lengthens upward. Very small, slow movement.' },
+  rel_posture: { mode: 'loop', start: 'rel_posture_front', end: 'rel_posture_front', attempt: 3, text: 'She holds this tall posture completely still, chin level, neck long, breathing slowly; only a slow soft blink and the shoulders softening slightly. No hands in frame at any moment.' },
   rel_neck_side: { mode: 'pingpong', start: 'front', end: 'rel_neck_side', text: 'She slowly and gently tilts her head to her right, the ear lowering toward the shoulder, shoulders staying level, eyes closing softly.' },
   rel_scm: { mode: 'forward', start: 'rel_scm', end: 'rel_scm', text: 'Her two fingertips stroke slowly and lightly DOWNWARD along the side of her neck from below the ear toward the collarbone, then lift off and return to below the ear, twice, always stroking only downward.' },
   rel_temples: { mode: 'loop', start: 'rel_temples', end: 'rel_temples', text: 'Her fingertips make small slow gentle circles on her temples, two slow circles. Eyes closed, peaceful.' },
@@ -32,13 +32,15 @@ export const CLIPS = {
   act_cheek_puff: { mode: 'pingpong', start: 'front', end: 'act_cheek_puff', text: 'She slowly fills her cheeks with air so both cheeks puff out softly, lips closed.' },
   act_jaw_forward: { mode: 'pingpong', start: 'side', end: 'act_jaw_forward', text: 'She slowly lifts her chin slightly and pushes her lower jaw gently forward until the front of the neck stretches.' },
   act_neck_kiss: { mode: 'pingpong', start: 'side', end: 'act_neck_kiss', text: 'She slowly tilts her head back a little to look at the ceiling and pushes her lips forward into a kiss toward the ceiling.' },
-  act_lips: { mode: 'pingpong', start: 'act_lips_pre', end: 'act_lips', attempt: 2, text: 'The lips disappear inward over the teeth: NO teeth visible at any moment, no open smile, the mouth stays closed. The fingertips do not pull the mouth. With index fingertips resting at the corners of her mouth, she slowly rolls both lips inward over her teeth and adds a slight closed smile.' },
+  act_lips: { mode: 'loop', start: 'act_lips_nohands', end: 'act_lips_nohands', attempt: 4, text: 'She holds her lips rolled inward over the teeth the whole time, mouth a thin closed line, breathing slowly through the nose, a slow soft blink, a very slight firming at the corners of the mouth. No hands in frame at any moment, no teeth.' },
   act_brow: { mode: 'pingpong', start: 'act_brow_pre', end: 'act_brow', text: 'With her palm flat on her forehead, she slowly tries to lift her eyebrows against the hand; the eyes open a little wider while the forehead skin stays smooth under the palm.' },
   lift_sweep: { mode: 'forward', start: 'lift_sweep_start', end: 'lift_sweep', text: 'Both palms sweep slowly and smoothly UPWARD and outward from the chin along the jaw to in front of the ears and temples, one long gentle lifting stroke.' },
   lift_jawline: { mode: 'forward', start: 'lift_jawline_start', end: 'lift_jawline', text: 'The V-shaped fingers glide slowly along the jaw bone from the chin up to just below the ears, one smooth stroke on both sides together.' },
   lift_close: { mode: 'loop', start: 'lift_close', end: 'lift_close', text: 'Her palms rest on her face, eyes closed; she takes one slow deep breath, the shoulders rising very slightly and softening. Almost still.' },
   am_drain: { mode: 'loop', start: 'am_drain', end: 'am_drain', text: 'Her flat fingers press very lightly and release above the collarbones, two gentle slow pumps, like a feather.' },
   am_eyes: { mode: 'loop', start: 'am_eyes', end: 'am_eyes', attempt: 2, text: 'Eyes stay OPEN and calm the whole clip. Only the ring fingertips move, tapping very lightly on the cheekbone below the eyes; the fingers never touch the eyes, eyelids or nose, never rub. Her ring fingers tap very lightly under the eyes, moving slowly from the inner corner outward, like tiny raindrops, then return to the inner corner.' },
+  act_tongue_press: { mode: 'loop', start: 'act_tongue_press', end: 'act_tongue_press', text: 'Her index finger stays resting under her chin the whole clip. With lips closed she presses her tongue up to the palate: a very subtle tightening under the chin, then softening. Almost still, calm face, natural blink.' },
+  rel_tongue: { mode: 'loop', start: 'rel_tongue', end: 'rel_tongue', text: 'She rests completely still and relaxed, lips softly closed, breathing slowly through the nose: the shoulders rise and fall very slightly, a slow soft blink. Almost no movement. No hands in frame.' },
   hero: { mode: 'pingpong', start: 'front', end: 'hero', text: 'A welcome greeting: she looks into the camera, softly breathes in, and her face slowly blossoms into a warm radiant welcoming smile with a very slight graceful head tilt, a natural blink. No hands in frame at any moment. Elegant, calm, cinematic.' },
   gs_jaw: { mode: 'forward', start: 'gs_jaw_start', end: 'gs_jaw', text: 'She glides the jade gua sha stone slowly and smoothly along her jawline from the chin up to below the ear, held almost flat, one gentle stroke.' },
 };
@@ -48,7 +50,11 @@ export async function makeClip(k) {
   const c = CLIPS[k]; if (!c) throw new Error(`אין קליף ${k}`);
   const at = k => (k === 'front' || k === 'side') ? path.join(ROOT, 'content', 'character', `${k}.png`) : path.join(KF_DIR, `${k}.png`);
   const start = at(c.start), end = at(c.end);
-  const request = { model_id: config.video.model_id, prompt: clipPrompt(k), ...(c.attempt ? { seed: 1000 + c.attempt } : {}), negative_prompt: COMMON.negative, duration_secs: config.video.duration_secs, aspect_ratio: config.video.aspect_ratio, resolution: config.video.resolution, generate_audio: false, enhance_prompt: true, start_frame: imageRef(start), end_frame: imageRef(end) };
+  const model = c.model || process.env.CLIP_MODEL || config.video.model_id;
+  const request = model.startsWith('bytedance')
+    // Seedance: בלי negative_prompt/seed/enhance; עד 720p. האיסורים נכנסים לפרומפט עצמו.
+    ? { model_id: model, prompt: clipPrompt(k) + ' Avoid: ' + COMMON.negative + '.', duration_secs: config.video.duration_secs, aspect_ratio: config.video.aspect_ratio, resolution: '720p', start_frame: imageRef(start), end_frame: imageRef(end) }
+    : { model_id: model, prompt: clipPrompt(k), ...(c.attempt ? { seed: 1000 + c.attempt } : {}), negative_prompt: COMMON.negative, duration_secs: config.video.duration_secs, aspect_ratio: config.video.aspect_ratio, resolution: config.video.resolution, generate_audio: false, enhance_prompt: true, start_frame: imageRef(start), end_frame: imageRef(end) };
   const r = await generate('video', request, { ext: 'mp4', pollMs: 10000, stage: 2, label: `clip ${k}` });
   const dest = copyTo(r.file, path.join(OUT, `${k}.mp4`));
   fs.writeFileSync(path.join(OUT, `${k}.prompt.json`), JSON.stringify({ ...request, start_frame: `<${c.start}>`, end_frame: `<${c.end}>`, generation_id: r.id, cache_key: r.key }, null, 2));

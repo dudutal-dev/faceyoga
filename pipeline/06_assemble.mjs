@@ -33,10 +33,19 @@ for (const id of ids) {
   } else fs.rmSync(C(`video/${id}.mp4`), { force: true });
   media[id] = entry;
 }
+// סרטוני ההקדמה המדברים (סנכרון שפתיים): בלי פס קול, הקול מתנגן מהקריינות והווידאו מסונכרן אליו באפליקציה
+const TALK = path.join(ROOT, 'outputs', 'stage3', 'talk'); const talk = {};
+fs.mkdirSync(C('video/talk'), { recursive: true });
+for (const f of fs.existsSync(TALK) ? fs.readdirSync(TALK) : []) {
+  const m = f.match(/^(intro_\d)\.mp4$/); if (!m) continue;
+  const dest = C(`video/talk/${m[1]}.mp4`);
+  if (!fs.existsSync(dest) || fs.statSync(dest).mtimeMs < fs.statSync(path.join(TALK, f)).mtimeMs) execFileSync('ffmpeg', ['-v', 'error', '-y', '-i', path.join(TALK, f), '-an', '-c:v', 'copy', '-movflags', '+faststart', dest]);
+  talk[m[1]] = `video/talk/${m[1]}.mp4`;
+}
 const narration = Object.fromEntries(Object.entries(nar).map(([k, v]) => [k, { url: `audio/narration/${k}.mp3`, durationMs: v.durationMs, text: v.text, qa: v.qa }]));
 const ui = Object.fromEntries(fs.readdirSync(C('audio/ui')).filter(f => f.endsWith('.mp3')).map(f => [f.replace(/^ui_|\.mp3$/g, ''), `audio/ui/${f}`]));
 const music = fs.existsSync(C('audio/music/music_a_10min.mp3')) ? 'audio/music/music_a_10min.mp3' : undefined;
-const manifest = { version: crypto.createHash('sha256').update(JSON.stringify({ media, narration })).digest('hex').slice(0, 10), generatedAt: new Date().toISOString().slice(0, 10), character: { front: 'character/front.jpg', side: 'character/side.jpg' }, voice: { id: config.tts.voice_id, model: config.tts.model_id }, media, narration, audio: { music, ui } };
+const manifest = { version: crypto.createHash('sha256').update(JSON.stringify({ media, narration })).digest('hex').slice(0, 10), generatedAt: new Date().toISOString().slice(0, 10), character: { front: 'character/front.jpg', side: 'character/side.jpg' }, voice: { id: config.tts.voice_id, model: config.tts.model_id }, media, narration, talk, audio: { music, ui } };
 fs.writeFileSync(C('manifest.json'), JSON.stringify(manifest, null, 2));
 const v = Object.values(media);
-console.log(`מניפסט ${manifest.version}: ${v.filter(x => x.clip).length} קליפים מאושרים, ${v.filter(x => x.still).length} סטילים, ${Object.keys(narration).length} קטעי קריינות, ${Object.keys(ui).length} צלילים, מוזיקה: ${music ? 'כן' : 'לא'}`);
+console.log(`מניפסט ${manifest.version}: ${v.filter(x => x.clip).length} קליפים מאושרים, ${v.filter(x => x.still).length} סטילים, ${Object.keys(narration).length} קטעי קריינות, ${Object.keys(ui).length} צלילים, מוזיקה: ${music ? 'כן' : 'לא'}, סרטוני הקדמה: ${Object.keys(talk).length}`);

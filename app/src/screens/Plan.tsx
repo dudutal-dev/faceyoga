@@ -12,8 +12,8 @@ export default function Plan() {
     <section className="flex flex-col gap-5">
       <header className="pt-2 rise"><div className="eyebrow">12 שבועות</div><h1 className="text-[1.9rem]">התוכנית</h1>
         <p className="soft">כל מפגש: שחרור, הפעלה, הרמה. כל שלב מאריך את ההחזקות ומוסיף תרגילים.</p></header>
-      {STAGES.filter(st => st.key !== 'M').map(st => (
-        <div key={st.key} className="card p-5 flex flex-col gap-3 rise-2">
+      {STAGES.filter(st => st.key !== 'M').map((st, si) => (
+        <div key={st.key} className={`${['tint-peach', 'tint-blush', 'tint-lilac', 'tint-mint'][si]} p-5 flex flex-col gap-3 rise-2`}>
           <div className="flex items-baseline justify-between"><div className="display text-xl">{st.nameHe}</div><div className="soft text-sm">שבועות {st.weeks[0]}–{st.weeks[1]}</div></div>
           <div className="soft text-sm">{st.perWeek - (light ? 1 : 0)} מפגשים × {st.minutes} דקות · החזקה של {st.hold} שניות</div>
           <div className="flex flex-col gap-2">
@@ -22,7 +22,7 @@ export default function Plan() {
               const cur = w === s.week, past = w < s.week;
               const fresh = newInWeek(w);
               return (
-                <div key={w} className={`rounded-2xl px-4 py-3 flex items-center gap-3 ${cur ? 'bg-[var(--accent)]/10 border border-[var(--accent)]/40' : 'bg-[var(--bg-tint)]'}`}>
+                <div key={w} className={`rounded-2xl px-4 py-3 flex items-center gap-3 ${cur ? 'bg-white/85 border-2 border-[var(--accent)] shadow-sm' : 'bg-white/45'}`}>
                   <span className="w-9 h-9 rounded-full grid place-items-center text-sm font-semibold shrink-0" style={{ background: sum.green ? 'var(--color-sage)' : past ? 'var(--line)' : 'var(--bg-elev)', color: sum.green ? '#fff' : 'var(--fg)' }}>{sum.green ? '✓' : w}</span>
                   <div className="flex-1 min-w-0">
                     <div className="font-medium">שבוע {w}{cur ? ' · עכשיו' : ''}{(PHOTO_WEEKS as readonly number[]).includes(w) ? ' · צילום' : ''}</div>

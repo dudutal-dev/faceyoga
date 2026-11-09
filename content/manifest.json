@@ -1,5 +1,5 @@
 {
-  "version": "650b2c0990",
+  "version": "13751bac1f",
   "generatedAt": "2026-11-09",
   "character": {
     "front": "character/front.jpg",
@@ -36,8 +36,11 @@
     },
     "rel_posture": {
       "exerciseId": "rel_posture",
-      "qa": "rejected",
-      "still": "stills/rel_posture.jpg"
+      "qa": "approved",
+      "still": "stills/rel_posture.jpg",
+      "clip": "video/rel_posture.mp4",
+      "mode": "loop",
+      "bytes": 552053
     },
     "rel_neck_side": {
       "exerciseId": "rel_neck_side",
@@ -156,6 +159,19 @@
       "mode": "loop",
       "bytes": 643393
     },
+    "act_tongue_press": {
+      "exerciseId": "act_tongue_press",
+      "qa": "rejected",
+      "still": "stills/act_tongue_press.jpg"
+    },
+    "rel_tongue": {
+      "exerciseId": "rel_tongue",
+      "qa": "approved",
+      "still": "stills/rel_tongue.jpg",
+      "clip": "video/rel_tongue.mp4",
+      "mode": "loop",
+      "bytes": 380009
+    },
     "hero": {
       "exerciseId": "hero",
       "qa": "approved",
@@ -172,10 +188,15 @@
       "mode": "forward",
       "bytes": 669622
     },
-    "act_tongue_press": {
-      "exerciseId": "act_tongue_press",
+    "rel_posture_front": {
+      "exerciseId": "rel_posture_front",
       "qa": "pending",
-      "still": "stills/act_tongue_press.jpg"
+      "still": "stills/rel_posture_front.jpg"
+    },
+    "act_lips_nohands": {
+      "exerciseId": "act_lips_nohands",
+      "qa": "pending",
+      "still": "stills/act_lips_nohands.jpg"
     }
   },
   "narration": {
@@ -677,6 +698,13 @@
       "text": "המצלמה נשארת בטלפון. שום תמונה לא נשמרת ולא נשלחת. היא עוזרת לי לראות שאת מחזיקה את התנועה, ומזכירה לך לשמור על הַמֵּצַח רגוע. מוכנה? בואי נתחיל.",
       "qa": "approved"
     }
+  },
+  "talk": {
+    "intro_1": "video/talk/intro_1.mp4",
+    "intro_2": "video/talk/intro_2.mp4",
+    "intro_3": "video/talk/intro_3.mp4",
+    "intro_4": "video/talk/intro_4.mp4",
+    "intro_5": "video/talk/intro_5.mp4"
   },
   "audio": {
     "music": "audio/music/music_a_10min.mp3",

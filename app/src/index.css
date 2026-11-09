@@ -20,14 +20,15 @@
 
 :root {
   /* מוגדרים במפורש: Tailwind פולט משתני theme רק כשמשתמשים בהם דרך utility, ואנחנו משתמשים בהם דרך var() */
-  --color-rose: #b26e60; --color-rose-deep: #8c4f43; --color-rose-soft: #e8c8bd; --color-champagne: #f3e7da; --color-gold: #c4a06a; --color-sage: #8ea58c; --color-stop: #b23a2f;
-  --bg: #fbf6f1;
+  --color-rose: #c9654f; --color-rose-deep: #9c4433; --color-rose-soft: #f2c4b5; --color-champagne: #f7e6d6; --color-gold: #d7a24e; --color-sage: #7fb08a; --color-stop: #c0392b;
+  --peach: #ffd9c7; --lilac: #e4d7f5; --mint: #d6eedb; --butter: #fbe8bf; --blush: #fbd3dc;
+  --bg: #fff5ef;
   --bg-elev: #ffffff;
-  --bg-tint: #f6ebe3;
-  --fg: #2b2220;
-  --fg-soft: #76655f;
-  --line: #ead9cf;
-  --ring-track: #f0e2d8;
+  --bg-tint: #fde9df;
+  --fg: #2a1d1a;
+  --fg-soft: #7a5f57;
+  --line: #f1d9cd;
+  --ring-track: #fbe1d6;
   --accent: var(--color-rose);
   --accent-deep: var(--color-rose-deep);
   color-scheme: light dark;
@@ -35,12 +36,14 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #1c1715; --bg-elev: #26201d; --bg-tint: #2e2622; --fg: #f4e9e1; --fg-soft: #bba9a0; --line: #3b312c; --ring-track: #3a2f2a;
-    --accent: #d08d7e; --accent-deep: #e8a898;
+    --accent: #e8896f; --accent-deep: #f0a58f;
+    --peach: #4a2a22; --lilac: #2f2742; --mint: #1f3326; --butter: #3d3018; --blush: #46232c;
   }
 }
 :root[data-theme="dark"] {
   --bg: #1c1715; --bg-elev: #26201d; --bg-tint: #2e2622; --fg: #f4e9e1; --fg-soft: #bba9a0; --line: #3b312c; --ring-track: #3a2f2a;
-  --accent: #d08d7e; --accent-deep: #e8a898;
+  --accent: #e8896f; --accent-deep: #f0a58f;
+  --peach: #4a2a22; --lilac: #2f2742; --mint: #1f3326; --butter: #3d3018; --blush: #46232c;
 }
 
 html { font-size: 17px; }
@@ -48,7 +51,13 @@ html[data-font="large"] { font-size: 19.5px; }
 html[data-font="xl"] { font-size: 22px; }
 
 body {
-  margin: 0; background: var(--bg); color: var(--fg);
+  margin: 0; color: var(--fg);
+  background:
+    radial-gradient(120% 60% at 100% 0%, color-mix(in srgb, var(--blush) 75%, transparent) 0%, transparent 55%),
+    radial-gradient(90% 50% at 0% 35%, color-mix(in srgb, var(--peach) 70%, transparent) 0%, transparent 60%),
+    radial-gradient(100% 60% at 50% 100%, color-mix(in srgb, var(--butter) 65%, transparent) 0%, transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
   font-family: var(--font-sans); line-height: 1.55;
   -webkit-font-smoothing: antialiased; overscroll-behavior: none;
 }
@@ -87,8 +96,16 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .chip[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--bg-elev)); font-weight: 600; }
 .chip:active, .btn-stop:active, .btn-secondary:active { transform: scale(.96); }
 .chip, .btn-stop, .btn-secondary { transition: transform 120ms ease, background 200ms ease; }
-.card { background: var(--bg-elev); border: 1px solid var(--line); border-radius: var(--radius-card); }
-.card-tint { background: var(--bg-tint); border-radius: var(--radius-card); }
+.card { background: color-mix(in srgb, var(--bg-elev) 88%, transparent); backdrop-filter: blur(10px); border: 1px solid color-mix(in srgb, var(--line) 70%, transparent); border-radius: var(--radius-card); box-shadow: 0 14px 34px -22px rgba(156, 68, 51, .45); }
+/* כרטיסים צבעוניים */
+.tint-peach { background: linear-gradient(140deg, #ffe3d3, #ffc9b3); color: #4a2418; }
+.tint-lilac { background: linear-gradient(140deg, #efe6fb, #d9c8f2); color: #33234d; }
+.tint-mint { background: linear-gradient(140deg, #e3f5e6, #c4e6cc); color: #1f3d27; }
+.tint-butter { background: linear-gradient(140deg, #fff1d1, #fbdc9c); color: #4a3510; }
+.tint-blush { background: linear-gradient(140deg, #ffe4ea, #f9c4d0); color: #4d1f2b; }
+.tint-peach, .tint-lilac, .tint-mint, .tint-butter, .tint-blush { border-radius: var(--radius-card); border: 0; box-shadow: 0 14px 30px -20px rgba(120, 60, 50, .5); }
+.tint-peach .soft, .tint-lilac .soft, .tint-mint .soft, .tint-butter .soft, .tint-blush .soft { color: inherit; opacity: .72; }
+.card-tint { background: linear-gradient(140deg, var(--bg-tint), color-mix(in srgb, var(--peach) 60%, var(--bg-tint))); border-radius: var(--radius-card); }
 .eyebrow { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-soft); font-weight: 600; }
 .soft { color: var(--fg-soft); }
 

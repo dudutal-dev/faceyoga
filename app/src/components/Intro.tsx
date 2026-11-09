@@ -45,6 +45,7 @@ export function IntroStories({ onDone, doneLabel = 'בואי נתחיל' }: { on
   const [t, setT] = useState(0);             // התקדמות הפרק הנוכחי 0..1
   const [paused, setPaused] = useState(false);
   const audio = useRef<HTMLAudioElement | null>(null);
+  const talkVid = useRef<HTMLVideoElement | null>(null);
   useEffect(() => { loadManifest().then(setM); }, []);
 
   // אלמנט שמע אחד, שוחרר בנגיעה שפתחה את ההקדמה (play מתבצע מיד בטעינה הראשונה).
@@ -56,9 +57,15 @@ export function IntroStories({ onDone, doneLabel = 'בואי נתחיל' }: { on
     if (!n) { const id = window.setTimeout(next, 9000); return () => window.clearTimeout(id); }
     a.src = contentUrl(n.url);
     a.onended = () => window.setTimeout(next, 900);
-    a.ontimeupdate = () => setT(a.duration ? a.currentTime / a.duration : 0);
+    a.ontimeupdate = () => {
+      setT(a.duration ? a.currentTime / a.duration : 0);
+      const v = talkVid.current;
+      if (v && Math.abs(v.currentTime - a.currentTime) > 0.12) v.currentTime = a.currentTime; // תיקון סטייה: השפתיים עם הקול
+    };
+    a.onplay = () => { const v = talkVid.current; if (v) { v.currentTime = a.currentTime; v.play().catch(() => {}); } };
+    a.onpause = () => talkVid.current?.pause();
     a.play().catch(() => setPaused(true));
-    return () => { a.onended = null; a.ontimeupdate = null; a.pause(); };
+    return () => { a.onended = null; a.ontimeupdate = null; a.onplay = null; a.onpause = null; a.pause(); };
   }, [m, i]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => () => { audio.current?.pause(); }, []);
 
@@ -70,7 +77,9 @@ export function IntroStories({ onDone, doneLabel = 'בואי נתחיל' }: { on
 
   return (
     <div className="fixed inset-0 bg-black text-white overflow-hidden select-none" dir="rtl">
-      {INTRO.map((c, k) => <img key={c.id} src={contentUrl(c.image)} alt="" className="absolute inset-0 w-full h-full object-cover object-[50%_22%] transition-opacity duration-700" style={{ opacity: k === i ? 1 : 0 }} />)}
+      {m?.talk?.[ch.id]
+        ? <video key={ch.id} ref={talkVid} src={contentUrl(m.talk[ch.id]!)} muted playsInline preload="auto" className="absolute inset-0 w-full h-full object-cover object-[50%_22%] fade-in" />
+        : INTRO.map((c, k) => <img key={c.id} src={contentUrl(c.image)} alt="" className="absolute inset-0 w-full h-full object-cover object-[50%_22%] transition-opacity duration-700" style={{ opacity: k === i ? 1 : 0 }} />)}
       <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/35 to-black/45" />
       {/* פסי התקדמות */}
       <div className="absolute inset-x-3 flex gap-1.5" style={{ top: 'calc(env(safe-area-inset-top) + 10px)' }}>

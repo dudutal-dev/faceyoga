@@ -41,7 +41,7 @@ export default function Library() {
   return (
     <section className="flex flex-col gap-5">
       <header className="pt-2 rise"><div className="eyebrow">{EXERCISES.length} תרגילים</div><h1 className="text-[1.9rem]">הספרייה</h1></header>
-      <div className="grid grid-cols-2 gap-3">{Object.entries(QUICK).map(([k, q]) => <button key={k} className="card p-4 text-start" onClick={() => nav(`/session/${k}`)}><div className="font-semibold">{q.nameHe}</div><div className="soft text-sm">{q.sub}</div></button>)}</div>
+      <div className="grid grid-cols-2 gap-3">{Object.entries(QUICK).map(([k, q]) => <button key={k} className={`${({ morning: 'tint-butter', event: 'tint-blush', jaw: 'tint-lilac', sleep: 'tint-mint' } as Record<string, string>)[k]} p-4 text-start min-h-[92px]`} onClick={() => nav(`/session/${k}`)}><div className="font-bold">{q.nameHe}</div><div className="soft text-sm">{q.sub}</div></button>)}</div>
       <div className="card p-4 flex flex-col items-center gap-2">
         <div className="soft text-sm">לחצי על אזור כדי לסנן</div>
         <FaceMap selected={zone ? [zone] : []} onToggle={z => setZone(c => (c === z ? null : z))} size={190} />

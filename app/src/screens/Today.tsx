@@ -48,14 +48,14 @@ export default function Today() {
       </div>
 
       {s.photoDue !== null && (
-        <button className="card p-4 flex items-center gap-4 text-start rise-3" onClick={() => nav(`/photo/${s.photoDue}`)}>
-          <span className="w-12 h-12 rounded-full grid place-items-center bg-[var(--bg-tint)] text-xl">◎</span>
+        <button className="tint-lilac p-4 flex items-center gap-4 text-start rise-3" onClick={() => nav(`/photo/${s.photoDue}`)}>
+          <span className="w-12 h-12 rounded-full grid place-items-center bg-white/60 text-xl">◎</span>
           <span className="flex-1"><span className="font-semibold block">צילום שבוע {s.photoDue}</span><span className="soft text-sm">חזית ופרופיל, דקה אחת. נשאר רק בטלפון.</span></span>
           <span className="soft">←</span>
         </button>
       )}
 
-      <div className="grid grid-cols-[auto_1fr] gap-5 items-center card p-5 rise-3">
+      <div className="grid grid-cols-[auto_1fr] gap-5 items-center tint-peach p-5 rise-3">
         <Ring minutes={s.summary.minutes} goal={WEEKLY_GOAL_MIN} size={132} days={s.summary.days} label="דקות" />
         <div className="flex flex-col gap-1">
           <div className="font-semibold">{s.summary.mainSessions} מתוך {s.summary.target} מפגשים</div>
@@ -69,8 +69,8 @@ export default function Today() {
         <div className="eyebrow">{morning ? 'הבוקר' : 'קצר וטוב'}</div>
         <div className="grid grid-cols-2 gap-3">
           {(morning ? ['morning', 'event'] : ['jaw', 'sleep']).map(k => (
-            <button key={k} className="card p-4 text-start flex flex-col gap-1 active:scale-[.98] transition-transform" onClick={() => nav(`/session/${k}`)}>
-              <span className="font-semibold">{QUICK[k]!.nameHe}</span><span className="soft text-sm">{QUICK[k]!.sub}</span>
+            <button key={k} className={`${({ morning: 'tint-butter', event: 'tint-blush', jaw: 'tint-lilac', sleep: 'tint-mint' } as Record<string, string>)[k]} p-4 text-start flex flex-col gap-1 active:scale-[.98] transition-transform min-h-[92px]`} onClick={() => nav(`/session/${k}`)}>
+              <span className="font-bold">{QUICK[k]!.nameHe}</span><span className="soft text-sm">{QUICK[k]!.sub}</span>
             </button>
           ))}
         </div>

@@ -44,6 +44,7 @@ outputs/    תוצרי ביניים לבקרת איכות (לא נכנס לגי�
 | 3 | קריינות מלאה: 78 שורות | הושלם 8.11 |
 | 4 | אפליקציה: כל המסכים, נגן, מאמנת, יומן צילום, בטיחות, אופליין | הושלם 8.11; 25 בדיקות יחידה, מעבר מקצה לקצה ב-Playwright |
 | 5 | שאר הווידאו | הושלם 9.11: 18 תרגילים עם סרטון; 4 כתמונה + קריינות (כתר מעל הראש, שפתיים מוגנות, לחיצת לשון, לשון מנוחה). ראו pipeline/qa_status.json |
+| 5ב | הקדמה מדברת + פתיחה | הושלם 9.11: 5 פרקים עם סנכרון שפתיים (creatify-aurora: תמונה + הקלטה, כ-900 קרדיט לשנייה), סרטון פתיחה. 20 מתוך 22 תרגילים עם סרטון; שפתיים מוגנות ולחיצת לשון כתמונה (Veo מוסיף ידיים/פותח פה). מודלי ByteDance נעולים בחשבון |
 | 6 | פריסה ל-GitHub Pages ובדיקה בטלפון | 8.11: Source = GitHub Actions; בבדיקה בטלפון: https://dudutal-dev.github.io/faceyoga/ |
 
 ## הרצה
@@ -61,6 +62,7 @@ node pipeline/build_script.mjs                   # תסריט מהספרייה +
 node pipeline/04_narration.mjs content/scripts/he/all.md   # רק שורות שהשתנו
 node pipeline/keyframes.mjs <id...>              # תמונות מפתח
 node pipeline/clips.mjs <id...>                  # קליפים + לולאה + גיליון QA
+node pipeline/lipsync.mjs intro_1 ...           # סנכרון שפתיים (תמונה + קריינות)
 node pipeline/06_assemble.mjs                    # content/manifest.json
 ```
 

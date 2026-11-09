@@ -7,6 +7,7 @@ export interface Manifest {
   voice: { id: string; model: string };
   media: Record<string, ManifestMedia>;
   narration: Record<string, NarrationItem>;
+  talk?: Record<string, string>;   // סרטוני ההקדמה עם סנכרון שפתיים (בלי פס קול)
   audio: { music?: string; ui: Record<string, string> };
 }
 
