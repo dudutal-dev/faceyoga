@@ -55,7 +55,7 @@ export default function Today() {
         </button>
       )}
 
-      <div className="grid grid-cols-[auto_1fr] gap-5 items-center tint-peach p-5 rise-3">
+      <div className="grid grid-cols-[auto_1fr] gap-5 items-center card p-5 rise-3">
         <Ring minutes={s.summary.minutes} goal={WEEKLY_GOAL_MIN} size={132} days={s.summary.days} label="דקות" />
         <div className="flex flex-col gap-1">
           <div className="font-semibold">{s.summary.mainSessions} מתוך {s.summary.target} מפגשים</div>

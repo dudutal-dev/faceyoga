@@ -4,9 +4,9 @@
 @theme {
   --font-sans: "Heebo", system-ui, sans-serif;
   --font-display: "Frank Ruhl Libre", "Heebo", serif;
-  --color-rose: #b26e60;
-  --color-rose-deep: #8c4f43;
-  --color-rose-soft: #e8c8bd;
+  --color-rose: #1f6b66;
+  --color-rose-deep: #134a47;
+  --color-rose-soft: #cfe3df;
   --color-champagne: #f3e7da;
   --color-gold: #c4a06a;
   --color-sage: #8ea58c;
@@ -20,15 +20,16 @@
 
 :root {
   /* מוגדרים במפורש: Tailwind פולט משתני theme רק כשמשתמשים בהם דרך utility, ואנחנו משתמשים בהם דרך var() */
-  --color-rose: #c9654f; --color-rose-deep: #9c4433; --color-rose-soft: #f2c4b5; --color-champagne: #f7e6d6; --color-gold: #d7a24e; --color-sage: #7fb08a; --color-stop: #c0392b;
-  --peach: #ffd9c7; --lilac: #e4d7f5; --mint: #d6eedb; --butter: #fbe8bf; --blush: #fbd3dc;
-  --bg: #fff5ef;
+  /* פלטת ספא: שנהב, טורקיז עמוק, זהב רך, מרווה וחול. בלי ורוד. */
+  --color-rose: #1f6b66; --color-rose-deep: #134a47; --color-rose-soft: #cfe3df; --color-champagne: #f3ece1; --color-gold: #c9a35b; --color-sage: #7fa88a; --color-stop: #b8432f;
+  --peach: #efe2cf; --lilac: #dde8ee; --mint: #dfeadc; --butter: #f3e6c4; --blush: #ece6dd;
+  --bg: #faf7f2;
   --bg-elev: #ffffff;
-  --bg-tint: #fde9df;
-  --fg: #2a1d1a;
-  --fg-soft: #7a5f57;
-  --line: #f1d9cd;
-  --ring-track: #fbe1d6;
+  --bg-tint: #f1ebe2;
+  --fg: #1d2725;
+  --fg-soft: #63706d;
+  --line: #e6dfd4;
+  --ring-track: #e9e2d6;
   --accent: var(--color-rose);
   --accent-deep: var(--color-rose-deep);
   color-scheme: light dark;
@@ -36,14 +37,14 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #1c1715; --bg-elev: #26201d; --bg-tint: #2e2622; --fg: #f4e9e1; --fg-soft: #bba9a0; --line: #3b312c; --ring-track: #3a2f2a;
-    --accent: #e8896f; --accent-deep: #f0a58f;
-    --peach: #4a2a22; --lilac: #2f2742; --mint: #1f3326; --butter: #3d3018; --blush: #46232c;
+    --accent: #5fb3a8; --accent-deep: #82c9bf;
+    --peach: #33291c; --lilac: #1f2b33; --mint: #1d2e24; --butter: #382f18; --blush: #2a2622;
   }
 }
 :root[data-theme="dark"] {
   --bg: #1c1715; --bg-elev: #26201d; --bg-tint: #2e2622; --fg: #f4e9e1; --fg-soft: #bba9a0; --line: #3b312c; --ring-track: #3a2f2a;
-  --accent: #e8896f; --accent-deep: #f0a58f;
-  --peach: #4a2a22; --lilac: #2f2742; --mint: #1f3326; --butter: #3d3018; --blush: #46232c;
+  --accent: #5fb3a8; --accent-deep: #82c9bf;
+  --peach: #33291c; --lilac: #1f2b33; --mint: #1d2e24; --butter: #382f18; --blush: #2a2622;
 }
 
 html { font-size: 17px; }
@@ -79,7 +80,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
   display: flex; align-items: center; justify-content: center; gap: .5rem;
   min-height: 60px; width: 100%; border-radius: 999px; border: 0;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%); color: #fff; font-weight: 700; font-size: 1.2rem;
-  box-shadow: 0 10px 28px -14px rgba(140, 79, 67, .8);
+  box-shadow: 0 10px 26px -14px rgba(19, 74, 71, .7);
   transition: transform 200ms ease, filter 200ms ease;
 }
 .btn-primary:active { transform: scale(.985); filter: brightness(.95); }
@@ -96,14 +97,14 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .chip[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--bg-elev)); font-weight: 600; }
 .chip:active, .btn-stop:active, .btn-secondary:active { transform: scale(.96); }
 .chip, .btn-stop, .btn-secondary { transition: transform 120ms ease, background 200ms ease; }
-.card { background: color-mix(in srgb, var(--bg-elev) 88%, transparent); backdrop-filter: blur(10px); border: 1px solid color-mix(in srgb, var(--line) 70%, transparent); border-radius: var(--radius-card); box-shadow: 0 14px 34px -22px rgba(156, 68, 51, .45); }
+.card { background: color-mix(in srgb, var(--bg-elev) 88%, transparent); backdrop-filter: blur(10px); border: 1px solid color-mix(in srgb, var(--line) 70%, transparent); border-radius: var(--radius-card); box-shadow: 0 14px 34px -24px rgba(19, 74, 71, .35); }
 /* כרטיסים צבעוניים */
-.tint-peach { background: linear-gradient(140deg, #ffe3d3, #ffc9b3); color: #4a2418; }
-.tint-lilac { background: linear-gradient(140deg, #efe6fb, #d9c8f2); color: #33234d; }
-.tint-mint { background: linear-gradient(140deg, #e3f5e6, #c4e6cc); color: #1f3d27; }
-.tint-butter { background: linear-gradient(140deg, #fff1d1, #fbdc9c); color: #4a3510; }
-.tint-blush { background: linear-gradient(140deg, #ffe4ea, #f9c4d0); color: #4d1f2b; }
-.tint-peach, .tint-lilac, .tint-mint, .tint-butter, .tint-blush { border-radius: var(--radius-card); border: 0; box-shadow: 0 14px 30px -20px rgba(120, 60, 50, .5); }
+.tint-peach { background: linear-gradient(140deg, #f6eee2, #e9dac4); color: #3a2c19; }
+.tint-lilac { background: linear-gradient(140deg, #eaf1f4, #d2e1e8); color: #1c3440; }
+.tint-mint { background: linear-gradient(140deg, #e9f1e7, #d1e2cd); color: #1f3826; }
+.tint-butter { background: linear-gradient(140deg, #f8efd8, #ecd9a8); color: #43330f; }
+.tint-blush { background: linear-gradient(140deg, #dceeea, #b9dcd5); color: #123f3b; }
+.tint-peach, .tint-lilac, .tint-mint, .tint-butter, .tint-blush { border-radius: var(--radius-card); border: 0; box-shadow: 0 14px 30px -22px rgba(30, 50, 45, .45); }
 .tint-peach .soft, .tint-lilac .soft, .tint-mint .soft, .tint-butter .soft, .tint-blush .soft { color: inherit; opacity: .72; }
 .card-tint { background: linear-gradient(140deg, var(--bg-tint), color-mix(in srgb, var(--peach) 60%, var(--bg-tint))); border-radius: var(--radius-card); }
 .eyebrow { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-soft); font-weight: 600; }
