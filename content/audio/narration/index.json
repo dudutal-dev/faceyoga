@@ -994,5 +994,53 @@
       "match": 1
     },
     "qa": "approved"
+  },
+  "weak_1": {
+    "text": "קצת יותר. תְּנִי לתנועה להיות גדולה יותר.",
+    "key": "a33f91b5a9f0da87",
+    "durationMs": 3895,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "קצת יותר. תני לתנועה להיות גדולה יותר",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "weak_2": {
+    "text": "עוד קצת. אני כמעט לא רואה את התנועה.",
+    "key": "c73ddbd1994481d2",
+    "durationMs": 3346,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "עוד קצת. אני כמעט לא רואה את התנועה",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "weak_3": {
+    "text": "הַגְדִּילִי את התנועה, בלי לְהַכְאִיב.",
+    "key": "d60a23d03f8a6caa",
+    "durationMs": 2955,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "הגדילי את התנועה בלי להכאיב",
+      "match": 1
+    },
+    "qa": "approved"
+  },
+  "better": {
+    "text": "הרבה יותר טוב. בדיוק ככה.",
+    "key": "e45d92c62040fd74",
+    "durationMs": 2798,
+    "model": "eleven_v4",
+    "voice": "UftNp7bAl1b6Y7tTy8OA",
+    "verify": {
+      "heard": "הרבה יותר טוב בדיוק ככה",
+      "match": 1
+    },
+    "qa": "approved"
   }
 }

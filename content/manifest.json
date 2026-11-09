@@ -1,5 +1,5 @@
 {
-  "version": "93a62e5cd0",
+  "version": "6120bd9a8b",
   "generatedAt": "2026-11-09",
   "character": {
     "front": "character/front.jpg",
@@ -696,6 +696,30 @@
       "url": "audio/narration/intro_5.mp3",
       "durationMs": 13038,
       "text": "הַמַּצְלֵמָה נשארת בטלפון. שום תמונה לא נשמרת ולא נשלחת. היא עוזרת לי לראות שאת מחזיקה את התנועה, ומזכירה לָךְ לשמור על הַמֵּצַח רגוע. מוכנה? בואי נתחיל.",
+      "qa": "approved"
+    },
+    "weak_1": {
+      "url": "audio/narration/weak_1.mp3",
+      "durationMs": 3895,
+      "text": "קצת יותר. תְּנִי לתנועה להיות גדולה יותר.",
+      "qa": "approved"
+    },
+    "weak_2": {
+      "url": "audio/narration/weak_2.mp3",
+      "durationMs": 3346,
+      "text": "עוד קצת. אני כמעט לא רואה את התנועה.",
+      "qa": "approved"
+    },
+    "weak_3": {
+      "url": "audio/narration/weak_3.mp3",
+      "durationMs": 2955,
+      "text": "הַגְדִּילִי את התנועה, בלי לְהַכְאִיב.",
+      "qa": "approved"
+    },
+    "better": {
+      "url": "audio/narration/better.mp3",
+      "durationMs": 2798,
+      "text": "הרבה יותר טוב. בדיוק ככה.",
       "qa": "approved"
     }
   },

@@ -47,7 +47,7 @@ export default function Player() {
   const camVideo = useRef<HTMLVideoElement>(null);
   const stream = useRef<MediaStream | null>(null);
   const stopFace = useRef<(() => void) | null>(null);
-  const coach = useRef({ counter: null as RepCounter | null, guard: new WrinkleGuard(), reps: 0, warnings: 0, guardOn: false, blend: [] as string[], on: 0.4 });
+  const coach = useRef({ counter: null as RepCounter | null, guard: new WrinkleGuard(), reps: 0, warnings: 0, guardOn: false, blend: [] as string[], on: 0.4, peak: 0, faceAt: 0, lastCue: -Infinity, weak: 0, weakPending: false });
   const wake = useRef<WakeLockSentinel | null>(null);
   const painRef = useRef(false);
   const setupRef = useRef({ on: false, good: 0, lastLight: 0, light: 128, began: false });
@@ -132,10 +132,22 @@ export default function Player() {
     if (!f) { setQuality(0); return; }
     const c = coach.current;
     if (c.blend.length) {
-      const v = avg(f.blend, c.blend); setQuality(Math.min(1, v / c.on));
+      const v = avg(f.blend, c.blend); setQuality(Math.min(1, v / c.on)); c.peak = Math.max(c.peak, v / c.on); c.faceAt = performance.now();
       const ev = c.counter?.push(v, f.t); if (ev?.type === 'rep') { c.reps++; setSeenReps(n => n + 1); navigator.vibrate?.(15); }
     }
     if (c.guardOn && c.guard.push(browTension(f.blend), f.t)) { c.warnings++; voice.current?.say([c.warnings % 2 ? 'wrinkle_1' : 'wrinkle_2']); setToast('המצח מתכווץ. הניחי עליו יד ונסי שוב רק עם הלחיים.'); }
+  }
+
+  /** תנועה חלשה: הערה בקול (לכל היותר פעם ב-15 שניות). אחרי הערה, כשהתנועה משתפרת: מחמאה. */
+  function coachCheck() {
+    const c = coach.current, now = performance.now();
+    if (now - c.faceAt > 800) return; // לא רואה את הפנים: לא שופטים
+    if (c.peak < 0.5) {
+      if (now - c.lastCue < 15000) return;
+      c.lastCue = now; c.weak++; c.weakPending = true;
+      voice.current?.say([`weak_${((c.weak - 1) % 3) + 1}`]);
+      setToast('קצת יותר. הפס הזהוב צריך להתמלא.');
+    } else if (c.weakPending && c.peak >= 0.85) { c.weakPending = false; voice.current?.say(['better']); }
   }
 
   // ---------- מנוע המפגש ----------
@@ -164,7 +176,7 @@ export default function Player() {
       if (token !== run.current.token) return;
       setIdx(i); run.current.jump = null; run.current.painSkip = false;
       const st = s.steps[i]!; const e = st.exercise;
-      const c = coach.current; c.blend = []; c.counter = null; c.guardOn = false; setSeenReps(0);
+      const c = coach.current; c.blend = []; c.counter = null; c.guardOn = false; c.weakPending = false; setSeenReps(0);
       setLive({ label: PHASE_HE[e.phase], remaining: 0, total: 0, rep: 0, reps: st.reps, holding: false });
       await sayGate(st.narration, token);
       if (run.current.jump === null && !run.current.painSkip) {
@@ -175,8 +187,14 @@ export default function Player() {
             setLive({ label: 'מחזיקים', remaining: st.holdSec, total: st.holdSec, rep: r, reps: st.reps, holding: true });
             voice.current?.tick('hold');
             await sayGate([r === st.reps ? 'last' : `count_${r}`], token);
-            if (r === Math.ceil(st.reps / 2) && e.cue) voice.current?.say([`${e.id}_cue`]);
-            if (!(await wait(st.holdSec, token, left => setLive(l => l && { ...l, remaining: left })))) break;
+            const cueNow = r === Math.ceil(st.reps / 2) && !!e.cue;
+            if (cueNow) voice.current?.say([`${e.id}_cue`]);
+            // המאמנת בודקת את עוצמת התנועה אחרי כשתי שניות של החזקה
+            c.peak = 0; const holdStart = performance.now(); let checked = false;
+            if (!(await wait(st.holdSec, token, left => {
+              setLive(l => l && { ...l, remaining: left });
+              if (!checked && !cueNow && c.blend.length && performance.now() - holdStart > Math.min(2500, st.holdSec * 650)) { checked = true; coachCheck(); }
+            }))) break;
             setLive({ label: 'משחררים', remaining: 0, total: 0, rep: r, reps: st.reps, holding: false });
             voice.current?.tick('release');
             if (st.holdSec >= 4) { if (!(await wait(2.5, token))) break; } else if (!(await wait(0.8, token))) break;
@@ -184,8 +202,12 @@ export default function Player() {
         } else {
           const half = Math.round(st.durationSec / 2);
           let said = false;
+          // תרגיל לפי זמן עם זיהוי (למשל ניפוח לחיים): בודקים את עוצמת התנועה בכל חלון של 6 שניות
+          if (e.signal) { c.blend = e.signal.blend; c.on = e.signal.on; }
+          c.peak = 0; let win = performance.now();
           await wait(st.durationSec, token, left => {
             setLive({ label: PHASE_HE[e.phase], remaining: left, total: st.durationSec, rep: 0, reps: 0, holding: true });
+            if (c.blend.length && performance.now() - win > 6000) { coachCheck(); c.peak = 0; win = performance.now(); }
             if (!said && left <= half) { said = true; voice.current?.say([e.sides ? 'switch_side' : e.cue ? `${e.id}_cue` : 'good'].filter(Boolean)); }
           });
         }
