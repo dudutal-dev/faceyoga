@@ -6,6 +6,7 @@ import { getProfile, saveProfile, getSettings, saveSettings, applyDisplaySetting
 import { SCREENING } from '../lib/adapt';
 import { ZONE_HE } from '../content/exercises';
 import { BUILD } from '../pwa';
+import { contentUrl } from '../content/manifest';
 
 const DAYS = ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳'];
 export default function Settings() {
@@ -59,7 +60,22 @@ export default function Settings() {
         <button className="btn-secondary" onClick={async () => { if (confirm('למחוק את כל הצילומים מהטלפון?')) await deletePhotos(); }}>מחיקת כל הצילומים</button>
         <button className="btn-stop w-full" onClick={async () => { if (confirm('למחוק את כל הנתונים ולהתחיל מחדש?')) { await resetAll(); nav('/onboarding', { replace: true }); } }}>מחיקת הכול</button>
       </Group>
-      <p className="soft text-xs text-center">פָּנִים 12 · גרסה {BUILD} · בלי שרת, בלי חשבון, בלי טלמטריה</p>
+      <Group title="אודות">
+        <div className="card overflow-hidden">
+          <div className="grad-teal px-5 py-4 flex items-center gap-3">
+            <img src={contentUrl('icons/icon-192.png')} alt="" className="w-12 h-12 rounded-2xl ring-1 ring-white/30" />
+            <div><div className="display text-xl leading-tight">פָּנִים 12</div><div className="text-white/80 text-sm">יוגה לפנים בעברית</div></div>
+          </div>
+          <div className="p-5 flex flex-col gap-2 text-sm">
+            <p>תוכנית של 12 שבועות עם מדריכה בווידאו, קריינות בעברית, מראה ומאמנת פנים שפועלת בתוך הטלפון.</p>
+            <p className="soft">בלי שרת, בלי חשבון ובלי מעקב. כל הנתונים והצילומים נשמרים רק במכשיר שלך.</p>
+            <div className="h-px bg-[var(--line)] my-1" />
+            <div className="flex justify-between"><span className="soft">פיתוח</span><span className="font-semibold">דודו טל</span></div>
+            <div className="flex justify-between"><span className="soft">גרסה</span><span className="tabular-nums">{BUILD}</span></div>
+            <p className="soft text-xs mt-1">זו לא אפליקציה רפואית, והיא לא מחליפה ייעוץ רפואי או דרמטולוגי.</p>
+          </div>
+        </div>
+      </Group>
     </section>
   );
 }
