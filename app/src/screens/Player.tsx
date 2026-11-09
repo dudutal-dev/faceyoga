@@ -232,18 +232,19 @@ export default function Player() {
         </div>
         {!split && started && !caption && <Steps steps={e.steps} />}
         {/* כתובית כמו בסרט, על תחתית הווידאו (לא תופסת מקום מהמראה) */}
-        {started && caption && <div className="absolute inset-x-3 bottom-2 bg-black/50 backdrop-blur-sm rounded-xl px-3 py-1.5"><p className="text-center text-[0.86rem] leading-[1.35] text-white line-clamp-2 overflow-hidden max-h-[2.7em]">{caption}</p></div>}
+        {started && caption && !(split && started) && <div className="absolute inset-x-3 bottom-2 bg-black/50 backdrop-blur-sm rounded-xl px-3 py-1.5"><p className="text-center text-[0.86rem] leading-[1.35] text-white line-clamp-2 overflow-hidden max-h-[2.7em]">{caption}</p></div>}
       </div>
 
       {/* מראה: שום פקד לא מכסה את הפנים */}
       {split && started && (
         <div className="relative flex-1 min-h-0 bg-black overflow-hidden" onClick={() => { if (camVideo.current) ensurePlaying(camVideo.current); if (!setup) setPaused(p => !p); }}>
           <video ref={camVideo} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted autoPlay />
+          {caption && !setup && <div className="absolute inset-x-3 top-2 z-10 bg-black/55 backdrop-blur-sm rounded-xl px-3 py-1.5 pointer-events-none"><p className="text-center text-[0.86rem] leading-[1.35] text-white line-clamp-2 overflow-hidden max-h-[2.7em]">{caption}</p></div>}
           {camState !== 'on' && <div className="absolute inset-0 grid place-items-center text-white/60 text-sm">{camState === 'loading' ? 'פותחת מצלמה…' : ''}</div>}
           {camState === 'on' && (
             <>
               <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"><ellipse cx="50" cy="50" rx={setup ? 31 : 30} ry={setup ? 41 : 42} fill="none" stroke={setup ? (checks.ready > 0 ? 'rgba(142,165,140,.95)' : 'rgba(255,255,255,.55)') : faceSeen ? 'rgba(196,160,106,.8)' : 'rgba(255,255,255,.45)'} strokeWidth={setup ? 0.9 : 0.6} strokeDasharray={faceSeen ? '0' : '2 2'} /></svg>
-              {!setup && <div className="absolute top-2 inset-x-2 flex justify-center pointer-events-none">
+              {!setup && <div className="absolute bottom-2 inset-x-2 flex justify-center pointer-events-none">
                 {!faceSeen
                   ? <span className="bg-black/55 backdrop-blur rounded-full px-3 py-1 text-xs">הפנים בתוך האליפסה, מול אור</span>
                   : coach.current.blend.length > 0 && (
