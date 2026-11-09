@@ -262,15 +262,12 @@ export default function Player() {
           <div className={`display leading-tight drop-shadow ${tv ? 'text-[2rem]' : 'text-[1.6rem]'}`}>{e.nameHe}</div>
         </div>
         {!split && started && !caption && <Steps steps={e.steps} />}
-        {/* כתובית כמו בסרט, על תחתית הווידאו (לא תופסת מקום מהמראה) */}
-        {started && caption && (!(split && started) || tv) && <div className="absolute inset-x-3 bottom-2 bg-black/15 backdrop-blur-md border border-white/20 rounded-xl px-3 py-1.5"><p className={`text-center leading-[1.35] text-white font-medium line-clamp-2 [text-shadow:0_1px_3px_rgba(0,0,0,.85),0_0_10px_rgba(0,0,0,.45)] overflow-hidden max-h-[2.7em] ${tv ? 'text-lg' : 'text-[0.86rem]'}`}>{caption}</p></div>}
       </div>
 
       {/* מראה: שום פקד לא מכסה את הפנים */}
       {split && started && (
         <div className="relative flex-1 min-h-0 bg-black overflow-hidden" onClick={() => { if (camVideo.current) ensurePlaying(camVideo.current); if (!setup) setPaused(p => !p); }}>
           <video ref={camVideo} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted autoPlay />
-          {caption && !setup && !tv && <div className="absolute inset-x-3 top-2 z-10 bg-black/15 backdrop-blur-md border border-white/20 rounded-xl px-3 py-1.5 pointer-events-none"><p className={`text-center leading-[1.35] text-white font-medium line-clamp-2 [text-shadow:0_1px_3px_rgba(0,0,0,.85),0_0_10px_rgba(0,0,0,.45)] overflow-hidden max-h-[2.7em] ${tv ? 'text-lg' : 'text-[0.86rem]'}`}>{caption}</p></div>}
           {camState !== 'on' && <div className="absolute inset-0 grid place-items-center text-white/60 text-sm">{camState === 'loading' ? 'פותחת מצלמה…' : ''}</div>}
           {camState === 'on' && (
             <>
@@ -322,7 +319,10 @@ export default function Player() {
 
       {/* לוח תחתון קבוע: מצב + פקדים. לא מונח על הווידאו או על המראה */}
       {started && !setup && (
-        <div className={`shrink-0 bg-[#141c1b] border-t border-white/10 px-3 pt-2.5 flex gap-2 ${tv ? 'flex-row items-center gap-4 px-4' : 'flex-col'}`} style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 8px)' }}>
+        <div className="shrink-0 bg-[#141c1b] border-t border-white/10 flex flex-col" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 8px)' }}>
+        {/* כתוביות בחלק הכהה, מתחת לתמונה: לא מסתירות את המדריכה או את הפנים */}
+        <p className={`px-4 pt-2 text-center leading-[1.35] text-white/90 line-clamp-2 overflow-hidden ${tv ? 'text-lg min-h-[2.7em]' : 'text-[0.92rem] min-h-[2.7em]'}`} aria-live="polite">{caption ?? ''}</p>
+        <div className={`px-3 pt-1.5 flex gap-2 ${tv ? 'flex-row items-center gap-4 px-4' : 'flex-col'}`}>
           <div className={`flex items-center gap-2.5 min-h-[40px] ${tv ? 'flex-1 min-w-0' : ''}`}>
             {live && live.total > 0 ? <Countdown remaining={live.remaining} total={live.total} /> : <span className="w-11 h-11 shrink-0 rounded-full border-2 border-white/15 grid place-items-center"><span className="w-2 h-2 rounded-full bg-[var(--color-gold)] animate-pulse" /></span>}
             <div className="flex-1 min-w-0 leading-tight">
@@ -344,6 +344,7 @@ export default function Player() {
             <button className="w-11 h-11 shrink-0 rounded-full bg-white/10 grid place-items-center disabled:opacity-30" onClick={() => jump(1)} disabled={idx >= session.steps.length - 1} aria-label="הבא"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 6l-6 6 6 6" /></svg></button>
             <button className="h-11 flex-1 min-w-0 max-w-[84px] rounded-full bg-white/10 text-[0.8rem] whitespace-nowrap overflow-hidden px-1" onClick={reportPain}>כואב לי</button>
           </div>
+        </div>
         </div>
       )}
 
