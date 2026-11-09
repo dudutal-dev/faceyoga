@@ -263,14 +263,14 @@ export default function Player() {
         </div>
         {!split && started && !caption && <Steps steps={e.steps} />}
         {/* כתובית כמו בסרט, על תחתית הווידאו (לא תופסת מקום מהמראה) */}
-        {started && caption && (!(split && started) || tv) && <div className="absolute inset-x-3 bottom-2 bg-white/90 shadow-lg backdrop-blur-sm rounded-xl px-3 py-1.5"><p className={`text-center leading-[1.35] text-[#1d2725] font-medium line-clamp-2 overflow-hidden max-h-[2.7em] ${tv ? 'text-lg' : 'text-[0.86rem]'}`}>{caption}</p></div>}
+        {started && caption && (!(split && started) || tv) && <div className="absolute inset-x-3 bottom-2 bg-black/15 backdrop-blur-md border border-white/20 rounded-xl px-3 py-1.5"><p className={`text-center leading-[1.35] text-white font-medium line-clamp-2 [text-shadow:0_1px_3px_rgba(0,0,0,.85),0_0_10px_rgba(0,0,0,.45)] overflow-hidden max-h-[2.7em] ${tv ? 'text-lg' : 'text-[0.86rem]'}`}>{caption}</p></div>}
       </div>
 
       {/* מראה: שום פקד לא מכסה את הפנים */}
       {split && started && (
         <div className="relative flex-1 min-h-0 bg-black overflow-hidden" onClick={() => { if (camVideo.current) ensurePlaying(camVideo.current); if (!setup) setPaused(p => !p); }}>
           <video ref={camVideo} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted autoPlay />
-          {caption && !setup && !tv && <div className="absolute inset-x-3 top-2 z-10 bg-white/90 shadow-lg backdrop-blur-sm rounded-xl px-3 py-1.5 pointer-events-none"><p className={`text-center leading-[1.35] text-[#1d2725] font-medium line-clamp-2 overflow-hidden max-h-[2.7em] ${tv ? 'text-lg' : 'text-[0.86rem]'}`}>{caption}</p></div>}
+          {caption && !setup && !tv && <div className="absolute inset-x-3 top-2 z-10 bg-black/15 backdrop-blur-md border border-white/20 rounded-xl px-3 py-1.5 pointer-events-none"><p className={`text-center leading-[1.35] text-white font-medium line-clamp-2 [text-shadow:0_1px_3px_rgba(0,0,0,.85),0_0_10px_rgba(0,0,0,.45)] overflow-hidden max-h-[2.7em] ${tv ? 'text-lg' : 'text-[0.86rem]'}`}>{caption}</p></div>}
           {camState !== 'on' && <div className="absolute inset-0 grid place-items-center text-white/60 text-sm">{camState === 'loading' ? 'פותחת מצלמה…' : ''}</div>}
           {camState === 'on' && (
             <>
