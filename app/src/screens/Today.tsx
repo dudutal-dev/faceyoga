@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Ring from '../components/Ring';
 import { loadState, nextSession, type UserState } from '../lib/state';
-import { WEEKLY_GOAL_MIN, FOCUS_HE, PROGRAM_WEEKS, stageOf, QUICK } from '../content/plan';
+import { WEEKLY_GOAL_MIN, FOCUS_HE, PROGRAM_WEEKS, stageOf } from '../content/plan';
 import { softNudge } from '../lib/adapt';
 import { contentUrl } from '../content/manifest';
 import { db } from '../db';
+import QuickCard from '../components/QuickCard';
 
 function greeting() { const h = new Date().getHours(); return h < 11 ? 'בוקר טוב' : h < 17 ? 'צהריים טובים' : h < 21 ? 'ערב טוב' : 'לילה טוב'; }
 
@@ -25,18 +26,19 @@ export default function Today() {
 
   return (
     <section className="flex flex-col gap-5">
-      <header className="flex items-start justify-between pt-2 rise">
+      <div className="hero-band -mx-4 -mt-3 px-4 pt-[calc(env(safe-area-inset-top)+14px)] pb-5 rounded-b-[34px] flex flex-col gap-4">
+      <header className="flex items-start justify-between pt-1 rise">
         <div>
-          <div className="eyebrow">שבוע {Math.min(s.week, 99)}{s.week <= PROGRAM_WEEKS ? ` מתוך ${PROGRAM_WEEKS}` : ''} · {stage.nameHe}</div>
+          <div className="eyebrow !text-white/75">שבוע {Math.min(s.week, 99)}{s.week <= PROGRAM_WEEKS ? ` מתוך ${PROGRAM_WEEKS}` : ''} · {stage.nameHe}</div>
           <h1 className="text-[1.9rem] leading-tight mt-1">{greeting()}{s.profile.name ? `, ${s.profile.name}` : ''}</h1>
         </div>
-        <Link to="/settings" className="chip !min-h-11 !w-11 !px-0 justify-center" aria-label="הגדרות">
+        <Link to="/settings" className="chip !min-h-11 !w-11 !px-0 justify-center !bg-white/15 !border-white/25 !text-white" aria-label="הגדרות">
           <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="1.7"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z" /></svg>
         </Link>
       </header>
 
       {/* כרטיס המפגש הבא */}
-      <div className="relative overflow-hidden rounded-[28px] min-h-[300px] flex flex-col justify-end rise-2" style={{ background: 'var(--bg-tint)' }}>
+      <div className="relative overflow-hidden rounded-[28px] min-h-[300px] flex flex-col justify-end rise-2 shadow-[0_20px_40px_-20px_rgba(0,0,0,.6)] ring-1 ring-white/15" style={{ background: '#0f4d4a' }}>
         <img src={contentUrl('character/front.jpg')} alt="" className="absolute inset-0 w-full h-full object-cover object-[50%_20%]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
         <div className="relative p-5 text-white flex flex-col gap-2">
@@ -47,11 +49,13 @@ export default function Today() {
         </div>
       </div>
 
+      </div>
+
       {s.photoDue !== null && (
-        <button className="tint-lilac p-4 flex items-center gap-4 text-start rise-3" onClick={() => nav(`/photo/${s.photoDue}`)}>
-          <span className="w-12 h-12 rounded-full grid place-items-center bg-white/60 text-xl">◎</span>
-          <span className="flex-1"><span className="font-semibold block">צילום שבוע {s.photoDue}</span><span className="soft text-sm">חזית ופרופיל, דקה אחת. נשאר רק בטלפון.</span></span>
-          <span className="soft">←</span>
+        <button className="grad-blue grad-card p-4 flex items-center gap-4 text-start rise-3" onClick={() => nav(`/photo/${s.photoDue}`)}>
+          <span className="w-12 h-12 rounded-2xl grid place-items-center bg-white/20 text-xl">◎</span>
+          <span className="flex-1"><span className="font-bold block">צילום שבוע {s.photoDue}</span><span className="text-white/85 text-sm">חזית ופרופיל, דקה אחת. נשאר רק בטלפון.</span></span>
+          <span className="text-white/80">←</span>
         </button>
       )}
 
@@ -68,11 +72,7 @@ export default function Today() {
       <div className="flex flex-col gap-2">
         <div className="eyebrow">{morning ? 'הבוקר' : 'קצר וטוב'}</div>
         <div className="grid grid-cols-2 gap-3">
-          {(morning ? ['morning', 'event'] : ['jaw', 'sleep']).map(k => (
-            <button key={k} className={`${({ morning: 'tint-butter', event: 'tint-blush', jaw: 'tint-lilac', sleep: 'tint-mint' } as Record<string, string>)[k]} p-4 text-start flex flex-col gap-1 active:scale-[.98] transition-transform min-h-[92px]`} onClick={() => nav(`/session/${k}`)}>
-              <span className="font-bold">{QUICK[k]!.nameHe}</span><span className="soft text-sm">{QUICK[k]!.sub}</span>
-            </button>
-          ))}
+          {(morning ? ['morning', 'event'] : ['jaw', 'sleep']).map(k => <QuickCard key={k} k={k} onClick={() => nav(`/session/${k}`)} />)}
         </div>
       </div>
 

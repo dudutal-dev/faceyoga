@@ -127,3 +127,17 @@ input[type="time"], input[type="date"], input[type="text"] {
 
 @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
 .fade-in { animation: fadein 1.2s ease both; }
+
+/* צבע וחיים: גרדיאנטים עזים לכרטיסים מרכזיים (טקסט לבן) */
+.grad-sun { background: linear-gradient(135deg, #f7b84b 0%, #ee8b3a 55%, #e0663a 100%); }
+.grad-emerald { background: linear-gradient(135deg, #34b3a0 0%, #1d8a7c 55%, #136a60 100%); }
+.grad-blue { background: linear-gradient(135deg, #5b8def 0%, #3c64c8 55%, #2a479a 100%); }
+.grad-night { background: linear-gradient(135deg, #4b4f9a 0%, #2f336e 55%, #1d2049 100%); }
+.grad-teal { background: linear-gradient(160deg, #0f4d4a 0%, #17605c 45%, #23807a 100%); }
+.grad-sun, .grad-emerald, .grad-blue, .grad-night, .grad-teal { color: #fff; }
+.grad-card { border-radius: var(--radius-card); box-shadow: 0 16px 32px -18px rgba(15, 40, 45, .55); position: relative; overflow: hidden; }
+.grad-card::after { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 80% at 0% 0%, rgba(255,255,255,.22), transparent 55%); pointer-events: none; }
+.hero-band { background:
+  radial-gradient(90% 70% at 100% 0%, rgba(201,163,91,.35), transparent 60%),
+  radial-gradient(80% 80% at 0% 100%, rgba(52,179,160,.35), transparent 60%),
+  linear-gradient(160deg, #0f4d4a 0%, #17605c 50%, #1f6b66 100%); color: #fff; }
