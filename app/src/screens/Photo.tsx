@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { db, todayISO, type PhotoRow } from '../db';
-import { loadFace, startCamera, stopCamera, runFace, FACE_OVAL, type FaceFrame } from '../lib/face';
+import { loadFace, startCamera, stopCamera, runFace, FACE_OVAL, cameraErrorText, type FaceFrame } from '../lib/face';
 
 type Phase = 'front' | 'profile' | 'done';
 const TARGET_W = 0.42; // רוחב פנים יחסי לפריים, כשאין צילום קודם
@@ -30,11 +30,11 @@ export default function Photo() {
     (async () => {
       const prev = (await db.photos.where('view').equals('front').toArray()).filter(p => p.week < week).sort((a, b) => b.week - a.week)[0];
       if (prev?.outline) { setGhost(prev.outline); setRefW(prev.faceWidth ?? TARGET_W); }
+      try { stream.current = await startCamera(video.current!); } catch (e) { setErr(cameraErrorText(e)); return; }
       try {
-        stream.current = await startCamera(video.current!);
         const lm = await loadFace();
         stop = runFace(video.current!, lm, f => { setFrame(f); if (f) checkLight(); });
-      } catch { setErr('אין גישה למצלמה או שהמאמן לא נטען. אפשר לאשר מצלמה בהגדרות הדפדפן ולנסות שוב.'); }
+      } catch { setErr('זיהוי הפנים לא נטען במכשיר הזה. אפשר לצלם ידנית.'); }
     })();
     return () => { stop?.(); stopCamera(stream.current); };
   }, [week]);
@@ -76,7 +76,7 @@ export default function Photo() {
   return (
     <div className="fixed inset-0 bg-black text-white flex flex-col" dir="rtl">
       <div className="relative flex-1 overflow-hidden">
-        <video ref={video} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted />
+        <video ref={video} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted autoPlay />
         <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
           {ghost && phase === 'front' && <polygon points={ov(ghost)} fill="none" stroke="rgba(196,160,106,.7)" strokeWidth=".5" strokeDasharray="1.5 1" />}
           {phase === 'front' && <ellipse cx="50" cy="45" rx={refW * 55} ry={refW * 55 * 0.8} fill="none" stroke={aligned ? 'rgba(142,165,140,.95)' : 'rgba(255,255,255,.5)'} strokeWidth=".6" />}

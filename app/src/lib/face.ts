@@ -27,11 +27,27 @@ export function anglesFromMatrix(m: ArrayLike<number>): { yaw: number; pitch: nu
   return { yaw: Math.atan2(-r20, Math.hypot(r21, r22)) * deg, pitch: Math.atan2(r21, r22) * deg, roll: Math.atan2(r10, r00) * deg };
 }
 
+/** פותח מצלמה קדמית. שגיאת הרשאה נזרקת; כישלון של play (נפוץ באייפון מחוץ לנגיעה) לא נחשב כישלון: מנסים שוב. */
 export async function startCamera(video: HTMLVideoElement): Promise<MediaStream> {
   const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 960 } }, audio: false });
-  video.srcObject = stream; video.muted = true; video.playsInline = true;
-  await video.play();
+  video.setAttribute('playsinline', ''); video.setAttribute('muted', ''); video.setAttribute('autoplay', '');
+  video.muted = true; video.playsInline = true; video.autoplay = true;
+  video.srcObject = stream;
+  ensurePlaying(video);
   return stream;
+}
+/** מנסה להפעיל את תצוגת המצלמה עד שהיא רצה (בלי לזרוק). */
+export function ensurePlaying(video: HTMLVideoElement, tries = 8) {
+  if (!video.srcObject || (!video.paused && video.readyState >= 2)) return;
+  video.play().catch(() => { if (tries > 0) window.setTimeout(() => ensurePlaying(video, tries - 1), 400); });
+}
+/** הודעה ידידותית לפי סוג השגיאה. */
+export function cameraErrorText(e: unknown): string {
+  const name = (e as { name?: string })?.name ?? 'Error';
+  if (name === 'NotAllowedError' || name === 'SecurityError') return 'אין הרשאה למצלמה. אפשר לאשר בהגדרות: Safari ← מצלמה ← אפשר.';
+  if (name === 'NotFoundError' || name === 'OverconstrainedError') return 'לא נמצאה מצלמה קדמית.';
+  if (name === 'NotReadableError') return 'המצלמה תפוסה על ידי אפליקציה אחרת. סגרי אותה ונסי שוב.';
+  return `המצלמה לא נפתחה (${name}). אפשר לנסות שוב בכפתור המראה.`;
 }
 export function stopCamera(stream: MediaStream | null) { stream?.getTracks().forEach(t => t.stop()); }
 

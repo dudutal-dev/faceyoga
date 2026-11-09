@@ -7,7 +7,7 @@ import { loadManifest, mediaFor, contentUrl, type Manifest } from '../content/ma
 import { PHASE_HE, COUNT_WORDS } from '../content/exercises';
 import type { Session } from '../content/plan';
 import { Voice, fallbackLines } from '../lib/audio';
-import { loadFace, startCamera, stopCamera, runFace, avg, browTension, frameBrightness, type FaceFrame } from '../lib/face';
+import { loadFace, startCamera, stopCamera, runFace, avg, browTension, frameBrightness, ensurePlaying, cameraErrorText, type FaceFrame } from '../lib/face';
 import { RepCounter, WrinkleGuard } from '../lib/reps';
 import { db, getSettings, todayISO, type Settings } from '../db';
 
@@ -78,7 +78,7 @@ export default function Player() {
           stopFace.current = runFace(camVideo.current, lm, onFace);
         } catch { setToast('המאמנת לא נטענה במכשיר הזה. המראה עובדת כרגיל.'); if (setupRef.current.on) beginSession(); }
       }
-    } catch { setCamState('denied'); setMirror(false); setToast('אין גישה למצלמה. אפשר לאשר בהגדרות הדפדפן.'); if (setupRef.current.on) beginSession(); }
+    } catch (err) { setCamState('denied'); setMirror(false); setToast(cameraErrorText(err)); if (setupRef.current.on) beginSession(); }
   }
   useEffect(() => { if (!mirror && setupRef.current.on) beginSession(); }, [mirror]); // eslint-disable-line react-hooks/exhaustive-deps
   function disableCamera() { stopFace.current?.(); stopFace.current = null; stopCamera(stream.current); stream.current = null; setCamState('off'); }
@@ -237,8 +237,8 @@ export default function Player() {
 
       {/* מראה: שום פקד לא מכסה את הפנים */}
       {split && started && (
-        <div className="relative flex-1 min-h-0 bg-black overflow-hidden" onClick={() => !setup && setPaused(p => !p)}>
-          <video ref={camVideo} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted />
+        <div className="relative flex-1 min-h-0 bg-black overflow-hidden" onClick={() => { if (camVideo.current) ensurePlaying(camVideo.current); if (!setup) setPaused(p => !p); }}>
+          <video ref={camVideo} className="absolute inset-0 w-full h-full object-cover" style={{ transform: 'scaleX(-1)' }} playsInline muted autoPlay />
           {camState !== 'on' && <div className="absolute inset-0 grid place-items-center text-white/60 text-sm">{camState === 'loading' ? 'פותחת מצלמה…' : ''}</div>}
           {camState === 'on' && (
             <>
